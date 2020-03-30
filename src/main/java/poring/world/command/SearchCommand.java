@@ -21,15 +21,13 @@ public class SearchCommand extends Command {
     TextChannel channel = event.getChannel();
     StringBuilder sb = new StringBuilder();
     if (query.isEmpty()) {
-      sb.append("No query to search.\nTry _!pw help search_");
-      sb.append("\n");
+      sb.append("No query to search.\nTry _!pw help search_\n");
     }
     JSONArray itens = Fetcher.query(query);
     if (itens.size() == 0) {
       sb.append("No item found for \"_");
       sb.append(query);
-      sb.append("_\"");
-      sb.append("\n");
+      sb.append("_\"\n");
     }
     for (Object item : itens.subList(0, Math.min(MAX_RESULTS, itens.size()))) {
       channel.sendMessage();
