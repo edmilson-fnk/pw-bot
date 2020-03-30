@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Listener extends Thread {
 
-  public static final int WAITING_MINUTES = 10;
+  public static final int WAITING_MINUTES = 50;
   private List<ListenObject> listenQueue;
 
   public void add(String query, MessageAuthor messageAuthor, TextChannel channel) {
