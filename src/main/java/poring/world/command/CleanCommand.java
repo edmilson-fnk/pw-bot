@@ -16,7 +16,7 @@ public class CleanCommand extends Command {
 
     if (listener.getMap().containsKey(messageAuthor)) {
       List<ListenObject> authorList = listener.getMap().get(messageAuthor);
-      event.getChannel().sendMessage("Removed " + authorList.size() + " itens for " + messageAuthor.getName());
+      event.getChannel().sendMessage("Removed " + authorList.size() + " item(s) for " + messageAuthor.getName());
       authorList.clear();
     }
   }
