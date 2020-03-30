@@ -24,7 +24,9 @@ public class Bot {
 
   public static void main(String[] args) {
     String token = System.getenv("DISCORD_TOKEN");
-    DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
+    DiscordApiBuilder discordApiBuilder = new DiscordApiBuilder();
+    discordApiBuilder.setWaitForServersOnStartup(true);
+    DiscordApi api = discordApiBuilder.setToken(token).login().join();
 
     Listener listener = new Listener();
     listener.start();
