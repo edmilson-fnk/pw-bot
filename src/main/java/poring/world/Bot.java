@@ -38,15 +38,17 @@ public class Bot {
 
     api.addMessageCreateListener(event -> {
       String msg = event.getMessageContent();
-      if (msg.startsWith("!poring-world") || msg.startsWith("!pw")) {
+      if (msg.toLowerCase().startsWith("!poring-world") || msg.toLowerCase().startsWith("!pw")) {
         String[] command = msg.split(" ");
 
         if (!Validator.isValidCommand(command)) {
           return;
         }
 
-        if (COMMAND_MAP.keySet().contains(command[1])) {
+        if (COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
           COMMAND_MAP.get(command[1]).run(command, event, listener);
+        } else {
+          event.getChannel().sendMessage("Invalid command: _" + command[1] + "_");
         }
       }
     });
