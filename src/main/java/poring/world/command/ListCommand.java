@@ -22,9 +22,9 @@ public class ListCommand extends Command {
       List<ListenObject> authorList = listenerMap.get(messageAuthor);
       for (int i = 0; i < authorList.size(); i++) {
         ListenObject obj = authorList.get(i);
-        sb.append("[");
+        sb.append("(");
         sb.append(i + 1);
-        sb.append("] _");
+        sb.append(") _");
 
         sb.append(obj.getQuery());
         sb.append("_\n");
