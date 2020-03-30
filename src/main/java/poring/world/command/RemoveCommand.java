@@ -24,6 +24,8 @@ public class RemoveCommand extends Command {
           messageAuthor.getName() +
           "_\n";
       event.getChannel().sendMessage(sb);
+    } else {
+      event.getChannel().sendMessage("Invalid index for _" + messageAuthor.getName() + "_");
     }
   }
 
