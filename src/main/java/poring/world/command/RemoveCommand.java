@@ -25,7 +25,7 @@ public class RemoveCommand extends Command {
           "_\n";
       event.getChannel().sendMessage(sb);
     } else {
-      event.getChannel().sendMessage("Invalid index for _" + messageAuthor.getName() + "_");
+      event.getChannel().sendMessage("No watch list for _" + messageAuthor.getName() + "_");
     }
   }
 

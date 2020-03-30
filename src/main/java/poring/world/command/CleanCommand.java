@@ -12,11 +12,12 @@ import java.util.List;
 public class CleanCommand extends Command {
   @Override
   public void run(String[] command, MessageCreateEvent event, Listener listener) {
-    List<ListenObject> toRemove = new LinkedList<>();
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
     if (listener.getMap().containsKey(messageAuthor)) {
-      listener.getMap().get(messageAuthor).clear();
+      List<ListenObject> authorList = listener.getMap().get(messageAuthor);
+      event.getChannel().sendMessage("Removed " + authorList.size() + " itens for " + messageAuthor.getName());
+      authorList.clear();
     }
   }
 
