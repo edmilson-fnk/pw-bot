@@ -13,6 +13,8 @@ import java.util.List;
 
 public class SearchCommand extends Command {
 
+  private static final int MAX_RESULTS = 10;
+
   @Override
   public void run(String[] command, MessageCreateEvent event, Listener listener) {
     String query = Utils.getQuery(command);
@@ -29,12 +31,12 @@ public class SearchCommand extends Command {
       sb.append("_\"");
       sb.append("\n");
     }
-    for (Object item : itens.subList(0, Math.min(10, itens.size()))) {
+    for (Object item : itens.subList(0, Math.min(MAX_RESULTS, itens.size()))) {
       channel.sendMessage();
       sb.append(Utils.getItemMessage((JSONObject) item));
       sb.append("\n");
     }
-    if (itens.size() > 10) {
+    if (itens.size() > MAX_RESULTS) {
       sb.append("More than 10 items found. Refine your search...");
     }
 
