@@ -13,9 +13,16 @@ public class RemoveCommand extends Command {
   @Override
   public void run(String[] command, MessageCreateEvent event, Listener listener) {
     MessageAuthor messageAuthor = event.getMessageAuthor();
+    String query = Utils.getQuery(command);
     List<ListenObject> objList = listener.getMap().get(messageAuthor);
+    if (query == null || query.isEmpty()) {
+      event.getChannel().sendMessage("No index specified, _" + messageAuthor.getName() +
+          "_. Try _!pw help list_ for more information");
+      return;
+    }
+    
     if (objList != null) {
-      int pos = Integer.parseInt(Utils.getQuery(command));
+      int pos = Integer.parseInt(query);
       ListenObject removed = objList.remove(pos - 1);
 
       String sb = "Removed _" +
