@@ -22,7 +22,7 @@ public class SearchCommand extends Command {
     }
     JSONArray itens = Fetcher.query(query);
     if (itens.size() == 0) {
-      channel.sendMessage("No item found for \"" + query + "\"");
+      channel.sendMessage("No item found for \"_" + query + "_\"");
     }
     for (Object item : itens) {
       channel.sendMessage(Utils.getItemMessage((JSONObject) item));

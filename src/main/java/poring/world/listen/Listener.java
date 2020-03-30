@@ -9,14 +9,23 @@ import poring.world.Utils;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Listener extends Thread {
 
   public static final int WAITING_MINUTES = 50;
   private List<ListenObject> listenQueue;
+  private Map<MessageAuthor, List<ListenObject>> listenMap;
 
   public void add(String query, MessageAuthor messageAuthor, TextChannel channel) {
-    listenQueue.add(new ListenObject(query, messageAuthor, channel));
+    ListenObject listenObj = new ListenObject(query, messageAuthor, channel);
+    listenQueue.add(listenObj);
+
+    if (!listenMap.containsKey(messageAuthor)) {
+      listenMap.put(messageAuthor, new LinkedList<>());
+    }
+    listenMap.get(messageAuthor).add(listenObj);
+
     System.out.println("Added \"" + query + "\" on listener queue");
   }
 
@@ -26,6 +35,16 @@ public class Listener extends Thread {
 
   public List<ListenObject> getQueue() {
     return this.listenQueue;
+  }
+
+  public Map<MessageAuthor, List<ListenObject>> getMap() {
+    return this.listenMap;
+  }
+
+  public void remove(MessageAuthor author, ListenObject obj) {
+    if (listenMap.containsKey(author)) {
+      listenMap.get(author).remove(obj);
+    }
   }
 
   @Override

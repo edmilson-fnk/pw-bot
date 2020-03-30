@@ -6,21 +6,26 @@ import org.javacord.api.DiscordApiBuilder;
 import poring.world.command.CleanCommand;
 import poring.world.command.Command;
 import poring.world.command.HelpCommand;
+import poring.world.command.ListCommand;
+import poring.world.command.RemoveCommand;
 import poring.world.command.SearchCommand;
 import poring.world.command.Validator;
 import poring.world.command.WatchCommand;
 import poring.world.listen.Listener;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Bot {
 
-  public static Map<String, Command> COMMAND_MAP = ImmutableMap.of(
-      "search", new SearchCommand(),
-      "watch", new WatchCommand(),
-      "clean", new CleanCommand(),
-      "help", new HelpCommand()
-  );
+  public static HashMap<String, Command> COMMAND_MAP = new HashMap<String, Command>(){{
+    this.put("help", new HelpCommand());
+    this.put("search", new SearchCommand());
+    this.put("watch", new WatchCommand());
+    this.put("clean", new CleanCommand());
+    this.put("list", new ListCommand());
+    this.put("remove", new RemoveCommand());
+  }};
 
   public static void main(String[] args) {
     String token = System.getenv("DISCORD_TOKEN");
