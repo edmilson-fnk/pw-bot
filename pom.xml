@@ -19,11 +19,25 @@
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>1.1.1</version>
                 <configuration>
-                    <mainClass>poring.world.Bot</mainClass>
+                    <assembleDirectory>target</assembleDirectory>
+                    <programs>
+                        <program>
+                            <mainClass>poring.world.Bot</mainClass>
+                            <name>pw-bot</name>
+                        </program>
+                    </programs>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>assemble</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
