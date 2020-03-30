@@ -18,21 +18,6 @@ public class CleanCommand extends Command {
     if (listener.getMap().containsKey(messageAuthor)) {
       listener.getMap().get(messageAuthor).clear();
     }
-
-    deprecatedQueueRemove(event, listener, toRemove, messageAuthor);
-  }
-
-  private void deprecatedQueueRemove(MessageCreateEvent event, Listener listener, List<ListenObject> toRemove,
-                                     MessageAuthor messageAuthor) {
-    for (ListenObject obj : listener.getQueue()) {
-      if (obj.getMessageAuthor().equals(messageAuthor)) {
-        toRemove.add(obj);
-      }
-    }
-    for (ListenObject obj : toRemove) {
-      listener.remove(obj);
-      event.getChannel().sendMessage("Removed \"_" + obj.getQuery() + "_\" for " + messageAuthor.getName());
-    }
   }
 
   @Override

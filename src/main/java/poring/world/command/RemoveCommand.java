@@ -29,7 +29,7 @@ public class RemoveCommand extends Command {
 
   @Override
   public String getHelp() {
-    return "removes selected item from you watch list. try _!pw list_ before removing";
+    return "removes selected item from you watch list. try _!pw list_ to check the index before removing";
   }
 
   @Override

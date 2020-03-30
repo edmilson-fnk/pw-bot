@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +15,10 @@ import java.util.Map;
 public class Listener extends Thread {
 
   public static final int WAITING_MINUTES = 50;
-  private List<ListenObject> listenQueue;
   private Map<MessageAuthor, List<ListenObject>> listenMap;
 
   public void add(String query, MessageAuthor messageAuthor, TextChannel channel) {
     ListenObject listenObj = new ListenObject(query, messageAuthor, channel);
-    listenQueue.add(listenObj);
 
     if (!listenMap.containsKey(messageAuthor)) {
       listenMap.put(messageAuthor, new LinkedList<>());
@@ -27,14 +26,6 @@ public class Listener extends Thread {
     listenMap.get(messageAuthor).add(listenObj);
 
     System.out.println("Added \"" + query + "\" on listener queue");
-  }
-
-  public void remove(ListenObject obj) {
-    listenQueue.remove(obj);
-  }
-
-  public List<ListenObject> getQueue() {
-    return this.listenQueue;
   }
 
   public Map<MessageAuthor, List<ListenObject>> getMap() {
@@ -51,28 +42,35 @@ public class Listener extends Thread {
   public synchronized void start() {
     super.start();
     System.out.println("Running poring.world bot listener...");
-    this.listenQueue = new LinkedList<>();
+    this.listenMap = new HashMap<>();
   }
 
   @Override
   public void run() {
     while (true) {
       System.out.println("Verifying queue on poring.world API...");
-      for (ListenObject obj : listenQueue) {
-        JSONArray marketItems = Fetcher.query(obj.getQuery());
+      for (MessageAuthor author : listenMap.keySet()) {
         StringBuilder objMessage = new StringBuilder();
-        if (marketItems.size() > 0) {
-          objMessage.append("Hey <@");
-          objMessage.append(obj.getMessageAuthor().getId());
-          objMessage.append(">, we found something for \"_");
-          objMessage.append(obj.getQuery());
-          objMessage.append("_\" right now:");
-          objMessage.append("\n");
-          for (Object marketObj : marketItems) {
-            objMessage.append(Utils.getItemMessage((JSONObject) marketObj));
-            objMessage.append("\n");
+        objMessage.append("Hey <@");
+        objMessage.append(author.getId());
+        objMessage.append(">, we found something for you\n");
+        boolean theresSomethingFlag = false;
+        for (ListenObject obj : listenMap.get(author)) {
+          JSONArray marketItems = Fetcher.query(obj.getQuery());
+          if (marketItems.size() > 0) {
+            theresSomethingFlag = true;
+            objMessage.append("  _");
+            objMessage.append(obj.getQuery());
+            objMessage.append("_\n");
+            for (Object marketObj : marketItems) {
+              objMessage.append("    ");
+              objMessage.append(Utils.getItemMessage((JSONObject) marketObj));
+              objMessage.append("\n");
+            }
           }
-          obj.getChannel().sendMessage(objMessage.toString());
+          if (theresSomethingFlag) {
+            obj.getChannel().sendMessage(objMessage.toString());
+          }
         }
       }
       try {
