@@ -30,6 +30,8 @@ public class ListCommand extends Command {
         sb.append("_\n");
       }
       event.getChannel().sendMessage(sb.toString());
+    } else {
+      event.getChannel().sendMessage("No items found for _" + messageAuthor.getName() + "_");
     }
   }
 

@@ -16,7 +16,7 @@ public class RemoveCommand extends Command {
     List<ListenObject> objList = listener.getMap().get(messageAuthor);
     if (objList != null) {
       int pos = Integer.parseInt(Utils.getQuery(command));
-      ListenObject removed = objList.remove(pos);
+      ListenObject removed = objList.remove(pos - 1);
 
       String sb = "Removed _" +
           removed.getQuery() +
