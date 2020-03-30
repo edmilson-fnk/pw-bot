@@ -20,7 +20,7 @@ public class RemoveCommand extends Command {
           "_. Try _!pw help list_ for more information");
       return;
     }
-    
+
     if (objList != null) {
       int pos = Integer.parseInt(query);
       ListenObject removed = objList.remove(pos - 1);

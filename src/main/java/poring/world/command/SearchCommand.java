@@ -17,16 +17,28 @@ public class SearchCommand extends Command {
   public void run(String[] command, MessageCreateEvent event, Listener listener) {
     String query = Utils.getQuery(command);
     TextChannel channel = event.getChannel();
+    StringBuilder sb = new StringBuilder();
     if (query.isEmpty()) {
-      channel.sendMessage("No query to search.\nTry _!pw help search_");
+      sb.append("No query to search.\nTry _!pw help search_");
+      sb.append("\n");
     }
     JSONArray itens = Fetcher.query(query);
     if (itens.size() == 0) {
-      channel.sendMessage("No item found for \"_" + query + "_\"");
+      sb.append("No item found for \"_");
+      sb.append(query);
+      sb.append("_\"");
+      sb.append("\n");
     }
-    for (Object item : itens) {
-      channel.sendMessage(Utils.getItemMessage((JSONObject) item));
+    for (Object item : itens.subList(0, Math.min(10, itens.size()))) {
+      channel.sendMessage();
+      sb.append(Utils.getItemMessage((JSONObject) item));
+      sb.append("\n");
     }
+    if (itens.size() > 10) {
+      sb.append("More than 10 items found. Refine your search...");
+    }
+
+    channel.sendMessage(sb.toString());
   }
 
   @Override
@@ -44,4 +56,10 @@ public class SearchCommand extends Command {
         "!pw search +4 Eye of Dullahan <Sharp Blade 1> (broken)"
     );
   }
+
+  public static void main(String[] args) {
+    ImmutableList<Integer> l = ImmutableList.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+    System.out.println(l.subList(0, Math.min(l.size(), 10)));
+  }
+
 }
