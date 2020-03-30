@@ -23,7 +23,7 @@ public class Bot {
   );
 
   public static void main(String[] args) {
-    String token = "NjkzNTM4MjA5OTEyODQ4NDE0.Xn-iJQ.2-vptTMc3ou2IZbe5sAbG5ayaSM";
+    String token = System.getenv("DISCORD_TOKEN");
     DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
 
     Listener listener = new Listener();
