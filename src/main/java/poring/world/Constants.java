@@ -11,6 +11,7 @@ import poring.world.command.WatchCommand;
 import java.util.HashMap;
 
 public class Constants {
+
   public static final String HELP = "help";
   public static final String SEARCH = "search";
   public static final String WATCH = "watch";

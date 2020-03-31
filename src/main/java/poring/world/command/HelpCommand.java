@@ -1,6 +1,6 @@
 package poring.world.command;
 
-import static poring.world.Bot.COMMAND_MAP;
+import static poring.world.Constants.COMMAND_MAP;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;

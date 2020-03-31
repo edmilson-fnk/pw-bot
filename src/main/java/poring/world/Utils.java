@@ -36,16 +36,11 @@ public class Utils {
   }
 
   public static String formatTimestamp(long timestamp) {
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    String strDate= formatter.format(new Date(timestamp));
-    System.out.println(strDate);
-
-    return strDate;
+    return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date(timestamp));
   }
 
   public static String priceWithoutDecimal(Double price) {
-    DecimalFormat formatter = new DecimalFormat("###,###,###,###.##");
-    return formatter.format(price);
+    return new DecimalFormat("###,###,###,###.##").format(price);
   }
 
 }
