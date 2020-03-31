@@ -36,6 +36,7 @@ public class Watcher extends Thread {
       watchMap.put(authorId, new LinkedList<>());
     }
     watchMap.get(authorId).add(listenObj);
+    Utils.saveMap(this.watchMap);
   }
 
   public Map<Long, List<WatchObject>> getMap() {
@@ -46,7 +47,7 @@ public class Watcher extends Thread {
   public synchronized void start() {
     super.start();
     System.out.println("Running poring.world bot watcher...");
-    this.watchMap = new HashMap<>();
+    this.watchMap = Utils.loadMap();
   }
 
   @Override
