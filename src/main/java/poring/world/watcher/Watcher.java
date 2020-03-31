@@ -43,21 +43,16 @@ public class Watcher extends Thread {
       System.out.println("Verifying queue on poring.world API...");
       for (MessageAuthor author : watchMap.keySet()) {
         StringBuilder objMessage = new StringBuilder();
-        objMessage.append("Hey <@");
-        objMessage.append(author.getId());
-        objMessage.append(">, we found something for you\n");
+        objMessage.append(String.format("Hey <@%s>, we found something for you\n", author.getId()));
+
         boolean theresSomethingFlag = false;
         for (WatchObject obj : watchMap.get(author)) {
           JSONArray marketItems = Fetcher.query(obj.getQuery());
           if (marketItems.size() > 0) {
             theresSomethingFlag = true;
-            objMessage.append("_");
-            objMessage.append(obj.getQuery());
-            objMessage.append("_\n");
+            objMessage.append(String.format("_%s_\n", obj.getQuery()));
             for (Object marketItem : marketItems) {
-              objMessage.append("    ");
-              objMessage.append(Utils.getItemMessage((JSONObject) marketItem));
-              objMessage.append("\n");
+              objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
             }
           }
           if (theresSomethingFlag) {
@@ -74,4 +69,5 @@ public class Watcher extends Thread {
       }
     }
   }
+
 }
