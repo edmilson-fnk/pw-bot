@@ -3,13 +3,13 @@ package poring.world.listen;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 
-public class ListenObject {
+public class WatchObject {
 
   private String query;
   private MessageAuthor messageAuthor;
   private TextChannel channel;
 
-  public ListenObject(String query, MessageAuthor messageAuthor, TextChannel channel) {
+  public WatchObject(String query, MessageAuthor messageAuthor, TextChannel channel) {
     this.query = query;
     this.messageAuthor = messageAuthor;
     this.channel = channel;

@@ -4,17 +4,18 @@ import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
-import poring.world.listen.ListenObject;
+import poring.world.listen.WatchObject;
 import poring.world.listen.Watcher;
 
 import java.util.List;
 
 public class RemoveCommand extends Command {
+
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     MessageAuthor messageAuthor = event.getMessageAuthor();
     String query = Utils.getQuery(command);
-    List<ListenObject> objList = watcher.getMap().get(messageAuthor);
+    List<WatchObject> objList = watcher.getMap().get(messageAuthor);
     if (query == null || query.isEmpty()) {
       event.getChannel().sendMessage("No index specified, _" + messageAuthor.getName() +
           "_. Try _!pw help list_ for more information");
@@ -23,7 +24,7 @@ public class RemoveCommand extends Command {
 
     if (objList != null) {
       int pos = Integer.parseInt(query);
-      ListenObject removed = objList.remove(pos - 1);
+      WatchObject removed = objList.remove(pos - 1);
 
       String sb = "Removed _" +
           removed.getQuery() +
@@ -47,4 +48,5 @@ public class RemoveCommand extends Command {
         "!pw remove 2"
     );
   }
+
 }

@@ -14,40 +14,40 @@ import java.util.Map;
 
 public class Watcher extends Thread {
 
-  public static final int WAITING_MINUTES = 50;
-  private Map<MessageAuthor, List<ListenObject>> listenMap;
+  private static final int WAITING_MINUTES = 50;
+  private Map<MessageAuthor, List<WatchObject>> watchMap;
 
   public void add(String query, MessageAuthor messageAuthor, TextChannel channel) {
-    ListenObject listenObj = new ListenObject(query, messageAuthor, channel);
+    WatchObject listenObj = new WatchObject(query, messageAuthor, channel);
 
-    if (!listenMap.containsKey(messageAuthor)) {
-      listenMap.put(messageAuthor, new LinkedList<>());
+    if (!watchMap.containsKey(messageAuthor)) {
+      watchMap.put(messageAuthor, new LinkedList<>());
     }
-    listenMap.get(messageAuthor).add(listenObj);
+    watchMap.get(messageAuthor).add(listenObj);
   }
 
-  public Map<MessageAuthor, List<ListenObject>> getMap() {
-    return this.listenMap;
+  public Map<MessageAuthor, List<WatchObject>> getMap() {
+    return this.watchMap;
   }
 
   @Override
   public synchronized void start() {
     super.start();
     System.out.println("Running poring.world bot watcher...");
-    this.listenMap = new HashMap<>();
+    this.watchMap = new HashMap<>();
   }
 
   @Override
   public void run() {
     while (true) {
       System.out.println("Verifying queue on poring.world API...");
-      for (MessageAuthor author : listenMap.keySet()) {
+      for (MessageAuthor author : watchMap.keySet()) {
         StringBuilder objMessage = new StringBuilder();
         objMessage.append("Hey <@");
         objMessage.append(author.getId());
         objMessage.append(">, we found something for you\n");
         boolean theresSomethingFlag = false;
-        for (ListenObject obj : listenMap.get(author)) {
+        for (WatchObject obj : watchMap.get(author)) {
           JSONArray marketItems = Fetcher.query(obj.getQuery());
           if (marketItems.size() > 0) {
             theresSomethingFlag = true;
