@@ -40,7 +40,7 @@ public class HelpCommand extends Command {
         helpMessage.append("\n");
       }
       helpMessage.append("\nAdd me to your channel: ");
-      helpMessage.append(this.parameters.get("bot_url"));
+      helpMessage.append(this.parameters.get("bot_url").toString());
     }
 
     event.getChannel().sendMessage(helpMessage.toString());
