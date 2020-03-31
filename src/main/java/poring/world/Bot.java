@@ -1,5 +1,12 @@
 package poring.world;
 
+import static poring.world.Constants.CLEAN;
+import static poring.world.Constants.HELP;
+import static poring.world.Constants.LIST;
+import static poring.world.Constants.REMOVE;
+import static poring.world.Constants.SEARCH;
+import static poring.world.Constants.WATCH;
+
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import poring.world.command.CleanCommand;
@@ -17,12 +24,12 @@ import java.util.HashMap;
 public class Bot {
 
   public static HashMap<String, Command> COMMAND_MAP = new HashMap<String, Command>(){{
-    this.put("help", new HelpCommand());
-    this.put("search", new SearchCommand());
-    this.put("watch", new WatchCommand());
-    this.put("clean", new CleanCommand());
-    this.put("list", new ListCommand());
-    this.put("remove", new RemoveCommand());
+    this.put(HELP, new HelpCommand());
+    this.put(SEARCH, new SearchCommand());
+    this.put(WATCH, new WatchCommand());
+    this.put(CLEAN, new CleanCommand());
+    this.put(LIST, new ListCommand());
+    this.put(REMOVE, new RemoveCommand());
   }};
 
   public static void main(String[] args) {
@@ -34,7 +41,7 @@ public class Bot {
     Watcher watcher = new Watcher();
     watcher.start();
 
-    COMMAND_MAP.get("search").parameters.put("bot_url", api.createBotInvite());
+    COMMAND_MAP.get(SEARCH).parameters.put("bot_url", api.createBotInvite());
 
     api.addMessageCreateListener(event -> {
       if (event.getMessageAuthor().isBotUser()) {
