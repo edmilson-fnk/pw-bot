@@ -18,7 +18,6 @@ public class Constants {
   public static final String LIST = "list";
   public static final String REMOVE = "remove";
 
-
   public static HashMap<String, Command> COMMAND_MAP = new HashMap<String, Command>(){{
     this.put(HELP, new HelpCommand());
     this.put(SEARCH, new SearchCommand());
