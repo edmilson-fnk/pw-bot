@@ -16,10 +16,10 @@ public class Bot {
     discordApiBuilder.setWaitForServersOnStartup(true);
     DiscordApi api = discordApiBuilder.setToken(token).login().join();
 
-    Watcher watcher = new Watcher();
-    watcher.start();
-
     COMMAND_MAP.get(SEARCH).parameters.put("bot_url", api.createBotInvite());
+
+    Watcher watcher = new Watcher(api);
+    watcher.start();
 
     api.addMessageCreateListener(event -> {
       if (event.getMessageAuthor().isBotUser()) {

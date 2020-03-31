@@ -1,7 +1,10 @@
 package poring.world.watcher;
 
+import org.javacord.api.DiscordApi;
+import org.javacord.api.entity.channel.Channel;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
+import org.javacord.api.entity.user.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
@@ -11,22 +14,31 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Watcher extends Thread {
 
   private static final int WAITING_MINUTES = 50;
-  private Map<MessageAuthor, List<WatchObject>> watchMap;
+  private Map<Long, List<WatchObject>> watchMap;
+  private DiscordApi api;
+
+  public Watcher(DiscordApi api) {
+    this.api = api;
+  }
 
   public void add(String query, MessageAuthor messageAuthor, TextChannel channel) {
     WatchObject listenObj = new WatchObject(query, messageAuthor, channel);
 
-    if (!watchMap.containsKey(messageAuthor)) {
-      watchMap.put(messageAuthor, new LinkedList<>());
+    long authorId = messageAuthor.getId();
+    if (!watchMap.containsKey(authorId)) {
+      watchMap.put(authorId, new LinkedList<>());
     }
-    watchMap.get(messageAuthor).add(listenObj);
+    watchMap.get(authorId).add(listenObj);
   }
 
-  public Map<MessageAuthor, List<WatchObject>> getMap() {
+  public Map<Long, List<WatchObject>> getMap() {
     return this.watchMap;
   }
 
@@ -41,12 +53,19 @@ public class Watcher extends Thread {
   public void run() {
     while (true) {
       System.out.println("Verifying queue on poring.world API...");
-      for (MessageAuthor author : watchMap.keySet()) {
+      for (Long authorId : watchMap.keySet()) {
+        User author;
+        try {
+          author = api.getUserById(authorId).get();
+        } catch (InterruptedException | ExecutionException e) {
+          e.printStackTrace();
+          continue;
+        }
         StringBuilder objMessage = new StringBuilder();
         objMessage.append(String.format("Hey <@%s>, we found something for you\n", author.getId()));
 
         boolean theresSomethingFlag = false;
-        for (WatchObject obj : watchMap.get(author)) {
+        for (WatchObject obj : watchMap.get(author.getId())) {
           JSONArray marketItems = Fetcher.query(obj.getQuery());
           if (marketItems.size() > 0) {
             theresSomethingFlag = true;
@@ -56,7 +75,11 @@ public class Watcher extends Thread {
             }
           }
           if (theresSomethingFlag) {
-            obj.getChannel().sendMessage(objMessage.toString());
+            try {
+              this.api.getChannelById(obj.getChannelId()).flatMap(Channel::asTextChannel).get().sendMessage(objMessage.toString());
+            } catch (NoSuchElementException e) {
+              System.out.println("Impossible to find channel " + obj.getChannelId());
+            }
           }
         }
       }
