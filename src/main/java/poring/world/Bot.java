@@ -35,6 +35,10 @@ public class Bot {
     watcher.start();
 
     api.addMessageCreateListener(event -> {
+      if (event.getMessageAuthor().isBotUser()) {
+        event.getChannel().sendMessage("Bot user _" + event.getMessageAuthor().getName() + "_");
+        return;
+      }
       String msg = event.getMessageContent();
       if (msg.toLowerCase().startsWith("!poring-world") || msg.toLowerCase().startsWith("!pw")) {
         String[] command = msg.split(" ");
