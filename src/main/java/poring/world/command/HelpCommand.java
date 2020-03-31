@@ -5,7 +5,7 @@ import static poring.world.Bot.COMMAND_MAP;
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
-import poring.world.listen.Listener;
+import poring.world.listen.Watcher;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.Set;
 public class HelpCommand extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Listener listener) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     String query = Utils.getQuery(command);
     Set<String> helpMap = new HashSet<>();
     if (query.isEmpty()) {

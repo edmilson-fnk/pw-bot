@@ -4,22 +4,22 @@ import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.listen.ListenObject;
-import poring.world.listen.Listener;
+import poring.world.listen.Watcher;
 
 import java.util.List;
 import java.util.Map;
 
 public class ListCommand extends Command {
   @Override
-  public void run(String[] command, MessageCreateEvent event, Listener listener) {
-    Map<MessageAuthor, List<ListenObject>> listenerMap = listener.getMap();
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+    Map<MessageAuthor, List<ListenObject>> watcherMap = watcher.getMap();
     MessageAuthor messageAuthor = event.getMessageAuthor();
-    if (listenerMap.containsKey(messageAuthor) && !listenerMap.get(messageAuthor).isEmpty()) {
+    if (watcherMap.containsKey(messageAuthor) && !watcherMap.get(messageAuthor).isEmpty()) {
       StringBuilder sb = new StringBuilder();
       sb.append("Items for **");
       sb.append(messageAuthor.getName());
       sb.append("**\n");
-      List<ListenObject> authorList = listenerMap.get(messageAuthor);
+      List<ListenObject> authorList = watcherMap.get(messageAuthor);
       for (int i = 0; i < authorList.size(); i++) {
         ListenObject obj = authorList.get(i);
         sb.append("(");

@@ -5,20 +5,20 @@ import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
-import poring.world.listen.Listener;
+import poring.world.listen.Watcher;
 
 import java.util.List;
 
 public class WatchCommand extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Listener listener) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     String query = Utils.getQuery(command);
     TextChannel channel = event.getChannel();
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
-    listener.add(query, messageAuthor, channel);
-    event.getChannel().sendMessage("Listener event added for \"_" + query + "_\"");
+    watcher.add(query, messageAuthor, channel);
+    event.getChannel().sendMessage("Watcher event added for \"_" + query + "_\"");
   }
 
   @Override

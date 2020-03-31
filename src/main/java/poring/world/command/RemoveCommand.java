@@ -5,16 +5,16 @@ import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.listen.ListenObject;
-import poring.world.listen.Listener;
+import poring.world.listen.Watcher;
 
 import java.util.List;
 
 public class RemoveCommand extends Command {
   @Override
-  public void run(String[] command, MessageCreateEvent event, Listener listener) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     MessageAuthor messageAuthor = event.getMessageAuthor();
     String query = Utils.getQuery(command);
-    List<ListenObject> objList = listener.getMap().get(messageAuthor);
+    List<ListenObject> objList = watcher.getMap().get(messageAuthor);
     if (query == null || query.isEmpty()) {
       event.getChannel().sendMessage("No index specified, _" + messageAuthor.getName() +
           "_. Try _!pw help list_ for more information");

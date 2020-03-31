@@ -4,18 +4,17 @@ import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.listen.ListenObject;
-import poring.world.listen.Listener;
+import poring.world.listen.Watcher;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class CleanCommand extends Command {
   @Override
-  public void run(String[] command, MessageCreateEvent event, Listener listener) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
-    if (listener.getMap().containsKey(messageAuthor)) {
-      List<ListenObject> authorList = listener.getMap().get(messageAuthor);
+    if (watcher.getMap().containsKey(messageAuthor)) {
+      List<ListenObject> authorList = watcher.getMap().get(messageAuthor);
       event.getChannel().sendMessage("Removed " + authorList.size() + " item(s) for " + messageAuthor.getName());
       authorList.clear();
     }

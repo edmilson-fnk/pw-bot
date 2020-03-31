@@ -1,6 +1,5 @@
 package poring.world;
 
-import com.google.common.collect.ImmutableMap;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import poring.world.command.CleanCommand;
@@ -11,10 +10,9 @@ import poring.world.command.RemoveCommand;
 import poring.world.command.SearchCommand;
 import poring.world.command.Validator;
 import poring.world.command.WatchCommand;
-import poring.world.listen.Listener;
+import poring.world.listen.Watcher;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Bot {
 
@@ -33,8 +31,8 @@ public class Bot {
     discordApiBuilder.setWaitForServersOnStartup(true);
     DiscordApi api = discordApiBuilder.setToken(token).login().join();
 
-    Listener listener = new Listener();
-    listener.start();
+    Watcher watcher = new Watcher();
+    watcher.start();
 
     api.addMessageCreateListener(event -> {
       String msg = event.getMessageContent();
@@ -46,7 +44,7 @@ public class Bot {
         }
 
         if (COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
-          COMMAND_MAP.get(command[1]).run(command, event, listener);
+          COMMAND_MAP.get(command[1]).run(command, event, watcher);
         } else {
           event.getChannel().sendMessage("Invalid command: _" + command[1] + "_");
         }

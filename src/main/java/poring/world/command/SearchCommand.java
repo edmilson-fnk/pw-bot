@@ -7,7 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
-import poring.world.listen.Listener;
+import poring.world.listen.Watcher;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class SearchCommand extends Command {
   private static final int MAX_RESULTS = 10;
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Listener listener) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     String query = Utils.getQuery(command);
     TextChannel channel = event.getChannel();
     StringBuilder sb = new StringBuilder();
