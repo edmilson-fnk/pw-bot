@@ -34,6 +34,8 @@ public class Bot {
     Watcher watcher = new Watcher();
     watcher.start();
 
+    COMMAND_MAP.get("search").parameters.put("bot_url", api.createBotInvite());
+
     api.addMessageCreateListener(event -> {
       if (event.getMessageAuthor().isBotUser()) {
         event.getChannel().sendMessage("Bot user _" + event.getMessageAuthor().getName() + "_");
