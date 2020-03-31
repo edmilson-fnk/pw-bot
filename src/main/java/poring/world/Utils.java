@@ -28,8 +28,9 @@ public class Utils {
 
     long snapEnd = Long.parseLong(((JSONObject) jsonItem.get("lastRecord")).get("snapEnd").toString());
     if (snapEnd > 0) {
-      returnMessage.append(" in snap until ");
-      returnMessage.append(formatTimestamp(snapEnd*1000));
+      returnMessage.append(" in snap!");
+//      returnMessage.append(" in snap until ");
+//      returnMessage.append(formatTimestamp(snapEnd*1000));
     }
 
     return returnMessage.toString();
