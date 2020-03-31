@@ -1,10 +1,19 @@
 package poring.world;
 
 import org.json.simple.JSONObject;
+import poring.world.watcher.WatchObject;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.StringJoiner;
 
 public class Utils {
@@ -35,6 +44,34 @@ public class Utils {
     }
 
     return returnMessage.toString();
+  }
+
+  public static void saveMap(Map<Long, List<WatchObject>> map) throws IOException {
+    FileOutputStream fos = new FileOutputStream("watcherMap.dat");
+    ObjectOutputStream oos = new ObjectOutputStream(fos);
+    oos.writeObject(map);
+    oos.close();
+    fos.close();
+    System.out.print("Serialized HashMap data is saved in watcherMap.dat");
+  }
+
+  public static void loadMap(Map<Long, List<WatchObject>> map) throws IOException {
+    FileOutputStream fos = new FileOutputStream("watcherMap.dat");
+    ObjectOutputStream oos = new ObjectOutputStream(fos);
+    oos.writeObject(map);
+    oos.close();
+    fos.close();
+    System.out.print("Serialized HashMap data is saved in watcherMap.dat");
+  }
+
+  public static void main(String[] args) throws IOException {
+    WatchObject w1 = new WatchObject("query", "Ved", 01L, 02L);
+    List<WatchObject> list = new LinkedList<>();
+    list.add(w1);
+
+    Map<Long, List<WatchObject>> map = new HashMap<>();
+    map.put(01L, list);
+    saveMap(map);
   }
 
   public static String formatTimestamp(long timestamp) {

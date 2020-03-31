@@ -13,14 +13,14 @@ public class ListCommand extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
-    Map<MessageAuthor, List<WatchObject>> watcherMap = watcher.getMap();
+    Map<Long, List<WatchObject>> watcherMap = watcher.getMap();
     MessageAuthor messageAuthor = event.getMessageAuthor();
-    if (watcherMap.containsKey(messageAuthor) && !watcherMap.get(messageAuthor).isEmpty()) {
+    if (watcherMap.containsKey(messageAuthor.getId()) && !watcherMap.get(messageAuthor.getId()).isEmpty()) {
       StringBuilder sb = new StringBuilder();
       sb.append("Items for **");
       sb.append(messageAuthor.getName());
       sb.append("**\n");
-      List<WatchObject> objList = watcherMap.get(messageAuthor);
+      List<WatchObject> objList = watcherMap.get(messageAuthor.getId());
       for (int i = 0; i < objList.size(); i++) {
         WatchObject obj = objList.get(i);
         sb.append("(");
