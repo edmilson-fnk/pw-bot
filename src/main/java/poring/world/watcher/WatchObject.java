@@ -3,19 +3,26 @@ package poring.world.watcher;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 
-public class WatchObject {
+import java.io.Serializable;
+
+public class WatchObject implements Serializable {
 
   private String query;
-  private MessageAuthor messageAuthor;
+  private String messageAuthorName;
   private long messageAuthorId;
-  private TextChannel channel;
   private long channelId;
 
+  public WatchObject(String query, String authorName, long authorId, long channelId) {
+    this.setQuery(query);
+    this.setMessageAuthorName(authorName);
+    this.setMessageAuthorId(authorId);
+    this.setChannelId(channelId);
+  }
+
   public WatchObject(String query, MessageAuthor messageAuthor, TextChannel channel) {
-    this.query = query;
-    this.messageAuthor = messageAuthor;
+    this.setQuery(query);
+    this.setMessageAuthorName(messageAuthor.getDisplayName());
     this.setMessageAuthorId(messageAuthor.getId());
-    this.channel = channel;
     this.setChannelId(channel.getId());
   }
 
@@ -25,22 +32,6 @@ public class WatchObject {
 
   public void setQuery(String query) {
     this.query = query;
-  }
-
-  public MessageAuthor getMessageAuthor() {
-    return messageAuthor;
-  }
-
-  public void setMessageAuthor(MessageAuthor messageAuthor) {
-    this.messageAuthor = messageAuthor;
-  }
-
-  public TextChannel getChannel() {
-    return channel;
-  }
-
-  public void setChannel(TextChannel channel) {
-    this.channel = channel;
   }
 
   public long getMessageAuthorId() {
@@ -57,5 +48,21 @@ public class WatchObject {
 
   public void setChannelId(long channelId) {
     this.channelId = channelId;
+  }
+
+  public String getMessageAuthorName() {
+    return messageAuthorName;
+  }
+
+  public void setMessageAuthorName(String messageAuthorName) {
+    this.messageAuthorName = messageAuthorName;
+  }
+
+  @Override
+  public String toString() {
+    return "Query=" + this.query + ";" +
+        "AuthorName=" + this.messageAuthorName + ";" +
+        "AuthorID=" + this.messageAuthorId + ";" +
+        "ChannelID=" + this.channelId;
   }
 }

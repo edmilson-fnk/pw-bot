@@ -14,10 +14,11 @@ public class CleanCommand extends Command {
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
-    if (watcher.getMap().containsKey(messageAuthor)) {
-      List<WatchObject> authorList = watcher.getMap().get(messageAuthor);
+    if (watcher.getMap().containsKey(messageAuthor.getId())) {
+      List<WatchObject> authorList = watcher.getMap().get(messageAuthor.getId());
       event.getChannel().sendMessage("Removed " + authorList.size() + " item(s) for " + messageAuthor.getName());
       authorList.clear();
+      watcher.saveMap();
     }
   }
 

@@ -15,7 +15,7 @@ public class RemoveCommand extends Command {
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     MessageAuthor messageAuthor = event.getMessageAuthor();
     String query = Utils.getQuery(command);
-    List<WatchObject> objList = watcher.getMap().get(messageAuthor);
+    List<WatchObject> objList = watcher.getMap().get(messageAuthor.getId());
     if (query == null || query.isEmpty()) {
       event.getChannel().sendMessage("No index specified, _" + messageAuthor.getName() +
           "_. Try _!pw help list_ for more information");
@@ -25,6 +25,7 @@ public class RemoveCommand extends Command {
     if (objList != null) {
       int pos = Integer.parseInt(query);
       WatchObject removed = objList.remove(pos - 1);
+      watcher.saveMap();
 
       String sb = "Removed _" +
           removed.getQuery() +
