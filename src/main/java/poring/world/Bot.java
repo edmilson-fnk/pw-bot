@@ -1,26 +1,12 @@
 package poring.world;
 
-import static poring.world.Constants.CLEAN;
 import static poring.world.Constants.COMMAND_MAP;
-import static poring.world.Constants.HELP;
-import static poring.world.Constants.LIST;
-import static poring.world.Constants.REMOVE;
 import static poring.world.Constants.SEARCH;
-import static poring.world.Constants.WATCH;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
-import poring.world.command.CleanCommand;
-import poring.world.command.Command;
-import poring.world.command.HelpCommand;
-import poring.world.command.ListCommand;
-import poring.world.command.RemoveCommand;
-import poring.world.command.SearchCommand;
 import poring.world.command.Validator;
-import poring.world.command.WatchCommand;
 import poring.world.listen.Watcher;
-
-import java.util.HashMap;
 
 public class Bot {
 
