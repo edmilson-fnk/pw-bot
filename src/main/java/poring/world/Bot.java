@@ -23,7 +23,6 @@ public class Bot {
 
     api.addMessageCreateListener(event -> {
       if (event.getMessageAuthor().isBotUser()) {
-        event.getChannel().sendMessage("Bot user _" + event.getMessageAuthor().getName() + "_");
         return;
       }
       String msg = event.getMessageContent();

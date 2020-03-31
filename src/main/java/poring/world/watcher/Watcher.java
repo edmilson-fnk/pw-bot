@@ -10,6 +10,12 @@ import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +26,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Watcher extends Thread {
 
-  private static final int WAITING_MINUTES = 50;
+  private static final int WAITING_MINUTES = 60;
   private Map<Long, List<WatchObject>> watchMap;
   private DiscordApi api;
 
@@ -36,7 +42,7 @@ public class Watcher extends Thread {
       watchMap.put(authorId, new LinkedList<>());
     }
     watchMap.get(authorId).add(listenObj);
-    Utils.saveMap(this.watchMap);
+    this.saveMap();
   }
 
   public Map<Long, List<WatchObject>> getMap() {
@@ -47,13 +53,19 @@ public class Watcher extends Thread {
   public synchronized void start() {
     super.start();
     System.out.println("Running poring.world bot watcher...");
-    this.watchMap = Utils.loadMap();
   }
 
   @Override
   public void run() {
+    this.loadMap();
+
     while (true) {
+      waitSomeTime();
+
       System.out.println("Verifying queue on poring.world API...");
+      if (watchMap == null || watchMap.isEmpty()) {
+        continue;
+      }
       for (Long authorId : watchMap.keySet()) {
         User author;
         try {
@@ -75,22 +87,53 @@ public class Watcher extends Thread {
               objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
             }
           }
-          if (theresSomethingFlag) {
-            try {
-              this.api.getChannelById(obj.getChannelId()).flatMap(Channel::asTextChannel).get().sendMessage(objMessage.toString());
-            } catch (NoSuchElementException e) {
-              System.out.println("Impossible to find channel " + obj.getChannelId());
-            }
-          }
+        }
+        if (theresSomethingFlag) {
+          author.sendMessage(objMessage.toString());
         }
       }
-      try {
-        System.out.println("Waiting " + WAITING_MINUTES + " minutes...");
-        Thread.sleep(1000 * 60 * WAITING_MINUTES);
-      } catch (InterruptedException e) {
-        System.out.println("Error on watcher thread!");
-        throw new RuntimeException(e);
-      }
+    }
+  }
+
+  private void waitSomeTime() {
+    try {
+      System.out.println("Waiting " + WAITING_MINUTES + " minutes...");
+      Thread.sleep(1000 * 60 * WAITING_MINUTES);
+    } catch (InterruptedException e) {
+      System.out.println("Error on watcher thread!");
+      throw new RuntimeException(e);
+    }
+  }
+
+  public void saveMap() {
+    try {
+      FileOutputStream fos = new FileOutputStream("watcherMap.dat");
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+      oos.writeObject(this.watchMap);
+      oos.close();
+      fos.close();
+    } catch (FileNotFoundException e) {
+      System.out.println("File watcherMap.dat not found on saving");
+      e.printStackTrace();
+    } catch (IOException e) {
+      System.out.println("Error on saving watcherMap.dat");
+      e.printStackTrace();
+    }
+  }
+
+  public void loadMap() {
+    this.watchMap = new HashMap<>();
+    try {
+      FileInputStream fis = new FileInputStream("watcherMap.dat");
+      ObjectInputStream ois = new ObjectInputStream(fis);
+      Map<Long, List<WatchObject>> map = new HashMap<>((Map) ois.readObject());
+      ois.close();
+      this.watchMap = map;
+    } catch (FileNotFoundException e) {
+      System.out.println("File watcherMap.dat not found on reading");
+    } catch (IOException | ClassNotFoundException e) {
+      System.out.println("Error on loading map file");
+      e.printStackTrace();
     }
   }
 

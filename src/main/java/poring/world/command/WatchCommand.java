@@ -23,7 +23,7 @@ public class WatchCommand extends Command {
 
   @Override
   public String getHelp() {
-    return "constantly checks poring.world and alerts user if search query is found";
+    return "constantly checks poring.world and privately alerts user if search query is found";
   }
 
   @Override
