@@ -52,7 +52,7 @@ public class Bot {
         if (COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
           COMMAND_MAP.get(command[1]).run(command, event, watcher);
         } else {
-          event.getChannel().sendMessage("Invalid command: _" + command[1] + "_");
+          event.getChannel().sendMessage("Invalid command: **" + command[1] + "**");
         }
       }
     });
