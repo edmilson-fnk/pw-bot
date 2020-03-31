@@ -8,7 +8,7 @@ import poring.world.watcher.Watcher;
 
 import java.util.List;
 
-public class CleanCommand extends Command {
+public class ClearCommand extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
@@ -24,12 +24,12 @@ public class CleanCommand extends Command {
 
   @Override
   public String getHelp() {
-    return "cleans all objects being watched by you";
+    return "removes every object being watched by you";
   }
 
   @Override
   public List<String> getUsage() {
-    return ImmutableList.of("!pw clean");
+    return ImmutableList.of("!pw clear");
   }
 
 }

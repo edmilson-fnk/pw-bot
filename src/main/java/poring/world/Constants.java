@@ -1,6 +1,6 @@
 package poring.world;
 
-import poring.world.command.CleanCommand;
+import poring.world.command.ClearCommand;
 import poring.world.command.Command;
 import poring.world.command.HelpCommand;
 import poring.world.command.ListCommand;
@@ -15,7 +15,7 @@ public class Constants {
   public static final String HELP = "help";
   public static final String SEARCH = "search";
   public static final String WATCH = "watch";
-  public static final String CLEAN = "clean";
+  public static final String CLEAR = "clear";
   public static final String LIST = "list";
   public static final String REMOVE = "remove";
 
@@ -23,7 +23,7 @@ public class Constants {
     this.put(HELP, new HelpCommand());
     this.put(SEARCH, new SearchCommand());
     this.put(WATCH, new WatchCommand());
-    this.put(CLEAN, new CleanCommand());
+    this.put(CLEAR, new ClearCommand());
     this.put(LIST, new ListCommand());
     this.put(REMOVE, new RemoveCommand());
   }};
