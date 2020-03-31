@@ -8,6 +8,9 @@ import org.javacord.api.DiscordApiBuilder;
 import poring.world.command.Validator;
 import poring.world.watcher.Watcher;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Bot {
 
   public static void main(String[] args) {
@@ -16,7 +19,8 @@ public class Bot {
     discordApiBuilder.setWaitForServersOnStartup(true);
     DiscordApi api = discordApiBuilder.setToken(token).login().join();
 
-    COMMAND_MAP.get(SEARCH).parameters.put("bot_url", api.createBotInvite());
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("bot_url", api.createBotInvite());
 
     Watcher watcher = new Watcher(api);
     watcher.start();
@@ -35,7 +39,7 @@ public class Bot {
         }
 
         if (COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
-          COMMAND_MAP.get(command[1]).run(command, event, watcher);
+          COMMAND_MAP.get(command[1]).run(command, event, watcher, parameters);
         }
       }
     });

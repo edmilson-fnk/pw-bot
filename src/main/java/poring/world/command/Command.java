@@ -9,9 +9,7 @@ import java.util.Map;
 
 public abstract class Command {
 
-  public Map<String, Object> parameters = new HashMap<>();
-
-  public abstract void run(String[] command, MessageCreateEvent event, Watcher watcher);
+  public abstract void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters);
 
   public abstract String getHelp();
 

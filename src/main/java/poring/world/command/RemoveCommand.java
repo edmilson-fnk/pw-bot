@@ -8,11 +8,12 @@ import poring.world.watcher.WatchObject;
 import poring.world.watcher.Watcher;
 
 import java.util.List;
+import java.util.Map;
 
 public class RemoveCommand extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
     MessageAuthor messageAuthor = event.getMessageAuthor();
     String query = Utils.getQuery(command);
     List<WatchObject> objList = watcher.getMap().get(messageAuthor.getId());

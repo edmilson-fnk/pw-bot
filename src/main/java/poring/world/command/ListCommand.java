@@ -12,7 +12,7 @@ import java.util.Map;
 public class ListCommand extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
     Map<Long, List<WatchObject>> watcherMap = watcher.getMap();
     MessageAuthor messageAuthor = event.getMessageAuthor();
     if (watcherMap.containsKey(messageAuthor.getId()) && !watcherMap.get(messageAuthor.getId()).isEmpty()) {

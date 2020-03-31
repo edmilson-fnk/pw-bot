@@ -7,14 +7,16 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.watcher.Watcher;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class HelpCommand extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
     String query = Utils.getQuery(command);
     Set<String> helpMap = new HashSet<>();
     if (query.isEmpty()) {
@@ -39,9 +41,9 @@ public class HelpCommand extends Command {
         helpMessage.append(usage);
         helpMessage.append("\n");
       }
-      helpMessage.append("\nAdd me to your channel: ");
-      helpMessage.append(this.parameters.get("bot_url").toString());
     }
+//    helpMessage.append("\nAdd me to your channel: ");
+//    helpMessage.append(parameters.get("bot_url").toString());
 
     event.getChannel().sendMessage(helpMessage.toString());
   }

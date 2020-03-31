@@ -7,11 +7,12 @@ import poring.world.watcher.WatchObject;
 import poring.world.watcher.Watcher;
 
 import java.util.List;
+import java.util.Map;
 
 public class ClearCommand extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
     if (watcher.getMap().containsKey(messageAuthor.getId())) {

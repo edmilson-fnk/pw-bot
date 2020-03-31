@@ -8,11 +8,12 @@ import poring.world.Utils;
 import poring.world.watcher.Watcher;
 
 import java.util.List;
+import java.util.Map;
 
 public class WatchCommand extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
     String query = Utils.getQuery(command);
     TextChannel channel = event.getChannel();
     MessageAuthor messageAuthor = event.getMessageAuthor();
