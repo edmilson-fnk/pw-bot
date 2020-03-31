@@ -1,6 +1,7 @@
 package poring.world;
 
 import static poring.world.Constants.CLEAN;
+import static poring.world.Constants.COMMAND_MAP;
 import static poring.world.Constants.HELP;
 import static poring.world.Constants.LIST;
 import static poring.world.Constants.REMOVE;
@@ -23,15 +24,6 @@ import java.util.HashMap;
 
 public class Bot {
 
-  public static HashMap<String, Command> COMMAND_MAP = new HashMap<String, Command>(){{
-    this.put(HELP, new HelpCommand());
-    this.put(SEARCH, new SearchCommand());
-    this.put(WATCH, new WatchCommand());
-    this.put(CLEAN, new CleanCommand());
-    this.put(LIST, new ListCommand());
-    this.put(REMOVE, new RemoveCommand());
-  }};
-
   public static void main(String[] args) {
     String token = System.getenv("DISCORD_TOKEN");
     DiscordApiBuilder discordApiBuilder = new DiscordApiBuilder();
@@ -53,13 +45,12 @@ public class Bot {
         String[] command = msg.split(" ");
 
         if (!Validator.isValidCommand(command)) {
+          event.getChannel().sendMessage("Invalid command: **" + command[1] + "**");
           return;
         }
 
         if (COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
           COMMAND_MAP.get(command[1]).run(command, event, watcher);
-        } else {
-          event.getChannel().sendMessage("Invalid command: **" + command[1] + "**");
         }
       }
     });

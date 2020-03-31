@@ -1,9 +1,11 @@
 package poring.world.command;
 
+import static poring.world.Constants.COMMAND_MAP;
+
 public class Validator {
 
   public static boolean isValidCommand(String[] command) {
-    return true;
+    return COMMAND_MAP.containsKey(command[1]);
   }
 
 }
