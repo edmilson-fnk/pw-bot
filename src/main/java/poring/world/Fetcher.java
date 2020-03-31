@@ -67,9 +67,8 @@ public class Fetcher {
 
         try {
           JSONParser parser = new JSONParser();
-          JSONArray json = (JSONArray) parser.parse(builder.toString());
           JSONArray returnJson = new JSONArray();
-          for (Object object : json) {
+          for (Object object : (JSONArray) parser.parse(builder.toString())) {
             JSONObject minimalJsonObject = retainDefaultKeys((JSONObject) object);
             returnJson.add(minimalJsonObject);
           }
