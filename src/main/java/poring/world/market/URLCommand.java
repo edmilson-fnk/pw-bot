@@ -23,7 +23,7 @@ public class URLCommand extends Command {
 
   @Override
   public String getHelp() {
-    return "shows the URL to invite GTB to your channel :D";
+    return "shows the URL to invite GTB to your channel";
   }
 
   @Override
