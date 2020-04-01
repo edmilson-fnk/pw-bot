@@ -12,13 +12,6 @@ public class WatchObject implements Serializable {
   private long messageAuthorId;
   private long channelId;
 
-  public WatchObject(String query, String authorName, long authorId, long channelId) {
-    this.setQuery(query);
-    this.setMessageAuthorName(authorName);
-    this.setMessageAuthorId(authorId);
-    this.setChannelId(channelId);
-  }
-
   public WatchObject(String query, MessageAuthor messageAuthor, TextChannel channel) {
     this.setQuery(query);
     this.setMessageAuthorName(messageAuthor.getDisplayName());
