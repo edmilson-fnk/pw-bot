@@ -2,6 +2,7 @@ package poring.world.market;
 
 import static poring.world.Constants.BOT_URL;
 
+import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.watcher.Watcher;
 
@@ -27,6 +28,6 @@ public class URLCommand extends Command {
 
   @Override
   public List<String> getQueries() {
-    return new LinkedList<>();
+    return ImmutableList.of("");
   }
 }
