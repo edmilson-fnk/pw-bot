@@ -37,7 +37,7 @@ public class Cheapest extends Command {
     for (Object color : cards.keySet()) {
       sb.append(String.format("%-9s", String.format("(_%s_)",
           Utils.capitalize(CARD_COLOR_NAME.get(color.toString())))));
-      sb.append(Utils.getItemMessage((JSONObject) cards.get(color), "_"));
+      sb.append(Utils.getItemMessage((JSONObject) cards.get(color)));
       sb.append("\n");
     }
     channel.sendMessage(sb.toString());
