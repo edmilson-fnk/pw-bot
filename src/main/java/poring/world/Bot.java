@@ -58,7 +58,6 @@ public class Bot {
 
   private static MessageCreateListener getCardsListener() {
     return cardsEvent -> {
-      cardsEvent.getChannel().sendMessage("test1");
       if (cardsEvent.getMessageAuthor().isBotUser()) {
         return;
       }
