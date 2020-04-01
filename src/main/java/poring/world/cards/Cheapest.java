@@ -20,12 +20,12 @@ public class Cheapest extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
-    String query = Utils.getQuery(command);
+    String query = Utils.getQuery(command, 1);
     Set<String> colors = new HashSet<>();
     TextChannel channel = event.getChannel();
     if (query.isEmpty()) {
       colors.addAll(CARD_COLOR.values());
-    } else if (CARD_COLOR.values().contains(query)) {
+    } else if (CARD_COLOR.keySet().contains(query.toLowerCase())) {
       colors.add(CARD_COLOR.get(query));
     } else {
       channel.sendMessage("Invalid color: **" + query + "**");
@@ -35,7 +35,7 @@ public class Cheapest extends Command {
     StringBuilder sb = new StringBuilder();
     sb.append("**Cheapest cards right now**\n");
     for (Object color : cards.keySet()) {
-      sb.append(String.format("%-9s", String.format("(_%s_)",
+      sb.append(String.format("%-12s", String.format("(_%s_)",
           Utils.capitalize(CARD_COLOR_NAME.get(color.toString())))));
       sb.append(Utils.getItemMessage((JSONObject) cards.get(color)));
       sb.append("\n");

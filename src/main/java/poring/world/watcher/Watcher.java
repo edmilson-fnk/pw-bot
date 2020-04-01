@@ -8,7 +8,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
+import poring.world.s3.S3Files;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -109,6 +111,7 @@ public class Watcher extends Thread {
       oos.writeObject(this.watchMap);
       oos.close();
       fos.close();
+      S3Files.uploadWatchList(new File("watcherMap.dat"));
     } catch (FileNotFoundException e) {
       System.out.println("File watcherMap.dat not found on saving");
       e.printStackTrace();
@@ -121,7 +124,8 @@ public class Watcher extends Thread {
   public void loadMap() {
     this.watchMap = new HashMap<>();
     try {
-      FileInputStream fis = new FileInputStream("watcherMap.dat");
+      File file = S3Files.downloadWatchlist();
+      FileInputStream fis = new FileInputStream(file);
       ObjectInputStream ois = new ObjectInputStream(fis);
       Map<Long, List<WatchObject>> map = new HashMap<>((Map) ois.readObject());
       ois.close();

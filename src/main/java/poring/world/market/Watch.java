@@ -16,6 +16,12 @@ public class Watch extends Command {
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
     String query = Utils.getQuery(command);
+
+    if (query.isEmpty()) {
+      event.getChannel().sendMessage("No query to watch");
+      return;
+    }
+
     TextChannel channel = event.getChannel();
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
