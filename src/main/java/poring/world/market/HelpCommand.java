@@ -1,5 +1,6 @@
-package poring.world.command;
+package poring.world.market;
 
+import static poring.world.Constants.CALL;
 import static poring.world.Constants.COMMAND_MAP;
 
 import com.google.common.collect.ImmutableList;
@@ -7,7 +8,6 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.watcher.Watcher;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -29,16 +29,20 @@ public class HelpCommand extends Command {
     }
 
     StringBuilder helpMessage = new StringBuilder();
-    helpMessage.append("**Commands**\n");
+    helpMessage.append("**Golden Thief Bot**\n");
     for (String key : helpMap) {
       helpMessage.append("  _");
       helpMessage.append(key);
       helpMessage.append("_ ");
       helpMessage.append(COMMAND_MAP.get(key).getHelp());
       helpMessage.append("\n");
-      for (String usage : COMMAND_MAP.get(key).getUsage()) {
-        helpMessage.append("       - ");
-        helpMessage.append(usage);
+      for (String commandQuery : COMMAND_MAP.get(key).getQueries()) {
+        helpMessage.append("       - !");
+        helpMessage.append(CALL);
+        helpMessage.append(" ");
+        helpMessage.append(key);
+        helpMessage.append(" ");
+        helpMessage.append(commandQuery);
         helpMessage.append("\n");
       }
     }
@@ -54,10 +58,10 @@ public class HelpCommand extends Command {
   }
 
   @Override
-  public List<String> getUsage() {
+  public List<String> getQueries() {
     return ImmutableList.of(
-        "!pw help",
-        "!pw help search"
+        "",
+        "search"
     );
   }
 

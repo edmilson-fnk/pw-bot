@@ -1,4 +1,6 @@
-package poring.world.command;
+package poring.world.market;
+
+import static poring.world.Constants.CALL;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.channel.TextChannel;
@@ -22,7 +24,7 @@ public class SearchCommand extends Command {
     TextChannel channel = event.getChannel();
     StringBuilder sb = new StringBuilder();
     if (query.isEmpty()) {
-      sb.append("No query to search.\nTry _!pw help search_\n");
+      sb.append("No query to search.\nTry _!" + CALL + "  help search_\n");
     }
     JSONArray itens = Fetcher.query(query);
     if (itens.size() == 0) {
@@ -48,13 +50,13 @@ public class SearchCommand extends Command {
   }
 
   @Override
-  public List<String> getUsage() {
+  public List<String> getQueries() {
     return ImmutableList.of(
-        "!pw search morale",
-        "!pw search morale 4",
-        "!pw search Eye of Dullahan [1]",
-        "!pw search +4 Eye of Dullahan",
-        "!pw search +4 Eye of Dullahan <Sharp Blade 1> (broken)"
+        "morale",
+        "morale 4",
+        "Eye of Dullahan [1]",
+        "+4 Eye of Dullahan",
+        "+4 Eye of Dullahan <Sharp Blade 1> (broken)"
     );
   }
 

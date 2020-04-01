@@ -1,4 +1,4 @@
-package poring.world.command;
+package poring.world.market;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
@@ -29,8 +29,8 @@ public class ClearCommand extends Command {
   }
 
   @Override
-  public List<String> getUsage() {
-    return ImmutableList.of("!pw clear");
+  public List<String> getQueries() {
+    return ImmutableList.of("");
   }
 
 }

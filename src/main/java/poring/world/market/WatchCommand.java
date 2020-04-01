@@ -1,4 +1,4 @@
-package poring.world.command;
+package poring.world.market;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.channel.TextChannel;
@@ -28,13 +28,13 @@ public class WatchCommand extends Command {
   }
 
   @Override
-  public List<String> getUsage() {
+  public List<String> getQueries() {
     return ImmutableList.of(
-        "!pw watch morale",
-        "!pw watch morale 4",
-        "!pw watch Eye of Dullahan [1]",
-        "!pw watch +4 Eye of Dullahan",
-        "!pw watch +4 Eye of Dullahan <Sharp Blade 1> (broken)"
+        "morale",
+        "morale 4",
+        "Eye of Dullahan [1]",
+        "+4 Eye of Dullahan",
+        "+4 Eye of Dullahan <Sharp Blade 1> (broken)"
     );
   }
 

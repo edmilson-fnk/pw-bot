@@ -1,17 +1,18 @@
 package poring.world;
 
-import poring.world.command.ClearCommand;
-import poring.world.command.Command;
-import poring.world.command.HelpCommand;
-import poring.world.command.ListCommand;
-import poring.world.command.RemoveCommand;
-import poring.world.command.SearchCommand;
-import poring.world.command.WatchCommand;
+import poring.world.market.ClearCommand;
+import poring.world.market.Command;
+import poring.world.market.HelpCommand;
+import poring.world.market.ListCommand;
+import poring.world.market.RemoveCommand;
+import poring.world.market.SearchCommand;
+import poring.world.market.WatchCommand;
 
 import java.util.HashMap;
 
 public class Constants {
 
+  public static final String CALL = "gtb";
   public static final String HELP = "help";
   public static final String SEARCH = "search";
   public static final String WATCH = "watch";

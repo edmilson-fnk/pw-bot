@@ -1,11 +1,11 @@
 package poring.world;
 
+import static poring.world.Constants.CALL;
 import static poring.world.Constants.COMMAND_MAP;
-import static poring.world.Constants.SEARCH;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
-import poring.world.command.Validator;
+import poring.world.market.Validator;
 import poring.world.watcher.Watcher;
 
 import java.util.HashMap;
@@ -25,21 +25,21 @@ public class Bot {
     Watcher watcher = new Watcher(api);
     watcher.start();
 
-    api.addMessageCreateListener(event -> {
-      if (event.getMessageAuthor().isBotUser()) {
+    api.addMessageCreateListener(marketEvent -> {
+      if (marketEvent.getMessageAuthor().isBotUser()) {
         return;
       }
-      String msg = event.getMessageContent();
-      if (msg.toLowerCase().startsWith("!poring-world") || msg.toLowerCase().startsWith("!pw")) {
+      String msg = marketEvent.getMessageContent();
+      if (msg.toLowerCase().startsWith("!" + CALL)) {
         String[] command = msg.split(" ");
 
         if (!Validator.isValidCommand(command)) {
-          event.getChannel().sendMessage("Invalid command: **" + command[1] + "**");
+          marketEvent.getChannel().sendMessage("Invalid command: **" + command[1] + "**");
           return;
         }
 
         if (COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
-          COMMAND_MAP.get(command[1]).run(command, event, watcher, parameters);
+          COMMAND_MAP.get(command[1]).run(command, marketEvent, watcher, parameters);
         }
       }
     });

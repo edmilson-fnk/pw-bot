@@ -1,1 +1,1 @@
-# pw-bot
+# Golden Thief Bot

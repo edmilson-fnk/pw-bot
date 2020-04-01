@@ -1,9 +1,8 @@
-package poring.world.command;
+package poring.world.market;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.watcher.Watcher;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +12,6 @@ public abstract class Command {
 
   public abstract String getHelp();
 
-  public abstract List<String> getUsage();
+  public abstract List<String> getQueries();
 
 }

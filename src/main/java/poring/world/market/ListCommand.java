@@ -1,4 +1,4 @@
-package poring.world.command;
+package poring.world.market;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
@@ -42,8 +42,8 @@ public class ListCommand extends Command {
   }
 
   @Override
-  public List<String> getUsage() {
-    return ImmutableList.of("!pw list");
+  public List<String> getQueries() {
+    return ImmutableList.of("");
   }
 
 }
