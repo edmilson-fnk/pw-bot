@@ -22,7 +22,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,7 +40,12 @@ public class Fetcher {
       "lastRecord", ImmutableSet.of("price", "snapBuyers", "snapEnd", "stock", "timestamp")
   );
 
-  public static JSONObject getCheapestCards(List<String> colors) {
+  public static void main(String[] args) {
+    JSONObject cc = getCheapestCards(ImmutableSet.of("1", "2"));
+    System.out.println(cc);
+  }
+
+  public static JSONObject getCheapestCards(Set<String> colors) {
     Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
     parameters.put("order", "price");
     parameters.put("inStock", "1");

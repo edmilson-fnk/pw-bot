@@ -46,6 +46,12 @@ public class Constants {
     this.put("w", "1");
   }};
 
+  public static Map<String, String> CARD_COLOR_NAME = new HashMap<String, String>(){{
+    this.put("3", "blue");
+    this.put("2", "green");
+    this.put("1", "white");
+  }};
+
   // !gtb command
   public static Map<String, Command> MARKET_COMMAND_MAP = new HashMap<String, Command>(){{
     this.put(HELP, new Help());

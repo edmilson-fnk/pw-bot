@@ -32,10 +32,19 @@ public class Bot {
     Watcher watcher = new Watcher(api);
     watcher.start();
 
-    api.addMessageCreateListener(marketEvent -> {
+    api.addMessageCreateListener(getMarketListener(parameters, watcher));
+
+    api.addMessageCreateListener(getCardsListener());
+
+    api.addMessageCreateListener(getThanatosListener(parameters, watcher));
+  }
+
+  private static MessageCreateListener getMarketListener(Map<String, Object> parameters, Watcher watcher) {
+    return marketEvent -> {
       if (marketEvent.getMessageAuthor().isBotUser()) {
         return;
       }
+
       String msg = marketEvent.getMessageContent();
       if (msg.toLowerCase().startsWith("!" + MARKET_CALL)) {
         String[] command = msg.split(" ");
@@ -44,23 +53,7 @@ public class Bot {
           MARKET_COMMAND_MAP.get(command[1]).run(command, marketEvent, watcher, parameters);
         }
       }
-    });
-
-    api.addMessageCreateListener(getCardsListener());
-
-    api.addMessageCreateListener(marketEvent -> {
-      if (marketEvent.getMessageAuthor().isBotUser()) {
-        return;
-      }
-      String msg = marketEvent.getMessageContent();
-      if (msg.toLowerCase().startsWith("!" + THANATOS_CALL)) {
-        String[] command = msg.split(" ");
-
-        if (TT_COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
-          TT_COMMAND_MAP.get(command[1]).run(command, marketEvent, watcher, parameters);
-        }
-      }
-    });
+    };
   }
 
   private static MessageCreateListener getCardsListener() {
@@ -68,13 +61,29 @@ public class Bot {
       if (cardsEvent.getMessageAuthor().isBotUser()) {
         return;
       }
-      
+
       String msg = cardsEvent.getMessageContent();
       if (msg.toLowerCase().startsWith("!" + CARDS_CALL)
        || msg.toLowerCase().startsWith("!" + CARDS_CALL_SHORT)) {
         String[] command = msg.split(" ");
 
         CARDS_COMMAND_MAP.get(command[0]).run(command, cardsEvent, null, null);
+      }
+    };
+  }
+
+  private static MessageCreateListener getThanatosListener(Map<String, Object> parameters, Watcher watcher) {
+    return thanatosEvent -> {
+      if (thanatosEvent.getMessageAuthor().isBotUser()) {
+        return;
+      }
+      String msg = thanatosEvent.getMessageContent();
+      if (msg.toLowerCase().startsWith("!" + THANATOS_CALL)) {
+        String[] command = msg.split(" ");
+
+        if (TT_COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
+          TT_COMMAND_MAP.get(command[1]).run(command, thanatosEvent, watcher, parameters);
+        }
       }
     };
   }
