@@ -65,6 +65,10 @@ public class Bot {
 
   private static MessageCreateListener getCardsListener() {
     return cardsEvent -> {
+      if (cardsEvent.getMessageAuthor().isBotUser()) {
+        return;
+      }
+      
       String msg = cardsEvent.getMessageContent();
       if (msg.toLowerCase().startsWith("!" + CARDS_CALL)
        || msg.toLowerCase().startsWith("!" + CARDS_CALL_SHORT)) {
