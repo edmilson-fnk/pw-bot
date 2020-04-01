@@ -18,10 +18,14 @@ public class Utils {
   }
 
   public static String getItemMessage(JSONObject jsonItem) {
+    return getItemMessage(jsonItem, "**");
+  }
+
+  public static String getItemMessage(JSONObject jsonItem, String highlighter) {
     StringBuilder returnMessage = new StringBuilder();
-    returnMessage.append("**");
+    returnMessage.append(highlighter);
     returnMessage.append(jsonItem.get("name"));
-    returnMessage.append("**");
+    returnMessage.append(highlighter);
     returnMessage.append(" Price: ");
     String priceStr = ((JSONObject) jsonItem.get("lastRecord")).get("price").toString();
     returnMessage.append(priceWithoutDecimal(Double.parseDouble(priceStr)));
@@ -43,6 +47,14 @@ public class Utils {
 
   public static String priceWithoutDecimal(Double price) {
     return new DecimalFormat("###,###,###,###.##").format(price);
+  }
+
+  public static String capitalize(String str) {
+    if(str == null || str.isEmpty()) {
+      return str;
+    }
+
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
   }
 
 }

@@ -35,9 +35,8 @@ public class Cheapest extends Command {
     StringBuilder sb = new StringBuilder();
     sb.append("**Cheapest cards right now**\n");
     for (Object color : cards.keySet()) {
-      sb.append(CARD_COLOR_NAME.get(color.toString()));
-      sb.append(": ");
-      sb.append(Utils.getItemMessage((JSONObject) cards.get(color)));
+      sb.append(String.format("%-20s", String.format("(_%s_)", Utils.capitalize(CARD_COLOR_NAME.get(color.toString())))));
+      sb.append(Utils.getItemMessage((JSONObject) cards.get(color), "_"));
       sb.append("\n");
     }
     channel.sendMessage(sb.toString());
