@@ -58,6 +58,7 @@ public class Bot {
 
   private static MessageCreateListener getCardsListener() {
     return cardsEvent -> {
+      cardsEvent.getChannel().sendMessage("test1");
       if (cardsEvent.getMessageAuthor().isBotUser()) {
         return;
       }
@@ -66,9 +67,10 @@ public class Bot {
       if (msg.toLowerCase().startsWith("!" + CARDS_CALL)
        || msg.toLowerCase().startsWith("!" + CARDS_CALL_SHORT)) {
         String[] command = msg.split(" ");
-
+        cardsEvent.getChannel().sendMessage("test2");
         CARDS_COMMAND_MAP.get(command[0]).run(command, cardsEvent, null, null);
       }
+      cardsEvent.getChannel().sendMessage("test3");
     };
   }
 
