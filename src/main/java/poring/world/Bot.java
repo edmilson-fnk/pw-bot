@@ -1,5 +1,6 @@
 package poring.world;
 
+import static poring.world.Constants.BOT_URL;
 import static poring.world.Constants.MARKET_CALL;
 import static poring.world.Constants.COMMAND_MAP;
 
@@ -20,7 +21,7 @@ public class Bot {
     DiscordApi api = discordApiBuilder.setToken(token).login().join();
 
     Map<String, Object> parameters = new HashMap<>();
-    parameters.put("bot_url", api.createBotInvite());
+    parameters.put(BOT_URL, api.createBotInvite());
 
     Watcher watcher = new Watcher(api);
     watcher.start();

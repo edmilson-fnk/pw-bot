@@ -1,7 +1,7 @@
 package poring.world.market;
 
-import static poring.world.Constants.MARKET_CALL;
 import static poring.world.Constants.COMMAND_MAP;
+import static poring.world.Constants.MARKET_CALL;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -29,7 +29,7 @@ public class HelpCommand extends Command {
     }
 
     StringBuilder helpMessage = new StringBuilder();
-    helpMessage.append("**Golden Thief Bot**\n");
+    helpMessage.append("**Market help**\n");
     for (String key : helpMap) {
       helpMessage.append("  _");
       helpMessage.append(key);
