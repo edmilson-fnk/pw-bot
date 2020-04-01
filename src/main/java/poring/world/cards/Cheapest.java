@@ -23,13 +23,10 @@ public class Cheapest extends Command {
     String query = Utils.getQuery(command);
     Set<String> colors = new HashSet<>();
     TextChannel channel = event.getChannel();
-    channel.sendMessage("1");
     if (query.isEmpty()) {
       colors.addAll(CARD_COLOR.values());
-      channel.sendMessage("2");
     } else if (CARD_COLOR.values().contains(query)) {
       colors.add(CARD_COLOR.get(query));
-      channel.sendMessage("3");
     } else {
       channel.sendMessage("Invalid color: **" + query + "**");
     }
@@ -37,15 +34,12 @@ public class Cheapest extends Command {
     JSONObject cards = Fetcher.getCheapestCards(colors);
     StringBuilder sb = new StringBuilder();
     sb.append("**Cheapest cards right now**\n");
-    channel.sendMessage("4");
     for (Object color : cards.keySet()) {
-      channel.sendMessage("5");
       sb.append(CARD_COLOR_NAME.get(color.toString()));
       sb.append(": ");
       sb.append(Utils.getItemMessage((JSONObject) cards.get(color)));
       sb.append("\n");
     }
-    channel.sendMessage("6");
     channel.sendMessage(sb.toString());
   }
 

@@ -66,7 +66,7 @@ public class Bot {
       if (msg.toLowerCase().startsWith("!" + CARDS_CALL)
        || msg.toLowerCase().startsWith("!" + CARDS_CALL_SHORT)) {
         String[] command = msg.split(" ");
-        CARDS_COMMAND_MAP.get(command[0]).run(command, cardsEvent, null, null);
+        CARDS_COMMAND_MAP.get(CARDS_CALL).run(command, cardsEvent, null, null);
       }
     };
   }
