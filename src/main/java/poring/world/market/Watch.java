@@ -5,12 +5,13 @@ import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
+import poring.world.general.Command;
 import poring.world.watcher.Watcher;
 
 import java.util.List;
 import java.util.Map;
 
-public class WatchCommand extends Command {
+public class Watch extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {

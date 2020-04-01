@@ -9,12 +9,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
+import poring.world.general.Command;
 import poring.world.watcher.Watcher;
 
 import java.util.List;
 import java.util.Map;
 
-public class SearchCommand extends Command {
+public class Search extends Command {
 
   private static final int MAX_RESULTS = 10;
 

@@ -1,4 +1,4 @@
-package poring.world.market;
+package poring.world.general;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.watcher.Watcher;

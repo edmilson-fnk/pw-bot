@@ -4,13 +4,13 @@ import static poring.world.Constants.BOT_URL;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
+import poring.world.general.Command;
 import poring.world.watcher.Watcher;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class URLCommand extends Command {
+public class URL extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
