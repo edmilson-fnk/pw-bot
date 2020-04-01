@@ -1,6 +1,6 @@
 package poring.world.market;
 
-import static poring.world.Constants.CALL;
+import static poring.world.Constants.MARKET_CALL;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.channel.TextChannel;
@@ -24,7 +24,7 @@ public class SearchCommand extends Command {
     TextChannel channel = event.getChannel();
     StringBuilder sb = new StringBuilder();
     if (query.isEmpty()) {
-      sb.append("No query to search.\nTry _!" + CALL + "  help search_\n");
+      sb.append("No query to search.\nTry _!" + MARKET_CALL + "  help search_\n");
     }
     JSONArray itens = Fetcher.query(query);
     if (itens.size() == 0) {

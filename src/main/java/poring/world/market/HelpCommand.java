@@ -1,6 +1,6 @@
 package poring.world.market;
 
-import static poring.world.Constants.CALL;
+import static poring.world.Constants.MARKET_CALL;
 import static poring.world.Constants.COMMAND_MAP;
 
 import com.google.common.collect.ImmutableList;
@@ -38,7 +38,7 @@ public class HelpCommand extends Command {
       helpMessage.append("\n");
       for (String commandQuery : COMMAND_MAP.get(key).getQueries()) {
         helpMessage.append("       - !");
-        helpMessage.append(CALL);
+        helpMessage.append(MARKET_CALL);
         helpMessage.append(" ");
         helpMessage.append(key);
         helpMessage.append(" ");

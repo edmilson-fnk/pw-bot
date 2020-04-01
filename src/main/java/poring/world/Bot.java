@@ -1,6 +1,6 @@
 package poring.world;
 
-import static poring.world.Constants.CALL;
+import static poring.world.Constants.MARKET_CALL;
 import static poring.world.Constants.COMMAND_MAP;
 
 import org.javacord.api.DiscordApi;
@@ -30,7 +30,7 @@ public class Bot {
         return;
       }
       String msg = marketEvent.getMessageContent();
-      if (msg.toLowerCase().startsWith("!" + CALL)) {
+      if (msg.toLowerCase().startsWith("!" + MARKET_CALL)) {
         String[] command = msg.split(" ");
 
         if (!Validator.isValidCommand(command)) {

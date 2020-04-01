@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class Constants {
 
-  public static final String CALL = "gtb";
+  public static final String MARKET_CALL = "gtb";
   public static final String HELP = "help";
   public static final String SEARCH = "search";
   public static final String WATCH = "watch";
