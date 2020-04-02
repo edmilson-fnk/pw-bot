@@ -82,9 +82,19 @@ public class Fetcher {
         colorParameters.put("rarity", color);
         JSONArray jsonData = getJsonData(colorParameters);
 
-        if (jsonData.size() > 1) {
-          JSONObject obj = (JSONObject) jsonData.get(0);
-          returnJson.put(color, obj);
+        for (Object card : jsonData) {
+          JSONObject jsonCard = (JSONObject) card;
+          if (!((JSONObject) jsonCard.get("lastRecord")).get("snapEnd").toString().equals("0")) {
+            String key = color + "nosnap";
+            if (!returnJson.containsKey(key)) {
+              returnJson.put(key, jsonCard);
+            }
+          } else {
+            String key = color + "snap";
+            if (!returnJson.containsKey(key)) {
+              returnJson.put(key, jsonCard);
+            }
+          }
         }
       }
       return returnJson;

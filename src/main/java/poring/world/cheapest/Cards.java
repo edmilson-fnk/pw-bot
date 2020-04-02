@@ -30,17 +30,26 @@ public class Cards extends Command {
       colors.add(CARD_COLOR.get(query));
     } else {
       channel.sendMessage("Invalid color: **" + query + "**");
+      return;
     }
 
     JSONObject cards = Fetcher.getCheapestCards(colors);
     StringBuilder sb = new StringBuilder();
     sb.append("**Cheapest cards**\n");
-    for (Object color : cards.keySet()) {
-      sb.append(String.format("%-12s", String.format("(_%s_)",
-          Utils.capitalize(CARD_COLOR_NAME.get(color.toString())))));
-      sb.append(Utils.getItemMessage((JSONObject) cards.get(color)));
-      sb.append("\n");
+    for (String color : colors) {
+      sb.append(String.format("(_%s_)\n", Utils.capitalize(CARD_COLOR_NAME.get(color))));
+      if (cards.containsKey(color + "snap")) {
+        sb.append("\t\t");
+        sb.append(Utils.getItemMessage((JSONObject) cards.get(color + "snap")));
+        sb.append("\n");
+      }
+      if (cards.containsKey(color + "nosnap")) {
+        sb.append("\t\t");
+        sb.append(Utils.getItemMessage((JSONObject) cards.get(color + "nosnap")));
+        sb.append("\n");
+      }
     }
+
     channel.sendMessage(sb.toString());
   }
 
