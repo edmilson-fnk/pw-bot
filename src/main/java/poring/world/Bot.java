@@ -30,17 +30,19 @@ public class Bot {
   }
 
   private static MessageCreateListener getMarketListener(Map<String, Object> parameters, Watcher watcher) {
-    return marketEvent -> {
-      if (marketEvent.getMessageAuthor().isBotUser()) {
+    return event -> {
+      if (event.getMessageAuthor().isBotUser()) {
         return;
       }
 
-      String msg = marketEvent.getMessageContent();
+      String msg = event.getMessageContent();
       if (msg.toLowerCase().startsWith("!" + MARKET_CALL)) {
         String[] command = msg.split(" ");
 
         if (COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
-          COMMAND_MAP.get(command[1]).run(command, marketEvent, watcher, parameters);
+          COMMAND_MAP.get(command[1]).run(command, event, watcher, parameters);
+        } else {
+          event.getChannel().sendMessage("Invalid command: **" + command[1] + "**");
         }
       }
     };
