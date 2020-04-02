@@ -10,12 +10,8 @@ import java.util.StringJoiner;
 public class Utils {
 
   public static String getQuery(String[] command) {
-    return getQuery(command, 2);
-  }
-
-  public static String getQuery(String[] command, int index) {
     StringJoiner joiner = new StringJoiner(" ");
-    for (int i = index; i < command.length; i++) {
+    for (int i = 2; i < command.length; i++) {
       joiner.add(command[i]);
     }
     return joiner.toString();

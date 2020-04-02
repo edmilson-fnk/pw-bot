@@ -45,6 +45,25 @@ public class Fetcher {
     System.out.println(cc);
   }
 
+  public static JSONObject getCheapestPremiums() {
+    Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
+    parameters.put("order", "price");
+    parameters.put("inStock", "1");
+    parameters.put("category", "1052");
+
+    try {
+      Map<String, String> colorParameters = new HashMap<>(parameters);
+      JSONArray jsonData = getJsonData(colorParameters);
+
+      if (jsonData.size() > 1) {
+        return (JSONObject) jsonData.get(0);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
   public static JSONObject getCheapestCards(Set<String> colors) {
     Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
     parameters.put("order", "price");

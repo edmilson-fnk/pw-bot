@@ -1,7 +1,7 @@
 package poring.world;
 
-import com.google.common.collect.ImmutableMap;
-import poring.world.cards.Cheapest;
+import poring.world.cheapest.Cards;
+import poring.world.cheapest.Premium;
 import poring.world.market.Clear;
 import poring.world.general.Command;
 import poring.world.market.Help;
@@ -17,14 +17,16 @@ import java.util.Map;
 
 public class Constants {
 
-  // General
-  public static final String MARKET_CALL = "gtb";
-  public static final String THANATOS_CALL = "tt";
-  public static final String CARDS_CALL = "cheapestcards";
-  public static final String CARDS_CALL_SHORT = "cc";
   public static final String BOT_URL = "bot_url";
 
-  // Commands
+  // General commands
+  public static final String MARKET_CALL = "gtb";
+  public static final String THANATOS_CALL = "tt";
+  public static final String CARDS_CALL = "cards";
+  public static final String CARDS_CALL_SHORT = "cc";
+  public static final String PREMIUM = "premium";
+
+  // Subcommands
   public static final String HELP = "help";
   public static final String SEARCH = "search";
   public static final String WATCH = "watch";
@@ -53,7 +55,7 @@ public class Constants {
   }};
 
   // !gtb command
-  public static Map<String, Command> MARKET_COMMAND_MAP = new HashMap<String, Command>(){{
+  public static Map<String, Command> COMMAND_MAP = new HashMap<String, Command>(){{
     this.put(HELP, new Help());
     this.put(SEARCH, new Search());
     this.put(WATCH, new Watch());
@@ -61,17 +63,11 @@ public class Constants {
     this.put(LIST, new ListC());
     this.put(REMOVE, new Remove());
     this.put(URL, new URL());
-  }};
 
-  // !tt command
-  public static Map<String, Command> TT_COMMAND_MAP = new HashMap<String, Command>(){{
-    this.put(JOIN, new Join());
-  }};
-
-  // !cheapestcards command
-  public static Map<String, Command> CARDS_COMMAND_MAP = new HashMap<String, Command>(){{
-    this.put(CARDS_CALL, new Cheapest());
-    this.put(CARDS_CALL_SHORT, new Cheapest());
+    // Cheapest
+    this.put(CARDS_CALL, new Cards());
+    this.put(CARDS_CALL_SHORT, new Cards());
+    this.put(PREMIUM, new Premium());
   }};
 
 }
