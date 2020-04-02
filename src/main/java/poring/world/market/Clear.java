@@ -18,7 +18,7 @@ public class Clear extends Command {
 
     if (watcher.getMap().containsKey(messageAuthor.getId())) {
       List<WatchObject> authorList = watcher.getMap().get(messageAuthor.getId());
-      event.getChannel().sendMessage("Removed " + authorList.size() + " item(s) for " + messageAuthor.getName());
+      event.getChannel().sendMessage("Removed " + authorList.size() + " item(s) for " + messageAuthor.getDisplayName());
       authorList.clear();
       watcher.saveMap();
     }

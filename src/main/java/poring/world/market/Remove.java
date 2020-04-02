@@ -21,7 +21,7 @@ public class Remove extends Command {
     String query = Utils.getQuery(command);
     List<WatchObject> objList = watcher.getMap().get(messageAuthor.getId());
     if (query == null || query.isEmpty()) {
-      event.getChannel().sendMessage("No index specified, _" + messageAuthor.getName() +
+      event.getChannel().sendMessage("No index specified, _" + messageAuthor.getDisplayName() +
           "_. Try _!" + MARKET_CALL + " help list_ for more information");
       return;
     }
@@ -34,11 +34,11 @@ public class Remove extends Command {
       String sb = "Removed _" +
           removed.getQuery() +
           "_ for _" +
-          messageAuthor.getName() +
+          messageAuthor.getDisplayName() +
           "_\n";
       event.getChannel().sendMessage(sb);
     } else {
-      event.getChannel().sendMessage("No watch list for _" + messageAuthor.getName() + "_");
+      event.getChannel().sendMessage("No watch list for _" + messageAuthor.getDisplayName() + "_");
     }
   }
 
