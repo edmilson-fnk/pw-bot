@@ -23,7 +23,6 @@ public class Constants {
   public static final String MARKET_CALL = "gtb";
   public static final String THANATOS_CALL = "tt";
   public static final String CARDS_CALL = "cards";
-  public static final String CARDS_CALL_SHORT = "cc";
   public static final String PREMIUM = "premium";
 
   // Subcommands
@@ -66,7 +65,6 @@ public class Constants {
 
     // Cheapest
     this.put(CARDS_CALL, new Cards());
-    this.put(CARDS_CALL_SHORT, new Cards());
     this.put(PREMIUM, new Premium());
   }};
 
