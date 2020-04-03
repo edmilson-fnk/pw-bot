@@ -61,10 +61,6 @@ public class Watcher extends Thread {
     System.out.println("Running poring.world bot watcher...");
   }
 
-  public static void main(String[] args) {
-    System.out.println(new DateTime().getMinuteOfHour());
-  }
-
   @Override
   public void run() {
     this.loadMap();

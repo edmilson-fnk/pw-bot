@@ -40,11 +40,6 @@ public class Fetcher {
       "lastRecord", ImmutableSet.of("price", "snapBuyers", "snapEnd", "stock", "timestamp")
   );
 
-  public static void main(String[] args) {
-    JSONObject cc = getCheapestCards(ImmutableSet.of("1", "2"));
-    System.out.println(cc);
-  }
-
   public static JSONObject getCheapestPremiums() {
     Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
     parameters.put("order", "price");
@@ -107,8 +102,15 @@ public class Fetcher {
   private static JSONArray getJsonData(Map<String, String> param) throws IOException {
     try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
       String parametersUrl = getParametersUrl(param);
-      HttpGet request = new HttpGet(BASE_URL + parametersUrl);
+      String fullUrl = BASE_URL + parametersUrl;
+      HttpGet request = new HttpGet(fullUrl);
       HttpResponse response = client.execute(request);
+
+      if (response.getStatusLine().getStatusCode() != 200) {
+        System.out.println("Error " + response.getStatusLine().getStatusCode());
+        System.out.println("URL " + fullUrl);
+        return new JSONArray();
+      }
 
       BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
       StringBuilder builder = new StringBuilder();
@@ -129,6 +131,7 @@ public class Fetcher {
       } catch (ParseException e) {
         e.printStackTrace();
       }
+      Utils.waitSomeTime();
       return returnJson;
     }
   }
@@ -148,6 +151,7 @@ public class Fetcher {
     try {
       return getJsonData(parameters);
     } catch (IOException e) {
+      System.out.println("Error on parameters: " + parameters);
       e.printStackTrace();
       return new JSONArray();
     }

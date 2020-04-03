@@ -41,6 +41,15 @@ public class Utils {
     return returnMessage.toString();
   }
 
+  public static void waitSomeTime() {
+    try {
+      Thread.sleep(5000);
+    } catch (InterruptedException e) {
+      System.out.println("Error on watcher thread!");
+      throw new RuntimeException(e);
+    }
+  }
+
   public static String formatTimestamp(long timestamp) {
     return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date(timestamp));
   }
