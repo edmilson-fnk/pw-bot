@@ -42,13 +42,15 @@ public class Watcher extends Thread {
     WatchObject listenObj = new WatchObject(query, messageAuthor, channel);
 
     long authorId = messageAuthor.getId();
-    if (!watchMap.containsKey(authorId)) {
-      watchMap.put(authorId, new LinkedList<>());
-    }
-    List<String> strObjects = watchMap.get(authorId).stream().map(WatchObject::toString).collect(Collectors.toList());
-    if (!strObjects.contains(listenObj.toString())) {
-      watchMap.get(authorId).add(listenObj);
-      this.saveMap();
+    synchronized (this) {
+      if (!watchMap.containsKey(authorId)) {
+        watchMap.put(authorId, new LinkedList<>());
+      }
+      List<String> strObjects = watchMap.get(authorId).stream().map(WatchObject::toString).collect(Collectors.toList());
+      if (!strObjects.contains(listenObj.toString())) {
+        watchMap.get(authorId).add(listenObj);
+        this.saveMap();
+      }
     }
   }
 
@@ -77,22 +79,25 @@ public class Watcher extends Thread {
           e.printStackTrace();
           continue;
         }
-        StringBuilder objMessage = new StringBuilder();
-        objMessage.append(String.format("Hey <@%s>, we found something for you\n", author.getId()));
 
-        boolean theresSomethingFlag = false;
-        for (WatchObject obj : watchMap.get(author.getId())) {
-          JSONArray marketItems = Fetcher.query(obj.getQuery());
-          if (marketItems.size() > 0) {
-            theresSomethingFlag = true;
-            objMessage.append(String.format("_%s_\n", obj.getQuery()));
-            for (Object marketItem : marketItems) {
-              objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
+        synchronized (this) {
+          StringBuilder objMessage = new StringBuilder();
+          objMessage.append(String.format("Hey <@%s>, we found something for you\n", author.getId()));
+
+          boolean theresSomethingFlag = false;
+          for (WatchObject obj : watchMap.get(author.getId())) {
+            JSONArray marketItems = Fetcher.query(obj.getQuery());
+            if (marketItems.size() > 0) {
+              theresSomethingFlag = true;
+              objMessage.append(String.format("_%s_\n", obj.getQuery()));
+              for (Object marketItem : marketItems) {
+                objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
+              }
             }
           }
-        }
-        if (theresSomethingFlag) {
-          author.sendMessage(objMessage.toString());
+          if (theresSomethingFlag) {
+            author.sendMessage(objMessage.toString());
+          }
         }
       }
     }
@@ -108,7 +113,7 @@ public class Watcher extends Thread {
     }
   }
 
-  public void saveMap() {
+  public synchronized void saveMap() {
     try {
       FileOutputStream fos = new FileOutputStream("watcherMap.dat");
       ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -125,7 +130,7 @@ public class Watcher extends Thread {
     }
   }
 
-  public void loadMap() {
+  public synchronized void loadMap() {
     this.watchMap = new HashMap<>();
     try {
       File file = S3Files.downloadWatchlist();

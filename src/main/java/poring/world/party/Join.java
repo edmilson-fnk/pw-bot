@@ -1,4 +1,4 @@
-package poring.world.thanatos;
+package poring.world.party;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.general.Command;

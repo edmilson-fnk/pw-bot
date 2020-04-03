@@ -9,6 +9,7 @@ import poring.world.market.ListC;
 import poring.world.market.Remove;
 import poring.world.market.Search;
 import poring.world.market.Watch;
+import poring.world.party.Join;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,6 +65,9 @@ public class Constants {
     // Cheapest
     this.put(CARDS_CALL, new Cards());
     this.put(PREMIUM, new Premium());
+
+    // PArty
+    this.put(JOIN, new Join());
   }};
 
 }
