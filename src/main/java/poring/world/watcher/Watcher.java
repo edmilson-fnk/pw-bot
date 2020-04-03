@@ -4,6 +4,7 @@ import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.entity.user.User;
+import org.joda.time.DateTime;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
@@ -65,7 +66,11 @@ public class Watcher extends Thread {
     this.loadMap();
 
     while (true) {
-      waitSomeTime();
+      waitAMinute();
+
+      if (new DateTime().getMinuteOfHour() != 4) {
+        continue;
+      }
 
       System.out.println("Verifying queue on poring.world API...");
       if (watchMap == null || watchMap.isEmpty()) {
@@ -109,6 +114,14 @@ public class Watcher extends Thread {
       Thread.sleep(1000 * 60 * WAITING_MINUTES);
     } catch (InterruptedException e) {
       System.out.println("Error on watcher thread!");
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void waitAMinute() {
+    try {
+      Thread.sleep(1000 * 60);
+    } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
   }
