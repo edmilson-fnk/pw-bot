@@ -61,7 +61,7 @@ public class Constants {
     this.put(CLEAR, new Clear());
     this.put(LIST, new ListC());
     this.put(REMOVE, new Remove());
-    this.put(URL, new URL());
+//    this.put(URL, new URL());
 
     // Cheapest
     this.put(CARDS_CALL, new Cards());
