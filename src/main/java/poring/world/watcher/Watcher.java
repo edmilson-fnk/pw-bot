@@ -68,7 +68,7 @@ public class Watcher extends Thread {
     while (true) {
       waitAMinute();
 
-      if (new DateTime().getMinuteOfHour() != 4) {
+      if (new DateTime().getMinuteOfHour() != 7) {
         continue;
       }
 
