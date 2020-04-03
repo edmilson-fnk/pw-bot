@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class Watcher extends Thread {
 
@@ -33,6 +34,10 @@ public class Watcher extends Thread {
     this.api = api;
   }
 
+  public Map<Long, List<WatchObject>> getMap() {
+    return this.watchMap;
+  }
+
   public void add(String query, MessageAuthor messageAuthor, TextChannel channel) {
     WatchObject listenObj = new WatchObject(query, messageAuthor, channel);
 
@@ -40,12 +45,11 @@ public class Watcher extends Thread {
     if (!watchMap.containsKey(authorId)) {
       watchMap.put(authorId, new LinkedList<>());
     }
-    watchMap.get(authorId).add(listenObj);
-    this.saveMap();
-  }
-
-  public Map<Long, List<WatchObject>> getMap() {
-    return this.watchMap;
+    List<String> strObjects = watchMap.get(authorId).stream().map(WatchObject::toString).collect(Collectors.toList());
+    if (!strObjects.contains(listenObj.toString())) {
+      watchMap.get(authorId).add(listenObj);
+      this.saveMap();
+    }
   }
 
   @Override
