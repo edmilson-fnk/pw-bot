@@ -1,5 +1,6 @@
 package poring.world.party;
 
+import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.general.Command;
 import poring.world.watcher.Watcher;
@@ -21,7 +22,7 @@ public class Join extends Command {
 
   @Override
   public List<String> getQueries() {
-    return null;
+    return ImmutableList.of("");
   }
 
 }
