@@ -33,8 +33,6 @@ public class Utils {
 
     long snapEnd = Long.parseLong(((JSONObject) jsonItem.get("lastRecord")).get("snapEnd").toString());
     if (snapEnd > 0) {
-//      returnMessage.append(" in snap!");
-      // TODO fix timestamp on snap time
       returnMessage.append(" in snap until ");
       returnMessage.append(formatTimestamp(snapEnd*1000));
     }
@@ -52,8 +50,8 @@ public class Utils {
   }
 
   public static String formatTimestamp(long timestamp) {
-    Date date = new Date(timestamp - (3 * 3600 * 1000)); // 3 hours back
-    return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
+    Date date = new Date(timestamp - (3 * 3600 * 1000)); // 3 hours back TODO use Timezone
+    return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(date);
   }
 
   public static String priceWithoutDecimal(Double price) {
