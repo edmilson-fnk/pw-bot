@@ -17,7 +17,7 @@ public class Join extends Command {
 
   @Override
   public String getHelp() {
-    return "";
+    return "to be done";
   }
 
   @Override

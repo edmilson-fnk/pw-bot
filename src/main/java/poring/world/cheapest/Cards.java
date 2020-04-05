@@ -51,6 +51,7 @@ public class Cards extends Command {
     }
 
     channel.sendMessage(sb.toString());
+//    System.out.println(sb.toString());
   }
 
   @Override
@@ -61,5 +62,10 @@ public class Cards extends Command {
   @Override
   public List<String> getQueries() {
     return ImmutableList.of("", "white", "green", "blue", "w", "g", "b");
+  }
+
+  public static void main(String[] args) {
+    String[] command = new String[]{"!gtb", "cards", "w"};
+    new Cards().run(command, null, null, null);
   }
 }
