@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.StringJoiner;
 
@@ -51,7 +52,8 @@ public class Utils {
   }
 
   public static String formatTimestamp(long timestamp) {
-    return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date(timestamp));
+    Date date = new Date(timestamp - (3 * 3600 * 1000)); // 3 hours back
+    return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
   }
 
   public static String priceWithoutDecimal(Double price) {
