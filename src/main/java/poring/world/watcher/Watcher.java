@@ -72,10 +72,11 @@ public class Watcher extends Thread {
         continue;
       }
 
-      System.out.println("Verifying queue on poring.world API...");
+      System.out.println("verifying watch list on poring.world API...");
       if (watchMap == null || watchMap.isEmpty()) {
         continue;
       }
+
       for (Long authorId : watchMap.keySet()) {
         User author;
         try {
