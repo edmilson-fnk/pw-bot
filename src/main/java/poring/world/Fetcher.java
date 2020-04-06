@@ -130,7 +130,7 @@ public class Fetcher {
       try {
         for (Object object : (JSONArray) parser.parse(builder.toString())) {
           JSONObject minimalJsonObject = retainDefaultKeys((JSONObject) object);
-          if (!isStillThere(minimalJsonObject)) {
+          if (isStillThere(minimalJsonObject)) {
             returnJson.add(minimalJsonObject);
           }
         }
