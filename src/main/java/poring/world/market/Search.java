@@ -22,7 +22,6 @@ public class Search extends Command {
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
     String query = Utils.getQuery(command);
-    TextChannel channel = event.getChannel();
     StringBuilder sb = new StringBuilder();
     if (query.isEmpty()) {
       sb.append("No query to search.\nTry _!" + MARKET_CALL + "  help search_\n");
@@ -41,7 +40,8 @@ public class Search extends Command {
       sb.append("More than 10 items found. Refine your search...");
     }
 
-    channel.sendMessage(sb.toString());
+    event.getChannel().sendMessage(sb.toString());
+//    System.out.println(sb.toString());
   }
 
   @Override
@@ -58,6 +58,11 @@ public class Search extends Command {
         "+4 Eye of Dullahan",
         "+4 Eye of Dullahan <Sharp Blade 1> (broken)"
     );
+  }
+
+  public static void main(String[] args) {
+    String[] command = new String[]{"!gtb", "search", "hyegun card"};
+    new Search().run(command, null, null, null);
   }
 
 }

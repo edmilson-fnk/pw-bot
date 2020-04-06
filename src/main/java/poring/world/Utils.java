@@ -47,7 +47,7 @@ public class Utils {
 
   public static void waitSomeTime() {
     try {
-      Thread.sleep(500);
+      Thread.sleep(2000);
     } catch (InterruptedException e) {
       System.out.println("Error on watcher thread!");
       throw new RuntimeException(e);
