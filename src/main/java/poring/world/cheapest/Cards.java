@@ -40,15 +40,15 @@ public class Cards extends Command {
       String snapKey = color + "snap";
       String noSnapKey = color + "nosnap";
       sb.append(String.format("(_%s_)\n", Utils.capitalize(CARD_COLOR_NAME.get(color))));
-//      if (cards.containsKey(snapKey) && cards.containsKey(noSnapKey)) {
-//        long snapPrice =
-//            Long.parseLong(((JSONObject) ((JSONObject) cards.get(snapKey)).get("lastRecord")).get("price").toString());
-//        long noSnapPrice =
-//            Long.parseLong(((JSONObject) ((JSONObject) cards.get(noSnapKey)).get("lastRecord")).get("price").toString());
-//        if (snapPrice > noSnapPrice) {
-//          cards.remove(snapKey);
-//        }
-//      }
+      if (cards.containsKey(snapKey) && cards.containsKey(noSnapKey)) {
+        long snapPrice =
+            Long.parseLong(((JSONObject) ((JSONObject) cards.get(snapKey)).get("lastRecord")).get("price").toString());
+        long noSnapPrice =
+            Long.parseLong(((JSONObject) ((JSONObject) cards.get(noSnapKey)).get("lastRecord")).get("price").toString());
+        if (snapPrice > noSnapPrice) {
+          cards.remove(snapKey);
+        }
+      }
 
       if (cards.containsKey(snapKey)) {
         sb.append("\t\t");
@@ -77,7 +77,7 @@ public class Cards extends Command {
 
   // for tests
   public static void main(String[] args) {
-    String[] command = new String[]{"!gtb", "cards", "b"};
+    String[] command = new String[]{"!gtb", "cards", ""};
     new Cards().run(command, null, null, null);
   }
 }
