@@ -39,25 +39,18 @@ public class Cards extends Command {
     for (String color : colors) {
       sb.append(String.format("(_%s_)\n", Utils.capitalize(CARD_COLOR_NAME.get(color))));
       if (cards.containsKey(color + "snap")) {
-        String itemMessage = Utils.getItemMessage((JSONObject) cards.get(color + "snap"));
-        if (itemMessage != null) {
-          sb.append("\t\t");
-          sb.append(itemMessage);
-          sb.append("\n");
-        }
+        sb.append("\t\t");
+        sb.append(Utils.getItemMessage((JSONObject) cards.get(color + "snap")));
+        sb.append("\n");
       }
       if (cards.containsKey(color + "nosnap")) {
-        String itemMessage = Utils.getItemMessage((JSONObject) cards.get(color + "nosnap"));
-        if (itemMessage != null) {
-          sb.append("\t\t");
-          sb.append(itemMessage);
-          sb.append("\n");
-        }
+        sb.append("\t\t");
+        sb.append(Utils.getItemMessage((JSONObject) cards.get(color + "nosnap")));
+        sb.append("\n");
       }
     }
 
     channel.sendMessage(sb.toString());
-//    System.out.println(sb.toString());
   }
 
   @Override

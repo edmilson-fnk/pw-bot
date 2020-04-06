@@ -18,13 +18,8 @@ public class Premium extends Command {
     StringBuilder sb = new StringBuilder();
     sb.append("**Cheapest premiums**\n");
     if (premiums != null) {
-      String itemMessage = Utils.getItemMessage(premiums);
-      if (itemMessage != null) {
-        sb.append(itemMessage);
-        sb.append("\n");
-      } else {
-        sb.append("No premium found");
-      }
+      sb.append(Utils.getItemMessage(premiums));
+      sb.append("\n");
     } else {
       sb.append("No premium found");
     }

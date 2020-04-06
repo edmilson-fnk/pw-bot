@@ -93,13 +93,10 @@ public class Watcher extends Thread {
           for (WatchObject obj : watchMap.get(author.getId())) {
             JSONArray marketItems = Fetcher.query(obj.getQuery());
             if (marketItems.size() > 0) {
+              theresSomethingFlag = true;
               objMessage.append(String.format("_%s_\n", obj.getQuery()));
               for (Object marketItem : marketItems) {
-                String itemMessage = Utils.getItemMessage((JSONObject) marketItem);
-                if (itemMessage != null) {
-                  theresSomethingFlag = true;
-                  objMessage.append(String.format("    %s\n", itemMessage));
-                }
+                objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
               }
             }
           }

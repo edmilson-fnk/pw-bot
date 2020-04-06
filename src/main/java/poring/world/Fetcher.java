@@ -20,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -78,16 +79,19 @@ public class Fetcher {
         JSONArray jsonData = getJsonData(colorParameters);
 
         for (Object card : jsonData) {
+          String snapKey = color + "snap";
+          String noSnapKey = color + "nosnap";
+          if (returnJson.containsKey(snapKey) && returnJson.containsKey(noSnapKey)) {
+            break;
+          }
           JSONObject jsonCard = (JSONObject) card;
           if (!((JSONObject) jsonCard.get("lastRecord")).get("snapEnd").toString().equals("0")) {
-            String key = color + "nosnap";
-            if (!returnJson.containsKey(key)) {
-              returnJson.put(key, jsonCard);
+            if (!returnJson.containsKey(noSnapKey)) {
+              returnJson.put(noSnapKey, jsonCard);
             }
           } else {
-            String key = color + "snap";
-            if (!returnJson.containsKey(key)) {
-              returnJson.put(key, jsonCard);
+            if (!returnJson.containsKey(snapKey)) {
+              returnJson.put(snapKey, jsonCard);
             }
           }
         }
@@ -126,7 +130,9 @@ public class Fetcher {
       try {
         for (Object object : (JSONArray) parser.parse(builder.toString())) {
           JSONObject minimalJsonObject = retainDefaultKeys((JSONObject) object);
-          returnJson.add(minimalJsonObject);
+          if (!isStillThere(minimalJsonObject)) {
+            returnJson.add(minimalJsonObject);
+          }
         }
       } catch (ParseException e) {
         e.printStackTrace();
@@ -183,6 +189,13 @@ public class Fetcher {
       parametersUrl.append("&");
     }
     return parametersUrl.toString();
+  }
+
+  private static boolean isStillThere(JSONObject jsonItem) {
+    JSONObject lastRecord = (JSONObject) jsonItem.get("lastRecord");
+    long snapEnd = Long.parseLong(lastRecord.get("snapEnd").toString());
+    long buyers = Long.parseLong(lastRecord.get("snapBuyers").toString());
+    return buyers == 0 || snapEnd == 0 || new Date().before(new Date(snapEnd));
   }
 
 }

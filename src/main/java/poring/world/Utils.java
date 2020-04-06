@@ -28,10 +28,6 @@ public class Utils {
     StringBuilder returnMessage = new StringBuilder();
     JSONObject lastRecord = (JSONObject) jsonItem.get("lastRecord");
 
-    if (!isStillThere(jsonItem)) {
-      return null;
-    }
-
     returnMessage.append(String.format("%-10s", lastRecord.get("stock").toString() + "x"));
     returnMessage.append(highlighter);
     returnMessage.append(jsonItem.get("name"));
@@ -47,13 +43,6 @@ public class Utils {
     }
 
     return returnMessage.toString();
-  }
-
-  private static boolean isStillThere(JSONObject jsonItem) {
-    JSONObject lastRecord = (JSONObject) jsonItem.get("lastRecord");
-    long snapEnd = Long.parseLong(lastRecord.get("snapEnd").toString());
-    long buyers = Long.parseLong(lastRecord.get("snapBuyers").toString());
-    return buyers == 0 || snapEnd == 0 || new Date().before(new Date(snapEnd));
   }
 
   public static void waitSomeTime() {
