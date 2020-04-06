@@ -41,7 +41,6 @@ public class Search extends Command {
     }
 
     event.getChannel().sendMessage(sb.toString());
-//    System.out.println(sb.toString());
   }
 
   @Override
