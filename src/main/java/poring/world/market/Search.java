@@ -34,9 +34,11 @@ public class Search extends Command {
       sb.append("_\"\n");
     }
     for (Object item : itens.subList(0, Math.min(MAX_RESULTS, itens.size()))) {
-      channel.sendMessage();
-      sb.append(Utils.getItemMessage((JSONObject) item));
-      sb.append("\n");
+      String itemMessage = Utils.getItemMessage((JSONObject) item);
+      if (itemMessage != null) {
+        sb.append(itemMessage);
+        sb.append("\n");
+      }
     }
     if (itens.size() > MAX_RESULTS) {
       sb.append("More than 10 items found. Refine your search...");

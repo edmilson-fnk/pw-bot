@@ -10,6 +10,8 @@ import java.util.StringJoiner;
 
 public class Utils {
 
+  public static final int THREE_HOURS_AGO = (3 * 3600 * 1000);
+
   public static String getQuery(String[] command) {
     StringJoiner joiner = new StringJoiner(" ");
     for (int i = 2; i < command.length; i++) {
@@ -26,8 +28,11 @@ public class Utils {
     StringBuilder returnMessage = new StringBuilder();
     JSONObject lastRecord = (JSONObject) jsonItem.get("lastRecord");
 
-    returnMessage.append(lastRecord.get("stock").toString());
-    returnMessage.append("x\t");
+    if (!isStillThere(jsonItem)) {
+      return null;
+    }
+
+    returnMessage.append(String.format("%-10s", lastRecord.get("stock").toString() + "x"));
     returnMessage.append(highlighter);
     returnMessage.append(jsonItem.get("name"));
     returnMessage.append(highlighter);
@@ -44,6 +49,13 @@ public class Utils {
     return returnMessage.toString();
   }
 
+  private static boolean isStillThere(JSONObject jsonItem) {
+    JSONObject lastRecord = (JSONObject) jsonItem.get("lastRecord");
+    long snapEnd = Long.parseLong(lastRecord.get("snapEnd").toString());
+    long buyers = Long.parseLong(lastRecord.get("snapBuyers").toString());
+    return buyers == 0 || snapEnd == 0 || new Date().before(new Date(snapEnd));
+  }
+
   public static void waitSomeTime() {
     try {
       Thread.sleep(5000);
@@ -54,7 +66,7 @@ public class Utils {
   }
 
   public static String formatTimestamp(long timestamp) {
-    Date date = new Date(timestamp - (3 * 3600 * 1000)); // 3 hours back TODO use Timezone
+    Date date = new Date(timestamp - THREE_HOURS_AGO); // TODO use Timezone
     return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(date);
   }
 
