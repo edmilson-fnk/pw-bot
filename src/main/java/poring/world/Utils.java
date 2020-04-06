@@ -27,9 +27,8 @@ public class Utils {
     JSONObject lastRecord = (JSONObject) jsonItem.get("lastRecord");
 
     returnMessage.append(lastRecord.get("stock").toString());
-    returnMessage.append("x ");
+    returnMessage.append("x\t");
     returnMessage.append(highlighter);
-    returnMessage.append("\t");
     returnMessage.append(jsonItem.get("name"));
     returnMessage.append(highlighter);
     returnMessage.append(" Price: ");
