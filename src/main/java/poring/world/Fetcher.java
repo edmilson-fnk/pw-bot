@@ -85,7 +85,8 @@ public class Fetcher {
             break;
           }
           JSONObject jsonCard = (JSONObject) card;
-          if (!((JSONObject) jsonCard.get("lastRecord")).get("snapEnd").toString().equals("0")) {
+          String snapEnd = ((JSONObject) jsonCard.get("lastRecord")).get("snapEnd").toString();
+          if (snapEnd.equals("0")) {
             if (!returnJson.containsKey(noSnapKey)) {
               returnJson.put(noSnapKey, jsonCard);
             }

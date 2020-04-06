@@ -37,15 +37,27 @@ public class Cards extends Command {
     StringBuilder sb = new StringBuilder();
     sb.append("**Cheapest cards**\n");
     for (String color : colors) {
+      String snapKey = color + "snap";
+      String noSnapKey = color + "nosnap";
       sb.append(String.format("(_%s_)\n", Utils.capitalize(CARD_COLOR_NAME.get(color))));
-      if (cards.containsKey(color + "snap")) {
+      if (cards.containsKey(snapKey) && cards.containsKey(noSnapKey)) {
+        long snapPrice =
+            Long.parseLong(((JSONObject) ((JSONObject) cards.get(snapKey)).get("lastRecord")).get("price").toString());
+        long noSnapPrice =
+            Long.parseLong(((JSONObject) ((JSONObject) cards.get(noSnapKey)).get("lastRecord")).get("price").toString());
+        if (snapPrice > noSnapPrice) {
+          cards.remove(snapKey);
+        }
+      }
+
+      if (cards.containsKey(snapKey)) {
         sb.append("\t\t");
-        sb.append(Utils.getItemMessage((JSONObject) cards.get(color + "snap")));
+        sb.append(Utils.getItemMessage((JSONObject) cards.get(snapKey)));
         sb.append("\n");
       }
-      if (cards.containsKey(color + "nosnap")) {
+      if (cards.containsKey(noSnapKey)) {
         sb.append("\t\t");
-        sb.append(Utils.getItemMessage((JSONObject) cards.get(color + "nosnap")));
+        sb.append(Utils.getItemMessage((JSONObject) cards.get(noSnapKey)));
         sb.append("\n");
       }
     }
@@ -63,8 +75,9 @@ public class Cards extends Command {
     return ImmutableList.of("", "white", "green", "blue", "w", "g", "b");
   }
 
+  // for tests
   public static void main(String[] args) {
-    String[] command = new String[]{"!gtb", "cards", "w"};
+    String[] command = new String[]{"!gtb", "cards", "b"};
     new Cards().run(command, null, null, null);
   }
 }
