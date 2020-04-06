@@ -24,14 +24,19 @@ public class Utils {
 
   public static String getItemMessage(JSONObject jsonItem, String highlighter) {
     StringBuilder returnMessage = new StringBuilder();
+    JSONObject lastRecord = (JSONObject) jsonItem.get("lastRecord");
+
+    returnMessage.append(lastRecord.get("stock").toString());
+    returnMessage.append("x ");
     returnMessage.append(highlighter);
+    returnMessage.append("\t");
     returnMessage.append(jsonItem.get("name"));
     returnMessage.append(highlighter);
     returnMessage.append(" Price: ");
-    String priceStr = ((JSONObject) jsonItem.get("lastRecord")).get("price").toString();
+    String priceStr = lastRecord.get("price").toString();
     returnMessage.append(priceWithoutDecimal(Double.parseDouble(priceStr)));
 
-    long snapEnd = Long.parseLong(((JSONObject) jsonItem.get("lastRecord")).get("snapEnd").toString());
+    long snapEnd = Long.parseLong(lastRecord.get("snapEnd").toString());
     if (snapEnd > 0) {
       returnMessage.append(" in snap until ");
       returnMessage.append(formatTimestamp(snapEnd*1000));
