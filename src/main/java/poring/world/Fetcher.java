@@ -194,7 +194,7 @@ public class Fetcher {
 
   private static boolean isStillThere(JSONObject jsonItem) {
     JSONObject lastRecord = (JSONObject) jsonItem.get("lastRecord");
-    long snapEnd = Long.parseLong(lastRecord.get("snapEnd").toString());
+    long snapEnd = Long.parseLong(lastRecord.get("snapEnd").toString()) * 1000;
     long buyers = Long.parseLong(lastRecord.get("snapBuyers").toString());
     if (snapEnd > 0) {
       System.out.println(jsonItem.get("name"));
