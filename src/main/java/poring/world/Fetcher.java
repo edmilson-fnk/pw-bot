@@ -196,11 +196,6 @@ public class Fetcher {
     JSONObject lastRecord = (JSONObject) jsonItem.get("lastRecord");
     long snapEnd = Long.parseLong(lastRecord.get("snapEnd").toString()) * 1000;
     long buyers = Long.parseLong(lastRecord.get("snapBuyers").toString());
-    if (snapEnd > 0) {
-      System.out.println(jsonItem.get("name"));
-      System.out.println("Now: " + new Date().getTime());
-      System.out.println("Snap: " + new Date(snapEnd).getTime());
-    }
     return buyers == 0 || snapEnd == 0 || new Date().before(new Date(snapEnd));
   }
 
