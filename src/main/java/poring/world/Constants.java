@@ -12,6 +12,7 @@ import poring.world.market.Watch;
 import poring.world.party.CreateParty;
 import poring.world.party.EndParty;
 import poring.world.party.JoinParty;
+import poring.world.thanatos.Thanatos;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +43,9 @@ public class Constants {
   public static final String JOIN_PARTY = "join";
   public static final String END_PARTY = "end";
 
+  // Thanatos Tower Dungeon
+  public static final String THANATOS = "end";
+
   // Card Colors
   public static Map<String, String> CARD_COLOR = new HashMap<String, String>(){{
     this.put("blue", "3");
@@ -71,6 +75,9 @@ public class Constants {
 //    // Cheapest
     this.put(CARDS_CALL, new Cards());
     this.put(PREMIUM, new Premium());
+
+    // Thanatos Tower Team
+    this.put(THANATOS, new Thanatos());
 
     // Party
 //    this.put(CREATE_PARTY, new CreateParty());
