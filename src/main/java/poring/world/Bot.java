@@ -2,7 +2,7 @@ package poring.world;
 
 import static poring.world.Constants.BOT_URL;
 import static poring.world.Constants.COMMAND_MAP;
-import static poring.world.Constants.MARKET_CALL;
+import static poring.world.Constants.GLOBAL_CALL;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
@@ -36,7 +36,7 @@ public class Bot {
       }
 
       String msg = event.getMessageContent();
-      if (msg.toLowerCase().startsWith("!" + MARKET_CALL)) {
+      if (msg.toLowerCase().startsWith("!" + GLOBAL_CALL + " ")) {
         String[] command = msg.split(" ");
 
         if (COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {

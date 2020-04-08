@@ -1,9 +1,8 @@
 package poring.world.market;
 
-import static poring.world.Constants.MARKET_CALL;
+import static poring.world.Constants.GLOBAL_CALL;
 
 import com.google.common.collect.ImmutableList;
-import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -24,7 +23,7 @@ public class Search extends Command {
     String query = Utils.getQuery(command);
     StringBuilder sb = new StringBuilder();
     if (query.isEmpty()) {
-      sb.append("No query to search.\nTry _!" + MARKET_CALL + "  help search_\n");
+      sb.append("No query to search.\nTry _!" + GLOBAL_CALL + "  help search_\n");
     }
     JSONArray itens = Fetcher.query(query);
     if (itens.size() == 0) {

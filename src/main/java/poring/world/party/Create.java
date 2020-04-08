@@ -1,7 +1,7 @@
 package poring.world.party;
 
 import static poring.world.Constants.JOIN;
-import static poring.world.Constants.MARKET_CALL;
+import static poring.world.Constants.GLOBAL_CALL;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -27,7 +27,7 @@ public class Create extends Command {
     } else {
       String leaderName = "";
       sb.append(String.format("Party **%s** already created by _%s_. Try !%s %s %s ",
-          partyName, leaderName, MARKET_CALL, JOIN, partyName));
+          partyName, leaderName, GLOBAL_CALL, JOIN, partyName));
     }
     event.getChannel().sendMessage(sb.toString());
   }

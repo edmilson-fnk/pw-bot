@@ -1,6 +1,6 @@
 package poring.world.market;
 
-import static poring.world.Constants.MARKET_CALL;
+import static poring.world.Constants.GLOBAL_CALL;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
@@ -22,7 +22,7 @@ public class Remove extends Command {
     List<WatchObject> objList = watcher.getMap().get(messageAuthor.getId());
     if (query == null || query.isEmpty()) {
       event.getChannel().sendMessage("No index specified, _" + messageAuthor.getDisplayName() +
-          "_. Try _!" + MARKET_CALL + " help list_ for more information");
+          "_. Try _!" + GLOBAL_CALL + " help list_ for more information");
       return;
     }
 
@@ -44,7 +44,7 @@ public class Remove extends Command {
 
   @Override
   public String getHelp() {
-    return "removes selected item from you watch list. try _!" + MARKET_CALL + " list_ to check the index before removing";
+    return "removes selected item from you watch list. try _!" + GLOBAL_CALL + " list_ to check the index before removing";
   }
 
   @Override

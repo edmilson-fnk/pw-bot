@@ -72,21 +72,21 @@ public class Watcher extends Thread {
         continue;
       }
 
-      System.out.println("verifying watch list on poring.world API...");
-      if (watchMap == null || watchMap.isEmpty()) {
-        continue;
-      }
-
-      for (Long authorId : watchMap.keySet()) {
-        User author;
-        try {
-          author = api.getUserById(authorId).get();
-        } catch (InterruptedException | ExecutionException e) {
-          e.printStackTrace();
+      synchronized (this) {
+        System.out.println("verifying watch list on poring.world API...");
+        if (watchMap == null || watchMap.isEmpty()) {
           continue;
         }
 
-        synchronized (this) {
+        for (Long authorId : watchMap.keySet()) {
+          User author;
+          try {
+            author = api.getUserById(authorId).get();
+          } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            continue;
+          }
+
           StringBuilder objMessage = new StringBuilder();
           objMessage.append(String.format("Hey <@%s>, we found something for you\n", author.getId()));
 

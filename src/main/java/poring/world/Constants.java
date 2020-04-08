@@ -19,8 +19,7 @@ public class Constants {
   public static final String BOT_URL = "bot_url";
 
   // General commands
-  public static final String MARKET_CALL = "gtb";
-  public static final String THANATOS_CALL = "tt";
+  public static final String GLOBAL_CALL = "gtb";
   public static final String CARDS_CALL = "cards";
   public static final String PREMIUM = "premium";
 

@@ -1,7 +1,7 @@
 package poring.world.market;
 
 import static poring.world.Constants.COMMAND_MAP;
-import static poring.world.Constants.MARKET_CALL;
+import static poring.world.Constants.GLOBAL_CALL;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -39,7 +39,7 @@ public class Help extends Command {
       helpMessage.append("\n");
       for (String commandQuery : COMMAND_MAP.get(key).getQueries()) {
         helpMessage.append("       - !");
-        helpMessage.append(MARKET_CALL);
+        helpMessage.append(GLOBAL_CALL);
         helpMessage.append(" ");
         helpMessage.append(key);
         helpMessage.append(" ");
