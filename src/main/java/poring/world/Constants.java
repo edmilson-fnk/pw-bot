@@ -9,6 +9,7 @@ import poring.world.market.ListC;
 import poring.world.market.Remove;
 import poring.world.market.Search;
 import poring.world.market.Watch;
+import poring.world.party.CreateParty;
 import poring.world.party.Join;
 
 import java.util.HashMap;
@@ -33,7 +34,8 @@ public class Constants {
   public static final String URL = "url";
 
   // Join
-  public static final String JOIN = "join";
+  public static final String CREATE_PARTY = "party";
+  public static final String JOIN_PARTY = "join";
 
   // Card Colors
   public static Map<String, String> CARD_COLOR = new HashMap<String, String>(){{
@@ -65,8 +67,9 @@ public class Constants {
     this.put(CARDS_CALL, new Cards());
     this.put(PREMIUM, new Premium());
 
-    // PArty
-    this.put(JOIN, new Join());
+    // Party
+//    this.put(CREATE_PARTY, new CreateParty());
+//    this.put(JOIN_PARTY, new Join());
   }};
 
 }

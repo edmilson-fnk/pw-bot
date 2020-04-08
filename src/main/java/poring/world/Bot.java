@@ -21,6 +21,7 @@ public class Bot {
     DiscordApi api = discordApiBuilder.setToken(token).login().join();
 
     Map<String, Object> parameters = new HashMap<>();
+    parameters.put("api", api);
     parameters.put(BOT_URL, api.createBotInvite());
 
     Watcher watcher = new Watcher(api);
