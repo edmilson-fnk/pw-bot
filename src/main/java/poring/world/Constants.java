@@ -19,17 +19,17 @@ import java.util.Map;
 
 public class Constants {
 
+  // General
+  public static final String GLOBAL_CALL = "gtb";
+
   // Parameters
   public static final String BOT_URL = "bot_url";
   public static final String PARTIES = "parties";
   public static final String API = "api";
 
-  // General commands
-  public static final String GLOBAL_CALL = "gtb";
+  // Subcommands
   public static final String CARDS_CALL = "cards";
   public static final String PREMIUM = "premium";
-
-  // Subcommands
   public static final String HELP = "help";
   public static final String SEARCH = "search";
   public static final String WATCH = "watch";
