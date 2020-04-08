@@ -22,11 +22,6 @@ public class Constants {
   // General
   public static final String GLOBAL_CALL = "gtb";
 
-  // Parameters
-  public static final String BOT_URL = "bot_url";
-  public static final String PARTIES = "parties";
-  public static final String API = "api";
-
   // Subcommands
   public static final String CARDS_CALL = "cards";
   public static final String PREMIUM = "premium";
@@ -45,6 +40,11 @@ public class Constants {
 
   // Thanatos Tower Dungeon
   public static final String THANATOS = "end";
+
+  // Parameters
+  public static final String BOT_URL = "bot_url";
+  public static final String PARTIES = "parties";
+  public static final String API = "api";
 
   // Card Colors
   public static Map<String, String> CARD_COLOR = new HashMap<String, String>(){{
