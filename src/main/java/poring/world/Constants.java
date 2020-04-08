@@ -10,14 +10,18 @@ import poring.world.market.Remove;
 import poring.world.market.Search;
 import poring.world.market.Watch;
 import poring.world.party.CreateParty;
-import poring.world.party.Join;
+import poring.world.party.EndParty;
+import poring.world.party.JoinParty;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Constants {
 
+  // Parameters
   public static final String BOT_URL = "bot_url";
+  public static final String PARTIES = "parties";
+  public static final String API = "api";
 
   // General commands
   public static final String GLOBAL_CALL = "gtb";
@@ -33,9 +37,10 @@ public class Constants {
   public static final String REMOVE = "remove";
   public static final String URL = "url";
 
-  // Join
+  // JoinParty
   public static final String CREATE_PARTY = "party";
   public static final String JOIN_PARTY = "join";
+  public static final String END_PARTY = "end";
 
   // Card Colors
   public static Map<String, String> CARD_COLOR = new HashMap<String, String>(){{
@@ -63,13 +68,14 @@ public class Constants {
     this.put(REMOVE, new Remove());
 //    this.put(URL, new URL());
 
-    // Cheapest
+//    // Cheapest
     this.put(CARDS_CALL, new Cards());
     this.put(PREMIUM, new Premium());
 
     // Party
 //    this.put(CREATE_PARTY, new CreateParty());
-//    this.put(JOIN_PARTY, new Join());
+//    this.put(JOIN_PARTY, new JoinParty());
+//    this.put(END_PARTY, new EndParty());
   }};
 
 }

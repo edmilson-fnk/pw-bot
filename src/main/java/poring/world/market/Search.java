@@ -29,7 +29,7 @@ public class Search extends Command {
     if (itens.size() == 0) {
       sb.append("No item found for \"_");
       sb.append(query);
-      sb.append("_\"\n");
+      sb.append("_\" :poop:\n");
     }
     for (Object item : itens.subList(0, Math.min(MAX_RESULTS, itens.size()))) {
       sb.append(Utils.getItemMessage((JSONObject) item));

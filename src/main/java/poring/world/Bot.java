@@ -1,16 +1,20 @@
 package poring.world;
 
+import static poring.world.Constants.API;
 import static poring.world.Constants.BOT_URL;
 import static poring.world.Constants.COMMAND_MAP;
 import static poring.world.Constants.GLOBAL_CALL;
+import static poring.world.Constants.PARTIES;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.listener.message.MessageCreateListener;
+import poring.world.party.PartyObject;
 import poring.world.watcher.Watcher;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Bot {
 
@@ -21,7 +25,8 @@ public class Bot {
     DiscordApi api = discordApiBuilder.setToken(token).login().join();
 
     Map<String, Object> parameters = new HashMap<>();
-    parameters.put("api", api);
+    parameters.put(API, api);
+    parameters.put(PARTIES, new HashMap<Long, TreeMap<String, PartyObject>>());
     parameters.put(BOT_URL, api.createBotInvite());
 
     Watcher watcher = new Watcher(api);
