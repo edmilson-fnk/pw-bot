@@ -43,17 +43,23 @@ public class TTUtils {
     return sb.toString();
   }
 
+  public static void remove(Long author, ThanatosTeamObject tt) {
+    tt.getParties().get(A).remove(author);
+    tt.getParties().get(B).remove(author);
+    tt.getParties().get(BACKUP).remove(author);
+  }
+
   public static boolean add(Long author, ThanatosTeamObject tt, String team) {
     if (full(tt, team)) {
       return false;
     }
 
     if (contains(tt, author)) {
-      return false;
-    } else {
-      tt.getParties().get(team).add(author);
-      return true;
+      remove(author, tt);
     }
+
+    tt.getParties().get(team).add(author);
+    return true;
   }
 
   private static boolean full(ThanatosTeamObject tt, String team) {

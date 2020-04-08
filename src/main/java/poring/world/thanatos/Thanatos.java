@@ -64,8 +64,10 @@ public class Thanatos extends Command {
         channel.sendMessage(String.format("%s joined _backup team_ for Thanatos Tower", author.getDisplayName()));
       }
     } else if (option.equalsIgnoreCase("leave")) {
+      TTUtils.remove(authorId, ttTeam);
+      channel.sendMessage(String.format("%s removed from Thanatos Tower", author.getDisplayName()));
     } else {
-
+      channel.sendMessage(String.format("Invalid option **%s**", option));
     }
   }
 
