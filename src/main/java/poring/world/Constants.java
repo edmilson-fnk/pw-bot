@@ -39,7 +39,12 @@ public class Constants {
   public static final String END_PARTY = "end";
 
   // Thanatos Tower Dungeon
-  public static final String THANATOS = "end";
+  public static final String THANATOS = "tt";
+  public static final String LEAVE = "leave";
+  public static final String CALL = "call";
+  public static final String A = "A";
+  public static final String B = "B";
+  public static final String BACKUP = "backup";
 
   // Parameters
   public static final String BOT_URL = "bot_url";

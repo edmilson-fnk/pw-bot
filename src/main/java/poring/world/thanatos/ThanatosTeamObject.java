@@ -6,13 +6,14 @@ import java.util.TreeMap;
 
 public class ThanatosTeamObject {
 
-  public String name = "iron-brigade";
+  public String name;
   public long serverId;
   public long leaderA;
   public long leaderB;
   public TreeMap<String, List<Long>> parties;
 
-  public ThanatosTeamObject(Long serverId) {
+  public ThanatosTeamObject(String serverName, Long serverId) {
+    this.name = serverName;
     this.serverId = serverId;
     this.parties = new TreeMap<>();
     this.parties.put("A", new LinkedList<>());
@@ -30,5 +31,13 @@ public class ThanatosTeamObject {
 
   public TreeMap<String, List<Long>> getParties() {
     return this.parties;
+  }
+
+  public long getLeaderA() {
+    return leaderA;
+  }
+
+  public long getLeaderB() {
+    return leaderB;
   }
 }
