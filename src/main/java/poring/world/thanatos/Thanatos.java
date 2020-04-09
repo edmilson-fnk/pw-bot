@@ -113,6 +113,7 @@ public class Thanatos extends Command {
       System.out.println(String.format("File %s not found on saving", THANATOS_TEAM_DAT));
       e.printStackTrace();
     } catch (IOException e) {
+      e.printStackTrace();
       System.out.println(String.format("Error on saving %s", THANATOS_TEAM_DAT));
     }
   }
@@ -129,6 +130,7 @@ public class Thanatos extends Command {
     } catch (FileNotFoundException e) {
       System.out.println(String.format("File %s not found on reading", THANATOS_TEAM_DAT));
     } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
       System.out.println(String.format("Error on loading %s", THANATOS_TEAM_DAT));
     }
   }
