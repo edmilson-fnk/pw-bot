@@ -35,7 +35,7 @@ public class Thanatos extends Command {
   public Map<Long, ThanatosTeamObject> thanatos = new HashMap<>();
 
   public Thanatos() {
-    this.loadMap();
+//    this.loadMap();
   }
 
   @Override
