@@ -14,15 +14,24 @@ import java.io.IOException;
 public class S3Files {
 
   private static final String BUCKET_NAME = "ved-gtb";
-  private static final String WATCHER_MAP_KEY = "market-map/";
-  private static final String WATCHER_MAP_DAT = "watcherMap.dat";
+  private static final String KEY = "market-map/";
+  public static final String WATCHER_MAP_DAT = "watcherMap.dat";
+  public static final String THANATOS_TEAM_DAT = "thanatosMap.dat";
 
   public static void uploadWatchList(File file) {
     AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
         .withRegion(Regions.US_EAST_2)
         .build();
 
-    s3Client.putObject(new PutObjectRequest(BUCKET_NAME, WATCHER_MAP_KEY + WATCHER_MAP_DAT, file));
+    s3Client.putObject(new PutObjectRequest(BUCKET_NAME, KEY + WATCHER_MAP_DAT, file));
+  }
+
+  public static void uploadThanatosTeam(File file) {
+    AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+        .withRegion(Regions.US_EAST_2)
+        .build();
+
+    s3Client.putObject(new PutObjectRequest(BUCKET_NAME, KEY + THANATOS_TEAM_DAT, file));
   }
 
   public static File downloadWatchlist() {
@@ -32,7 +41,22 @@ public class S3Files {
           .withRegion(Regions.US_EAST_2)
           .build();
 
-      S3Object object = s3Client.getObject(new GetObjectRequest(BUCKET_NAME, WATCHER_MAP_KEY + WATCHER_MAP_DAT));
+      S3Object object = s3Client.getObject(new GetObjectRequest(BUCKET_NAME, KEY + WATCHER_MAP_DAT));
+      FileUtils.copyInputStreamToFile(object.getObjectContent(), watcherMapFile);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return watcherMapFile;
+  }
+
+  public static File downloadThanatosTeam() {
+    File watcherMapFile = new File(THANATOS_TEAM_DAT);
+    try {
+      AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+          .withRegion(Regions.US_EAST_2)
+          .build();
+
+      S3Object object = s3Client.getObject(new GetObjectRequest(BUCKET_NAME, KEY + THANATOS_TEAM_DAT));
       FileUtils.copyInputStreamToFile(object.getObjectContent(), watcherMapFile);
     } catch (IOException e) {
       e.printStackTrace();

@@ -8,6 +8,7 @@ import static poring.world.Constants.CALL;
 import static poring.world.Constants.GLOBAL_CALL;
 import static poring.world.Constants.LEAVE;
 import static poring.world.Constants.THANATOS;
+import static poring.world.s3.S3Files.THANATOS_TEAM_DAT;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.DiscordApi;
@@ -35,7 +36,7 @@ public class Thanatos extends Command {
   public Map<Long, ThanatosTeamObject> thanatos = new HashMap<>();
 
   public Thanatos() {
-//    this.loadMap();
+    this.loadMap();
   }
 
   @Override
@@ -87,7 +88,7 @@ public class Thanatos extends Command {
     } else {
       channel.sendMessage(String.format("Invalid option **%s**", option));
     }
-//    this.saveMap();
+    this.saveMap();
   }
 
   @Override
@@ -102,33 +103,33 @@ public class Thanatos extends Command {
 
   private synchronized void saveMap() {
     try {
-      FileOutputStream fos = new FileOutputStream("thanatosMap.dat");
+      FileOutputStream fos = new FileOutputStream(THANATOS_TEAM_DAT);
       ObjectOutputStream oos = new ObjectOutputStream(fos);
       oos.writeObject(this.thanatos);
       oos.close();
       fos.close();
-      S3Files.uploadWatchList(new File("thanatosMap.dat"));
+      S3Files.uploadThanatosTeam(new File(THANATOS_TEAM_DAT));
     } catch (FileNotFoundException e) {
-      System.out.println("File thanatosMap.dat not found on saving");
+      System.out.println(String.format("File %s not found on saving", THANATOS_TEAM_DAT));
       e.printStackTrace();
     } catch (IOException e) {
-      System.out.println("Error on saving thanatosMap.dat");
+      System.out.println(String.format("Error on saving %s", THANATOS_TEAM_DAT));
     }
   }
 
   private synchronized void loadMap() {
     this.thanatos = new HashMap<>();
     try {
-      File file = S3Files.downloadWatchlist();
+      File file = S3Files.downloadThanatosTeam();
       FileInputStream fis = new FileInputStream(file);
       ObjectInputStream ois = new ObjectInputStream(fis);
       Map<Long, ThanatosTeamObject> map = new HashMap<>((Map) ois.readObject());
       ois.close();
       this.thanatos = map;
     } catch (FileNotFoundException e) {
-      System.out.println("File thanatosMap.dat not found on reading");
+      System.out.println(String.format("File %s not found on reading", THANATOS_TEAM_DAT));
     } catch (IOException | ClassNotFoundException e) {
-      System.out.println("Error on loading thanatosMap.dat");
+      System.out.println(String.format("Error on loading %s", THANATOS_TEAM_DAT));
     }
   }
 }
