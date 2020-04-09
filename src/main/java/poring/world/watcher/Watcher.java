@@ -87,6 +87,7 @@ public class Watcher extends Thread {
             continue;
           }
 
+          List<String> messages = new LinkedList<>();
           StringBuilder objMessage = new StringBuilder();
           objMessage.append(String.format("Hey <@%s>, we found something for you\n", author.getId()));
 
