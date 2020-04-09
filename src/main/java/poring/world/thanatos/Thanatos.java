@@ -87,7 +87,7 @@ public class Thanatos extends Command {
     } else {
       channel.sendMessage(String.format("Invalid option **%s**", option));
     }
-    this.saveMap();
+//    this.saveMap();
   }
 
   @Override
