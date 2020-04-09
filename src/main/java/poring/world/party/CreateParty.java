@@ -16,7 +16,6 @@ import poring.world.watcher.Watcher;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class CreateParty extends Command {
 
@@ -24,7 +23,7 @@ public class CreateParty extends Command {
   public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
     TextChannel channel = event.getChannel();
     if (!event.getServer().isPresent()) {
-      channel.sendMessage(String.format("Try _!%s %s_ in a channel", GLOBAL_CALL, CREATE_PARTY));
+      channel.sendMessage(String.format("Try _!%s %s_ in a server channel", GLOBAL_CALL, CREATE_PARTY));
       return;
     }
 

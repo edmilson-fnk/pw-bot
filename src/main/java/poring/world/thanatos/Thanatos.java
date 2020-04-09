@@ -1,7 +1,6 @@
 package poring.world.thanatos;
 
 import static poring.world.Constants.API;
-import static poring.world.Constants.CREATE_PARTY;
 import static poring.world.Constants.GLOBAL_CALL;
 import static poring.world.Constants.THANATOS;
 import static poring.world.thanatos.TTUtils.A;
@@ -29,7 +28,7 @@ public class Thanatos extends Command {
   public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
     TextChannel channel = event.getChannel();
     if (!event.getServer().isPresent()) {
-      channel.sendMessage(String.format("Try _!%s %s_ in a channel", GLOBAL_CALL, THANATOS));
+      channel.sendMessage(String.format("Try _!%s %s_ in a server channel", GLOBAL_CALL, THANATOS));
       return;
     }
     String option = Utils.getQuery(command);
@@ -49,23 +48,24 @@ public class Thanatos extends Command {
       event.getChannel().sendMessage(ttTeamStr);
     } else if (option.equalsIgnoreCase(A)) {
       if (TTUtils.add(authorId, ttTeam, A)) {
-        channel.sendMessage(String.format("%s joined _team A_ for Thanatos Tower", author.getDisplayName()));
+        channel.sendMessage(String.format("_%s_ joined _party A_ for Thanatos Tower", author.getDisplayName()));
       } else {
-        channel.sendMessage("Team A for Thanatos Tower is full");
+        channel.sendMessage("_Party A_ for Thanatos Tower is full");
       }
     } else if (option.equalsIgnoreCase(B)) {
       if (TTUtils.add(authorId, ttTeam, B)) {
-        channel.sendMessage(String.format("%s joined _team B_ for Thanatos Tower", author.getDisplayName()));
+        channel.sendMessage(String.format("_%s_ joined _party B_ for Thanatos Tower", author.getDisplayName()));
       } else {
-        channel.sendMessage("Team B for Thanatos Tower is full");
+        channel.sendMessage("_Party B_ for Thanatos Tower is full");
       }
     } else if (option.equalsIgnoreCase(BACKUP)) {
       if (TTUtils.add(authorId, ttTeam, BACKUP)) {
-        channel.sendMessage(String.format("%s joined _backup team_ for Thanatos Tower", author.getDisplayName()));
+        channel.sendMessage(String.format("_%s_ joined _backup team_ for Thanatos Tower", author.getDisplayName()));
       }
     } else if (option.equalsIgnoreCase("leave")) {
       TTUtils.remove(authorId, ttTeam);
-      channel.sendMessage(String.format("%s removed from Thanatos Tower", author.getDisplayName()));
+      channel.sendMessage(String.format("_%s_ removed from Thanatos Tower **%s**",
+          author.getDisplayName(), ttTeam.getName()));
     } else {
       channel.sendMessage(String.format("Invalid option **%s**", option));
     }
@@ -73,7 +73,7 @@ public class Thanatos extends Command {
 
   @Override
   public String getHelp() {
-    return "shows or creates a team for Thanatos Tower. also joins you to a Thanatos Tower team";
+    return "manages teams for Thanatos Tower on a server";
   }
 
   @Override

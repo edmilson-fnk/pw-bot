@@ -24,7 +24,7 @@ public class JoinParty extends Command {
   public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
     TextChannel channel = event.getChannel();
     if (!event.getServer().isPresent()) {
-      channel.sendMessage(String.format("Try _!%s %s_ in a channel", GLOBAL_CALL, JOIN_PARTY));
+      channel.sendMessage(String.format("Try _!%s %s_ in a server channel", GLOBAL_CALL, JOIN_PARTY));
       return;
     }
 
