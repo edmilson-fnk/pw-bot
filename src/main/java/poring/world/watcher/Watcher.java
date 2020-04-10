@@ -88,22 +88,28 @@ public class Watcher extends Thread {
           }
 
           List<String> messages = new LinkedList<>();
-          messages.add(String.format("Hey <@%s>, we found something for you\n", author.getId()));
+          StringBuilder sb = new StringBuilder();
+          sb.append(String.format("Hey <@%s>, we found something for you\n", author.getId()));
 
-          boolean somethingFlag = false;
+          boolean theresSomethingFlag = false;
           for (WatchObject obj : watchMap.get(author.getId())) {
             JSONArray marketItems = Fetcher.query(obj.getQuery());
             if (marketItems.size() > 0) {
               StringBuilder objMessage = new StringBuilder();
-              somethingFlag = true;
+              theresSomethingFlag = true;
               objMessage.append(String.format("_%s_\n", obj.getQuery()));
               for (Object marketItem : marketItems) {
                 objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
               }
-              messages.add(objMessage.toString());
+              if (objMessage.length() + sb.length() >= 2000) {
+                messages.add(sb.toString());
+                sb = new StringBuilder();
+              }
+              sb.append(objMessage.toString());
             }
           }
-          if (somethingFlag) {
+          messages.add(sb.toString());
+          if (theresSomethingFlag) {
             for (String msg : messages) {
               author.sendMessage(msg);
             }
