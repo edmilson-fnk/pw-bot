@@ -99,6 +99,10 @@ public class Thanatos extends Command {
             RESET, ttTeam.getName());
         channel.sendMessage(msg);
       }
+    } else if (option.toLowerCase().startsWith(RESET)) {
+      String msg = String.format("Try _!%s %s %s %s_", GLOBAL_CALL, THANATOS,
+          RESET, ttTeam.getName());
+      channel.sendMessage(msg);
     } else {
       // invalid option
       channel.sendMessage(String.format("Invalid option **%s**", option));
