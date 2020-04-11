@@ -145,7 +145,7 @@ public class Thanatos extends Command {
 
   @Override
   public List<String> getQueries() {
-    return ImmutableList.of("", A, B, BACKUP, LEAVE, CALL, RESET + "tt-name");
+    return ImmutableList.of("", A, B, BACKUP, LEAVE, CALL, RESET + " team-name");
   }
 
   private synchronized void saveMap() {
