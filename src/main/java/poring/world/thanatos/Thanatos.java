@@ -7,11 +7,11 @@ import static poring.world.Constants.BACKUP;
 import static poring.world.Constants.CALL;
 import static poring.world.Constants.GLOBAL_CALL;
 import static poring.world.Constants.LEAVE;
+import static poring.world.Constants.RESET;
 import static poring.world.Constants.THANATOS;
 import static poring.world.s3.S3Files.THANATOS_TEAM_DAT;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
@@ -31,6 +31,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 public class Thanatos extends Command {
 
@@ -59,37 +60,82 @@ public class Thanatos extends Command {
     long authorId = author.getId();
 
     if (option.isEmpty()) {
-      DiscordApi api = (DiscordApi) parameters.get(API);
-      String ttTeamStr = TTUtils.show(ttTeam, api);
-      event.getChannel().sendMessage(ttTeamStr);
+      // shows current team for TT
+      String msg = showTT(parameters, ttTeam);
+      channel.sendMessage(msg);
     } else if (option.equalsIgnoreCase(CALL)) {
-      DiscordApi api = (DiscordApi) parameters.get(API);
-      String ttTeamStr = TTUtils.call(ttTeam, api);
-      event.getChannel().sendMessage(ttTeamStr);
+      // call the team
+      String msg = callTT(parameters, ttTeam);
+      channel.sendMessage(msg);
     } else if (option.equalsIgnoreCase(A)) {
-      if (TTUtils.add(authorId, ttTeam, A)) {
-        channel.sendMessage(String.format("_%s_ joined _party A_ for Thanatos Tower", author.getDisplayName()));
-      } else {
-        channel.sendMessage("_Party A_ for Thanatos Tower is full, try joining backup party");
-      }
+      // joins party A
+      String msg = joinPartyTT(ttTeam, author, A);
+      channel.sendMessage(msg);
     } else if (option.equalsIgnoreCase(B)) {
-      if (TTUtils.add(authorId, ttTeam, B)) {
-        channel.sendMessage(String.format("_%s_ joined _party B_ for Thanatos Tower", author.getDisplayName()));
-      } else {
-        channel.sendMessage("_Party B_ for Thanatos Tower is full, try joining backup party");
-      }
+      // joins party B
+      String msg = joinPartyTT(ttTeam, author, B);
+      channel.sendMessage(msg);
     } else if (option.equalsIgnoreCase(BACKUP)) {
-      if (TTUtils.add(authorId, ttTeam, BACKUP)) {
-        channel.sendMessage(String.format("_%s_ joined _backup party_ for Thanatos Tower", author.getDisplayName()));
-      }
+      // joins backup party
+      String msg = joinBackupTT(ttTeam, author, authorId);
+      channel.sendMessage(msg);
     } else if (option.equalsIgnoreCase(LEAVE)) {
-      TTUtils.remove(authorId, ttTeam);
-      channel.sendMessage(String.format("_%s_ removed from Thanatos Tower **%s**",
-          author.getDisplayName(), ttTeam.getName()));
+      // removes you for TT team
+      String msg = removePartyTT(ttTeam, author);
+      channel.sendMessage(msg);
+    } else if (option.toLowerCase().startsWith(RESET + " ")) {
+      String[] optionSplit = option.split(" ");
+      StringJoiner joiner = new StringJoiner(" ");
+      for (int i = 1; i < optionSplit.length; i++) {
+        joiner.add(optionSplit[i]);
+      }
+      String ttName = joiner.toString();
+      if (ttName.equals(ttTeam.getName())) {
+        thanatos.put(serverId, new ThanatosTeamObject(event.getServer().get().getName(), serverId));
+        String msg = String.format("Thanatos team **%s** was unmade.", ttName);
+        channel.sendMessage(msg);
+      } else {
+        String msg = String.format("**%s** team not found. Try using _!%s %s %s %s_", ttName, GLOBAL_CALL, THANATOS,
+            RESET, ttTeam.getName());
+        channel.sendMessage(msg);
+      }
     } else {
+      // invalid option
       channel.sendMessage(String.format("Invalid option **%s**", option));
     }
     this.saveMap();
+  }
+
+  private String removePartyTT(ThanatosTeamObject ttTeam, MessageAuthor author) {
+    StringBuilder sb = new StringBuilder();
+    if (TTUtils.remove(author.getId(), ttTeam)) {
+      sb.append(String.format("_%s_ removed from Thanatos Tower **%s**", author.getDisplayName(), ttTeam.getName()));
+    } else {
+      sb.append(String.format("_%s_ not in Thanatos Tower **%s**", author.getDisplayName(), ttTeam.getName()));
+    }
+    return sb.toString();
+  }
+
+  private String joinBackupTT(ThanatosTeamObject ttTeam, MessageAuthor author, long authorId) {
+    if (TTUtils.add(authorId, ttTeam, BACKUP)) {
+      return String.format("_%s_ joined _backup party_ for Thanatos Tower", author.getDisplayName());
+    } else {
+      return String.format("_%s_ couldn't Thanatos Tower", author.getDisplayName());
+    }
+  }
+
+  private String joinPartyTT(ThanatosTeamObject tt, MessageAuthor author, String team) {
+    return TTUtils.add(author.getId(), tt, team) ?
+        String.format("_%s_ joined _party %s_ for Thanatos Tower", author.getDisplayName(), team) :
+        String.format("_Party %s_ for Thanatos Tower is full, try joining backup party", team);
+  }
+
+  private String callTT(Map<String, Object> parameters, ThanatosTeamObject ttTeam) {
+    return TTUtils.call(ttTeam, (DiscordApi) parameters.get(API));
+  }
+
+  private String showTT(Map<String, Object> parameters, ThanatosTeamObject ttTeam) {
+    return TTUtils.show(ttTeam, (DiscordApi) parameters.get(API));
   }
 
   @Override
@@ -99,7 +145,7 @@ public class Thanatos extends Command {
 
   @Override
   public List<String> getQueries() {
-    return ImmutableList.of("", A, B, BACKUP, LEAVE, CALL);
+    return ImmutableList.of("", A, B, BACKUP, LEAVE, CALL, RESET + "tt-name");
   }
 
   private synchronized void saveMap() {

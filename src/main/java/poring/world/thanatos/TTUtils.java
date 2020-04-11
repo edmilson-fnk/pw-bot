@@ -55,10 +55,10 @@ public class TTUtils {
     return sb.toString();
   }
 
-  public static void remove(Long author, ThanatosTeamObject tt) {
-    tt.getParties().get(A).remove(author);
-    tt.getParties().get(B).remove(author);
-    tt.getParties().get(BACKUP).remove(author);
+  public static boolean remove(Long author, ThanatosTeamObject tt) {
+    return tt.getParties().get(A).remove(author)
+        || tt.getParties().get(B).remove(author)
+        || tt.getParties().get(BACKUP).remove(author);
   }
 
   public static boolean add(Long author, ThanatosTeamObject tt, String team) {

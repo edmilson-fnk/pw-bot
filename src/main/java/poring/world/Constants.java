@@ -45,6 +45,8 @@ public class Constants {
   public static final String A = "A";
   public static final String B = "B";
   public static final String BACKUP = "backup";
+  public static final String RESET = "reset";
+
 
   // Parameters
   public static final String BOT_URL = "bot_url";
@@ -69,6 +71,7 @@ public class Constants {
 
   // !gtb command
   public static Map<String, Command> COMMAND_MAP = new HashMap<String, Command>(){{
+    // Market
     this.put(HELP, new Help());
     this.put(SEARCH, new Search());
     this.put(WATCH, new Watch());
@@ -77,12 +80,12 @@ public class Constants {
     this.put(REMOVE, new Remove());
 //    this.put(URL, new URL());
 
-//    // Cheapest
+    // Cheapest
     this.put(CARDS_CALL, new Cards());
     this.put(PREMIUM, new Premium());
 
     // Thanatos Tower Team
-//    this.put(THANATOS, new Thanatos());
+    this.put(THANATOS, new Thanatos());
 
     // Party
 //    this.put(CREATE_PARTY, new CreateParty());
