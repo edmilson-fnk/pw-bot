@@ -28,6 +28,10 @@ public class Remove extends Command {
 
     if (objList != null) {
       int pos = Integer.parseInt(query);
+      if (pos > objList.size()) {
+        event.getChannel().sendMessage(String.format("Maximum value to remove is **%s**", objList.size()));
+        return;
+      }
       WatchObject removed = objList.remove(pos - 1);
       watcher.saveMap();
 
