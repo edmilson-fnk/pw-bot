@@ -34,7 +34,7 @@ public class Remove extends Command {
         Integer.parseInt(query);
       } catch (NumberFormatException e) {
         event.getChannel().sendMessage(
-            String.format("Invalid option **%s**\nPlease see !%s %s %s", GLOBAL_CALL, HELP, REMOVE, query)
+            String.format("Invalid option **%s**\nPlease see !%s %s %s", query, GLOBAL_CALL, HELP, REMOVE)
         );
       }
       int pos = Integer.parseInt(query);
