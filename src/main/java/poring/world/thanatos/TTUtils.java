@@ -34,7 +34,7 @@ public class TTUtils {
     if (team.equalsIgnoreCase(BACKUP)) {
       sb.append("Backup\n");
     } else {
-      sb.append(String.format(" _Team %s_\n", team));
+      sb.append(String.format(" _Party %s_\n", team));
     }
     int i = 1;
     for (long memberId : tt.getParties().get(team)) {
