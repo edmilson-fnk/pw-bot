@@ -62,7 +62,7 @@ public class Remove extends Command {
   @Override
   public List<String> getQueries() {
     return ImmutableList.of(
-        "2"
+        "2", "13"
     );
   }
 
