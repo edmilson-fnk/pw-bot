@@ -36,6 +36,7 @@ public class Remove extends Command {
         event.getChannel().sendMessage(
             String.format("Invalid option **%s**\nPlease see !%s %s %s", query, GLOBAL_CALL, HELP, REMOVE)
         );
+        return;
       }
       int pos = Integer.parseInt(query);
       if (pos > objList.size()) {
