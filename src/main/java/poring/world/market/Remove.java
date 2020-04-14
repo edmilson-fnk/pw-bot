@@ -3,6 +3,7 @@ package poring.world.market;
 import static poring.world.Constants.GLOBAL_CALL;
 import static poring.world.Constants.HELP;
 import static poring.world.Constants.LIST;
+import static poring.world.Constants.REMOVE;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
@@ -29,6 +30,13 @@ public class Remove extends Command {
     }
 
     if (objList != null && !objList.isEmpty()) {
+      try {
+        Integer.parseInt(query);
+      } catch (NumberFormatException e) {
+        event.getChannel().sendMessage(
+            String.format("Invalid option **%s**\nPlease see !%s %s %s", GLOBAL_CALL, HELP, REMOVE, query)
+        );
+      }
       int pos = Integer.parseInt(query);
       if (pos > objList.size()) {
         event.getChannel().sendMessage(String.format("Maximum value to remove is **%s**", objList.size()));
