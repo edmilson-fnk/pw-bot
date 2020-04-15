@@ -9,27 +9,26 @@ import org.javacord.api.DiscordApi;
 
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class TTUtils {
 
-  public static String show(ThanatosTeamObject tt, DiscordApi api) {
-    return show(tt, api, false);
+  public static String show(ThanatosTeamObject tt, DiscordApi api, String ttTime) {
+    return show(tt, api, ttTime, false);
   }
 
-  public static String call(ThanatosTeamObject tt, DiscordApi api) {
-    return show(tt, api, true);
+  public static String call(ThanatosTeamObject tt, DiscordApi api, String ttTime) {
+    return show(tt, api, ttTime, true);
   }
 
-  private static String show(ThanatosTeamObject tt, DiscordApi api, boolean call) {
+  private static String show(ThanatosTeamObject tt, DiscordApi api, String ttTime, boolean call) {
     StringBuilder sb = new StringBuilder();
     sb.append(String.format("Thanatos Tower Team: **%s**\n", tt.getName()));
+    sb.append(String.format("Date: _%s_\n", ttTime));
     sb.append(getTeamStr(tt, api, A, call));
     sb.append(getTeamStr(tt, api, B, call));
     if (!tt.getParties().get(BACKUP).isEmpty()) {

@@ -21,7 +21,7 @@ import java.util.TreeMap;
 public class Bot {
 
   public static void main(String[] args) {
-    System.out.println("Starting Golden Thie Bot");
+    System.out.println("Starting Golden Thief Bot");
     System.out.println("Environment: " + ENV);
 
     String token = System.getenv("DISCORD_TOKEN");

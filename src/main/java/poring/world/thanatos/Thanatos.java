@@ -61,18 +61,24 @@ public class Thanatos extends Command {
     MessageAuthor author = event.getMessageAuthor();
     long authorId = author.getId();
 
+    String timeKey = ttTeam.getName() + serverId;
     if (option.isEmpty()) {
       // shows current team for TT
-      if (thanatosTime.get(ttTeam.getName() + serverId) == null) {
-        thanatosTime.put(ttTeam.getName() + serverId, TTUtils.getNextSaturday());
+      if (thanatosTime.get(timeKey) == null) {
+        thanatosTime.put(timeKey, TTUtils.getNextSaturday());
       }
-      String msg = showTT(parameters, ttTeam);
+      String ttTime = thanatosTime.get(timeKey);
+      String msg = showTT(parameters, ttTeam, ttTime);
       channel.sendMessage(msg);
     } else if (TTUtils.isDateTime(option)) {
-      thanatosTime.put(ttTeam.getName() + serverId, option);
+      thanatosTime.put(timeKey, option);
+      String ttTime = thanatosTime.get(timeKey);
+      String msg = showTT(parameters, ttTeam, ttTime);
+      channel.sendMessage(msg);
     } else if (option.equalsIgnoreCase(CALL)) {
       // call the team
-      String msg = callTT(parameters, ttTeam);
+      String ttTime = thanatosTime.get(timeKey);
+      String msg = callTT(parameters, ttTeam, ttTime);
       channel.sendMessage(msg);
     } else if (option.equalsIgnoreCase(A)) {
       // joins party A
@@ -141,12 +147,12 @@ public class Thanatos extends Command {
         String.format("_Party %s_ for Thanatos Tower is full, try joining backup party", team);
   }
 
-  private String callTT(Map<String, Object> parameters, ThanatosTeamObject ttTeam) {
-    return TTUtils.call(ttTeam, (DiscordApi) parameters.get(API));
+  private String callTT(Map<String, Object> parameters, ThanatosTeamObject ttTeam, String ttTime) {
+    return TTUtils.call(ttTeam, (DiscordApi) parameters.get(API), ttTime);
   }
 
-  private String showTT(Map<String, Object> parameters, ThanatosTeamObject ttTeam) {
-    return TTUtils.show(ttTeam, (DiscordApi) parameters.get(API));
+  private String showTT(Map<String, Object> parameters, ThanatosTeamObject ttTeam, String ttTime) {
+    return TTUtils.show(ttTeam, (DiscordApi) parameters.get(API), ttTime);
   }
 
   @Override
