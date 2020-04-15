@@ -3,7 +3,9 @@ package poring.world;
 import static poring.world.Constants.API;
 import static poring.world.Constants.BOT_URL;
 import static poring.world.Constants.COMMAND_MAP;
+import static poring.world.Constants.ENV;
 import static poring.world.Constants.GLOBAL_CALL;
+import static poring.world.Constants.IS_PRODUCTION;
 import static poring.world.Constants.PARTIES;
 
 import org.javacord.api.DiscordApi;
@@ -19,6 +21,9 @@ import java.util.TreeMap;
 public class Bot {
 
   public static void main(String[] args) {
+    System.out.println("Starting Golden Thie Bot");
+    System.out.println("Environment: " + ENV);
+
     String token = System.getenv("DISCORD_TOKEN");
     DiscordApiBuilder discordApiBuilder = new DiscordApiBuilder();
     discordApiBuilder.setWaitForServersOnStartup(true);
@@ -30,7 +35,9 @@ public class Bot {
     parameters.put(BOT_URL, api.createBotInvite());
 
     Watcher watcher = new Watcher(api);
-    watcher.start();
+    if (IS_PRODUCTION) {
+      watcher.start();
+    }
 
     api.addMessageCreateListener(getMarketListener(parameters, watcher));
   }

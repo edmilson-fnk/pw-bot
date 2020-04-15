@@ -47,6 +47,13 @@ public class Constants {
   public static final String BACKUP = "backup";
   public static final String RESET = "reset";
 
+  // General Stuff
+  public static final int TIME_DIFF
+      = System.getenv("TIME_DIFF") != null ? Integer.parseInt(System.getenv("TIME_DIFF")) : 0;
+  public static final String ENV =
+      System.getenv("ENVIRONMENT") != null ? System.getenv("ENVIRONMENT") : "staging";
+  public static final boolean IS_PRODUCTION = ENV.equalsIgnoreCase("production");
+  public static final String GENERAL_TIME_FORMAT = "dd/MM/yyyy HH:mm";
 
   // Parameters
   public static final String BOT_URL = "bot_url";

@@ -10,6 +10,7 @@ import static poring.world.Constants.LEAVE;
 import static poring.world.Constants.RESET;
 import static poring.world.Constants.THANATOS;
 import static poring.world.s3.S3Files.THANATOS_TEAM_DAT;
+import static poring.world.s3.S3Files.THANATOS_TIME_DAT;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.DiscordApi;
@@ -35,10 +36,11 @@ import java.util.StringJoiner;
 
 public class Thanatos extends Command {
 
-  public Map<Long, ThanatosTeamObject> thanatos = new HashMap<>();
+  public Map<Long, ThanatosTeamObject> thanatosTeam = new HashMap<>();
+  public Map<String, String> thanatosTime = new HashMap<>();
 
   public Thanatos() {
-    this.loadMap();
+    this.loadMaps();
   }
 
   @Override
@@ -51,18 +53,23 @@ public class Thanatos extends Command {
     String option = Utils.getQuery(command);
 
     long serverId = event.getServer().get().getId();
-    if (!thanatos.containsKey(serverId)) {
-      thanatos.put(serverId, new ThanatosTeamObject(event.getServer().get().getName(), serverId));
+    if (!thanatosTeam.containsKey(serverId)) {
+      thanatosTeam.put(serverId, new ThanatosTeamObject(event.getServer().get().getName(), serverId));
     }
 
-    ThanatosTeamObject ttTeam = thanatos.get(serverId);
+    ThanatosTeamObject ttTeam = thanatosTeam.get(serverId);
     MessageAuthor author = event.getMessageAuthor();
     long authorId = author.getId();
 
     if (option.isEmpty()) {
       // shows current team for TT
+      if (thanatosTime.get(ttTeam.getName() + serverId) == null) {
+        thanatosTime.put(ttTeam.getName() + serverId, TTUtils.getNextSaturday());
+      }
       String msg = showTT(parameters, ttTeam);
       channel.sendMessage(msg);
+    } else if (TTUtils.isDateTime(option)) {
+      thanatosTime.put(ttTeam.getName() + serverId, option);
     } else if (option.equalsIgnoreCase(CALL)) {
       // call the team
       String msg = callTT(parameters, ttTeam);
@@ -91,7 +98,7 @@ public class Thanatos extends Command {
       }
       String ttName = joiner.toString();
       if (ttName.equals(ttTeam.getName())) {
-        thanatos.put(serverId, new ThanatosTeamObject(event.getServer().get().getName(), serverId));
+        thanatosTeam.put(serverId, new ThanatosTeamObject(event.getServer().get().getName(), serverId));
         String msg = String.format("Thanatos team **%s** was unmade.", ttName);
         channel.sendMessage(msg);
       } else {
@@ -107,7 +114,7 @@ public class Thanatos extends Command {
       // invalid option
       channel.sendMessage(String.format("Invalid option **%s**", option));
     }
-    this.saveMap();
+    this.saveMaps();
   }
 
   private String removePartyTT(ThanatosTeamObject ttTeam, MessageAuthor author) {
@@ -144,45 +151,57 @@ public class Thanatos extends Command {
 
   @Override
   public String getHelp() {
-    return "manages teams for Thanatos Tower on a server";
+    return "manages teams for Thanatos Tower on a server. Default scheduled date is next Saturday";
   }
 
   @Override
   public List<String> getQueries() {
-    return ImmutableList.of("", A, B, BACKUP, LEAVE, CALL, RESET + " team-name");
+    return ImmutableList.of("", "30/10/2020 20:30", A, B, BACKUP, LEAVE, CALL, RESET + " team-name");
   }
 
-  private synchronized void saveMap() {
+  private synchronized void saveMaps() {
+    File teamFile = saveMapFile(this.thanatosTime, THANATOS_TIME_DAT);
+    S3Files.uploadThanatosTeam(teamFile);
+    File timeFile = saveMapFile(this.thanatosTeam, THANATOS_TEAM_DAT);
+    S3Files.uploadThanatosTime(timeFile);
+  }
+
+  private synchronized File saveMapFile(Map map, String fileName) {
     try {
-      FileOutputStream fos = new FileOutputStream(THANATOS_TEAM_DAT);
+      FileOutputStream fos = new FileOutputStream(fileName);
       ObjectOutputStream oos = new ObjectOutputStream(fos);
-      oos.writeObject(this.thanatos);
+      oos.writeObject(map);
       oos.close();
       fos.close();
-      S3Files.uploadThanatosTeam(new File(THANATOS_TEAM_DAT));
+      return new File(fileName);
     } catch (FileNotFoundException e) {
-      System.out.println(String.format("File %s not found on saving", THANATOS_TEAM_DAT));
+      System.out.println(String.format("File %s not found on saving", fileName));
       e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
-      System.out.println(String.format("Error on saving %s", THANATOS_TEAM_DAT));
+      System.out.println(String.format("Error on saving %s", fileName));
     }
+    return null;
   }
 
-  private synchronized void loadMap() {
-    this.thanatos = new HashMap<>();
+  private synchronized void loadMaps() {
+    this.thanatosTeam = loadMapFile(S3Files.downloadThanatosTeam(), THANATOS_TEAM_DAT);
+    this.thanatosTime = loadMapFile(S3Files.downloadThanatosTime(), THANATOS_TIME_DAT);
+  }
+
+  private synchronized Map loadMapFile(File file, String fileName) {
     try {
-      File file = S3Files.downloadThanatosTeam();
       FileInputStream fis = new FileInputStream(file);
       ObjectInputStream ois = new ObjectInputStream(fis);
       Map<Long, ThanatosTeamObject> map = new HashMap<>((Map) ois.readObject());
       ois.close();
-      this.thanatos = map;
+      return map;
     } catch (FileNotFoundException e) {
-      System.out.println(String.format("File %s not found on reading", THANATOS_TEAM_DAT));
+      System.out.println(String.format("File %s not found on reading", fileName));
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
-      System.out.println(String.format("Error on loading %s", THANATOS_TEAM_DAT));
+      System.out.println(String.format("Error on loading %s", fileName));
     }
+    return new HashMap();
   }
 }

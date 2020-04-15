@@ -1,16 +1,18 @@
 package poring.world;
 
+import static poring.world.Constants.GENERAL_TIME_FORMAT;
+import static poring.world.Constants.TIME_DIFF;
+
 import org.json.simple.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.StringJoiner;
 
 public class Utils {
 
-  public static final int THREE_HOURS_AGO = (3 * 3600 * 1000);
+  public static final int SOME_HOURS_AGO = (TIME_DIFF * 3600 * 1000);
 
   public static String getQuery(String[] command) {
     StringJoiner joiner = new StringJoiner(" ");
@@ -55,8 +57,8 @@ public class Utils {
   }
 
   public static String formatTimestamp(long timestamp) {
-    Date date = new Date(timestamp - THREE_HOURS_AGO); // TODO use Timezone
-    return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(date);
+    Date date = new Date(timestamp - SOME_HOURS_AGO); // TODO use Timezone
+    return new SimpleDateFormat(GENERAL_TIME_FORMAT).format(date);
   }
 
   public static String priceWithoutDecimal(Double price) {

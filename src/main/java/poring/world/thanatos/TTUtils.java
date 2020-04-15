@@ -3,9 +3,18 @@ package poring.world.thanatos;
 import static poring.world.Constants.A;
 import static poring.world.Constants.B;
 import static poring.world.Constants.BACKUP;
+import static poring.world.Constants.GENERAL_TIME_FORMAT;
 
 import org.javacord.api.DiscordApi;
 
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class TTUtils {
@@ -27,6 +36,28 @@ public class TTUtils {
       sb.append(getTeamStr(tt, api, BACKUP, call));
     }
     return sb.toString();
+  }
+
+  public static boolean isDateTime(String dateTimeStr) {
+    try {
+      new SimpleDateFormat(GENERAL_TIME_FORMAT).parse(dateTimeStr);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  public static String getNextSaturday() {
+    try {
+      return LocalDateTime.now().atZone(ZoneId.systemDefault())
+          .withHour(20)
+          .withMinute(0)
+          .with(TemporalAdjusters.next(DayOfWeek.SATURDAY))
+          .format(DateTimeFormatter.ofPattern(GENERAL_TIME_FORMAT));
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 
   private static String getTeamStr(ThanatosTeamObject tt, DiscordApi api, String team, boolean call) {
