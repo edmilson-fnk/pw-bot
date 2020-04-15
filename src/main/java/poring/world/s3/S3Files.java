@@ -42,7 +42,7 @@ public class S3Files {
         .withRegion(Regions.US_EAST_2)
         .build();
 
-    s3Client.putObject(new PutObjectRequest(BUCKET_NAME, KEY + THANATOS_TEAM_DAT, file));
+    s3Client.putObject(new PutObjectRequest(BUCKET_NAME, KEY + THANATOS_TIME_DAT, file));
   }
 
   private static File getFile(String fileName) {
