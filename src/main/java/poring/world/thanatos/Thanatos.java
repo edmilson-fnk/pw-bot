@@ -5,6 +5,7 @@ import static poring.world.Constants.API;
 import static poring.world.Constants.B;
 import static poring.world.Constants.BACKUP;
 import static poring.world.Constants.CALL;
+import static poring.world.Constants.GENERAL_TIME_FORMAT;
 import static poring.world.Constants.GLOBAL_CALL;
 import static poring.world.Constants.LEAVE;
 import static poring.world.Constants.RESET;
@@ -162,7 +163,7 @@ public class Thanatos extends Command {
 
   @Override
   public List<String> getQueries() {
-    return ImmutableList.of("", "30/10/2020 20:30", A, B, BACKUP, LEAVE, CALL, RESET + " team-name");
+    return ImmutableList.of("", "30/10/2020 20:30", GENERAL_TIME_FORMAT, A, B, BACKUP, LEAVE, CALL, RESET + " team-name");
   }
 
   private synchronized void saveMaps() {
