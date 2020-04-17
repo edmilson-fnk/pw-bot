@@ -106,6 +106,7 @@ public class Thanatos extends Command {
       String ttName = joiner.toString();
       if (ttName.equals(ttTeam.getName())) {
         thanatosTeam.put(serverId, new ThanatosTeamObject(event.getServer().get().getName(), serverId));
+        thanatosTime.remove(timeKey);
         String msg = String.format("Thanatos team **%s** was unmade.", ttName);
         channel.sendMessage(msg);
       } else {
