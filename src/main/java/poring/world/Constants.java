@@ -70,6 +70,13 @@ public class Constants {
     this.put("w", "1");
   }};
 
+  // Card Colors
+  public static Map<String, Integer> COLOR_DUST = new HashMap<String, Integer>(){{
+    this.put("3", 50);
+    this.put("2", 20);
+    this.put("1", 10);
+  }};
+
   public static Map<String, String> CARD_COLOR_NAME = new HashMap<String, String>(){{
     this.put("3", "blue");
     this.put("2", "green");

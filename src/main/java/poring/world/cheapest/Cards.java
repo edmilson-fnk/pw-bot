@@ -2,6 +2,7 @@ package poring.world.cheapest;
 
 import static poring.world.Constants.CARD_COLOR;
 import static poring.world.Constants.CARD_COLOR_NAME;
+import static poring.world.Constants.COLOR_DUST;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.channel.TextChannel;
@@ -51,14 +52,16 @@ public class Cards extends Command {
       }
 
       if (cards.containsKey(snapKey)) {
-        sb.append("\t\t");
-        sb.append(Utils.getItemMessage((JSONObject) cards.get(snapKey)));
-        sb.append("\n");
+        JSONObject card = (JSONObject) cards.get(snapKey);
+        double perDust = ((long) ((JSONObject) card.get("lastRecord")).get("price")) / COLOR_DUST.get(color);
+        sb.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
+            Utils.priceWithoutDecimal(perDust)));
       }
       if (cards.containsKey(noSnapKey)) {
-        sb.append("\t\t");
-        sb.append(Utils.getItemMessage((JSONObject) cards.get(noSnapKey)));
-        sb.append("\n");
+        JSONObject card = (JSONObject) cards.get(noSnapKey);
+        double perDust = ((long) ((JSONObject) card.get("lastRecord")).get("price")) / COLOR_DUST.get(color);
+        sb.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
+            Utils.priceWithoutDecimal(perDust)));
       }
     }
 
