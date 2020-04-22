@@ -26,12 +26,12 @@ public class Watch extends Command {
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
     watcher.add(query, messageAuthor, channel);
-    event.getChannel().sendMessage("Watcher event added for \"_" + query + "_\"");
+    event.getChannel().sendMessage(String.format("GTB is watching _%s_ for _%s_", query, messageAuthor.getDisplayName()));
   }
 
   @Override
   public String getHelp() {
-    return "constantly checks poring.world and privately alerts user if search query is found";
+    return "hourly checks poring.world and privately alerts user if search query is found";
   }
 
   @Override
