@@ -1,8 +1,10 @@
 package poring.world;
 
+import static poring.world.Constants.COMMAND_MAP;
 import static poring.world.Constants.GENERAL_TIME_FORMAT;
 import static poring.world.Constants.TIME_DIFF;
 
+import com.sun.xml.internal.bind.v2.util.EditDistance;
 import org.json.simple.JSONObject;
 
 import java.text.DecimalFormat;
@@ -71,6 +73,15 @@ public class Utils {
     }
 
     return str.substring(0, 1).toUpperCase() + str.substring(1);
+  }
+
+  public static String getNearestCommand(String key) {
+    String nearest = EditDistance.findNearest(key, COMMAND_MAP.keySet().toArray(new String[0]));
+    if (EditDistance.editDistance(key, nearest) <= 5) {
+      return nearest;
+    } else {
+      return null;
+    }
   }
 
 }

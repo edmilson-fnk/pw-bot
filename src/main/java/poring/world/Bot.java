@@ -55,7 +55,14 @@ public class Bot {
         if (COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
           COMMAND_MAP.get(command[1]).run(command, event, watcher, parameters);
         } else {
-          event.getChannel().sendMessage("Invalid command: **" + command[1] + "**");
+          String nearestCommand = Utils.getNearestCommand(command[1]);
+          if (nearestCommand != null) {
+            event.getChannel().sendMessage(String.format("Invalid command **%s**, running **%s** instead...",
+                command[1], nearestCommand));
+            COMMAND_MAP.get(nearestCommand).run(command, event, watcher, parameters);
+          } else {
+            event.getChannel().sendMessage(String.format("Invalid command **%s**", command[1]));
+          }
         }
       }
     };
