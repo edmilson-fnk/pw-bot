@@ -51,6 +51,7 @@ public class Thanatos extends Command {
       channel.sendMessage(String.format("Try _!%s %s_ in a server channel", GLOBAL_CALL, THANATOS));
       return;
     }
+
     String option = Utils.getQuery(command);
 
     long serverId = event.getServer().get().getId();
@@ -126,21 +127,15 @@ public class Thanatos extends Command {
   }
 
   private String removePartyTT(ThanatosTeamObject ttTeam, MessageAuthor author) {
-    StringBuilder sb = new StringBuilder();
-    if (TTUtils.remove(author.getId(), ttTeam)) {
-      sb.append(String.format("_%s_ removed from Thanatos Tower **%s**", author.getDisplayName(), ttTeam.getName()));
-    } else {
-      sb.append(String.format("_%s_ not in Thanatos Tower **%s**", author.getDisplayName(), ttTeam.getName()));
-    }
-    return sb.toString();
+    return TTUtils.remove(author.getId(), ttTeam) ?
+        String.format("_%s_ removed from Thanatos Tower **%s**", author.getDisplayName(), ttTeam.getName()) :
+        String.format("_%s_ not in Thanatos Tower **%s**", author.getDisplayName(), ttTeam.getName());
   }
 
   private String joinBackupTT(ThanatosTeamObject ttTeam, MessageAuthor author, long authorId) {
-    if (TTUtils.add(authorId, ttTeam, BACKUP)) {
-      return String.format("_%s_ joined _backup party_ for Thanatos Tower", author.getDisplayName());
-    } else {
-      return String.format("_%s_ couldn't Thanatos Tower", author.getDisplayName());
-    }
+    return TTUtils.add(authorId, ttTeam, BACKUP) ?
+        String.format("_%s_ joined _backup party_ for Thanatos Tower", author.getDisplayName()) :
+        String.format("_%s_ couldn't join Thanatos Tower backup", author.getDisplayName());
   }
 
   private String joinPartyTT(ThanatosTeamObject tt, MessageAuthor author, String team) {

@@ -30,7 +30,7 @@ public class Help extends Command {
     }
 
     StringBuilder helpMessage = new StringBuilder();
-    helpMessage.append("**GTB help**\n");
+    helpMessage.append(":question: **GTB help**\n");
     for (String key : helpMap) {
       helpMessage.append("  _");
       helpMessage.append(key);

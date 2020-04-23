@@ -27,7 +27,7 @@ public class TTUtils {
 
   private static String show(ThanatosTeamObject tt, DiscordApi api, String ttTime, boolean call) {
     StringBuilder sb = new StringBuilder();
-    sb.append(String.format("Thanatos Tower Team: **%s**\n", tt.getName()));
+    sb.append(String.format(":tokyo_tower: Thanatos Tower Team: **%s**\n", tt.getName()));
     sb.append(String.format("Date: _%s_\n", ttTime));
     sb.append(getTeamStr(tt, api, A, call));
     sb.append(getTeamStr(tt, api, B, call));

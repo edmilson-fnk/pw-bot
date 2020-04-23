@@ -75,6 +75,10 @@ public class Utils {
     return str.substring(0, 1).toUpperCase() + str.substring(1);
   }
 
+  public static String pluralize(int num, String singular, String plural) {
+    return num == 1 ? singular : plural;
+  }
+
   public static String getNearestCommand(String key) {
     String nearest = EditDistance.findNearest(key, COMMAND_MAP.keySet().toArray(new String[0]));
     if (EditDistance.editDistance(key, nearest) <= 5) {

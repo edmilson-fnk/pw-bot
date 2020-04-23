@@ -30,13 +30,13 @@ public class Cards extends Command {
     } else if (CARD_COLOR.keySet().contains(query.toLowerCase())) {
       colors.add(CARD_COLOR.get(query));
     } else {
-      channel.sendMessage("Invalid color: **" + query + "**");
+      channel.sendMessage(String.format("Invalid color: **%s**", query));
       return;
     }
 
     JSONObject cards = Fetcher.getCheapestCards(colors);
     StringBuilder sb = new StringBuilder();
-    sb.append("**Cheapest cards**\n");
+    sb.append(":black_joker: **Cheapest cards**\n");
     for (String color : colors) {
       String snapKey = color + "snap";
       String noSnapKey = color + "nosnap";
@@ -78,9 +78,4 @@ public class Cards extends Command {
     return ImmutableList.of("", "white", "green", "blue", "w", "g", "b");
   }
 
-  // for tests
-  public static void main(String[] args) {
-    String[] command = new String[]{"!gtb", "cards", ""};
-    new Cards().run(command, null, null, null);
-  }
 }

@@ -165,6 +165,7 @@ public class Watcher extends Thread {
       ois.close();
       this.watchMap = map;
     } catch (FileNotFoundException e) {
+      e.printStackTrace();
       System.out.println("File watcherMap.dat not found on reading");
     } catch (IOException | ClassNotFoundException e) {
       System.out.println("Error on loading map file");
