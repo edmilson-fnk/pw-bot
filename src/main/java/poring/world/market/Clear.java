@@ -18,15 +18,19 @@ public class Clear extends Command {
 
     if (watcher.getMap().containsKey(messageAuthor.getId())) {
       List<WatchObject> authorList = watcher.getMap().get(messageAuthor.getId());
-      event.getChannel().sendMessage("Removed " + authorList.size() + " item(s) for " + messageAuthor.getDisplayName());
       authorList.clear();
+      Map<String, Map<String, String>> authorFilters = watcher.getFilters().get(messageAuthor.getId());
+      authorFilters.clear();
       watcher.saveMap();
+      event.getChannel().sendMessage(
+          String.format("Removed _%s_ item(s) for _%s_", authorList.size(), messageAuthor.getDisplayName())
+      );
     }
   }
 
   @Override
   public String getHelp() {
-    return "removes every object being watched by you";
+    return "removes every query on your watch list";
   }
 
   @Override

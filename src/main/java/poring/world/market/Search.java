@@ -4,14 +4,13 @@ import static poring.world.Constants.GLOBAL_CALL;
 import static poring.world.Constants.FILTER_TOKEN;
 import static poring.world.Constants.QUERY_FILTERS;
 
-import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
 import poring.world.general.Command;
-import poring.world.market.extra.FilterUtils;
+import poring.world.market.filter.FilterUtils;
 import poring.world.watcher.Watcher;
 
 import java.util.HashMap;

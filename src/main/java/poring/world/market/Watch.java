@@ -9,7 +9,7 @@ import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.general.Command;
-import poring.world.market.extra.FilterUtils;
+import poring.world.market.filter.FilterUtils;
 import poring.world.watcher.Watcher;
 
 import java.util.HashMap;
@@ -56,7 +56,8 @@ public class Watch extends Command {
     TextChannel channel = event.getChannel();
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
-    watcher.add(query, messageAuthor, channel, filters);
+//    watcher.add(query, messageAuthor, channel, filters);
+    watcher.add(query, messageAuthor, channel, null);
     event.getChannel().sendMessage(String.format("GTB is watching _%s_ for _%s_. %s",
         query, messageAuthor.getDisplayName(), filtersStr.toString()));
   }

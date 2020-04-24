@@ -26,6 +26,7 @@ public class Remove extends Command {
     MessageAuthor messageAuthor = event.getMessageAuthor();
     String query = Utils.getQuery(command);
     List<WatchObject> objList = watcher.getMap().get(messageAuthor.getId());
+    Map<String, Map<String, String>> filters = watcher.getFilters().get(messageAuthor.getId());
     if (query == null || query.isEmpty()) {
       event.getChannel().sendMessage(
           String.format("No index, Try _!%s %s %s_ for more information", GLOBAL_CALL, HELP, REMOVE));
@@ -52,6 +53,7 @@ public class Remove extends Command {
           return;
         }
         WatchObject removed = objList.remove(pos - 1);
+        filters.remove(removed.toString());
         sb.append(String.format("Removed _%s_ for _%s_", removed.getQuery(), messageAuthor.getDisplayName()));
       }
       event.getChannel().sendMessage(sb.toString());

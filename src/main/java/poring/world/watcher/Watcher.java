@@ -29,7 +29,7 @@ public class Watcher extends Thread {
 
   private static final int WAITING_MINUTES = 60;
   private Map<Long, List<WatchObject>> watchMap;
-  private Map<WatchObject, Map<String, String>> watchMapFilters;
+  private Map<Long, Map<String, Map<String, String>>> watchMapFilters;
   private DiscordApi api;
 
   public Watcher(DiscordApi api) {
@@ -41,7 +41,7 @@ public class Watcher extends Thread {
   }
 
 
-  public Map<WatchObject, Map<String, String>> getFilters() {
+  public Map<Long, Map<String, Map<String, String>>> getFilters() {
     return this.watchMapFilters;
   }
 
@@ -59,10 +59,17 @@ public class Watcher extends Thread {
         watchMap.put(authorId, new LinkedList<>());
       }
       List<String> strObjects = watchMap.get(authorId).stream().map(WatchObject::toString).collect(Collectors.toList());
-      if (!strObjects.contains(listenObj.toString())) {
+      String listenObjStr = listenObj.toString();
+      if (!strObjects.contains(listenObjStr)) {
         watchMap.get(authorId).add(listenObj);
         if (filters != null && !filters.isEmpty()) {
-          watchMapFilters.put(listenObj, filters);
+          if (!watchMapFilters.containsKey(authorId)) {
+            watchMapFilters.put(authorId, new HashMap<>());
+          }
+          if (watchMapFilters.get(authorId).containsKey(listenObjStr)) {
+            watchMapFilters.get(authorId).put(listenObjStr, new HashMap<>());
+          }
+          watchMapFilters.get(authorId).put(listenObjStr, filters);
         }
         this.saveMap();
       }
@@ -103,11 +110,13 @@ public class Watcher extends Thread {
 
           List<String> messages = new LinkedList<>();
           StringBuilder sb = new StringBuilder();
-          sb.append(String.format("Hey <@%s>, we found something for you\n", author.getId()));
+          sb.append(String.format("Hey <@%s>, we found something for you\n", authorId));
 
           boolean theresSomethingFlag = false;
-          for (WatchObject obj : watchMap.get(author.getId())) {
-            Map<String, String> filters = watchMapFilters.getOrDefault(obj, null);
+          for (WatchObject obj : watchMap.get(authorId)) {
+            Map<String, String> filters = watchMapFilters.containsKey(authorId) ?
+                watchMapFilters.get(authorId).getOrDefault(obj, null) :
+                null;
             JSONArray marketItems = Fetcher.query(obj.getQuery(), filters);
             if (marketItems.size() > 0) {
               StringBuilder objMessage = new StringBuilder();

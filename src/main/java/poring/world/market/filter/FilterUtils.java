@@ -1,4 +1,4 @@
-package poring.world.market.extra;
+package poring.world.market.filter;
 
 import static poring.world.Constants.MAX_PRICE;
 import static poring.world.Constants.FILTERS_NAME;
