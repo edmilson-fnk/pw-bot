@@ -12,6 +12,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import poring.world.market.extra.FilterUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class Fetcher {
 
     try {
       Map<String, String> colorParameters = new HashMap<>(parameters);
-      JSONArray jsonData = getJsonData(colorParameters);
+      JSONArray jsonData = getJsonData(colorParameters, null);
 
       if (jsonData.size() > 1) {
         return (JSONObject) jsonData.get(0);
@@ -76,7 +77,7 @@ public class Fetcher {
       for (String color : queryColors) {
         Map<String, String> colorParameters = new HashMap<>(parameters);
         colorParameters.put("rarity", color);
-        JSONArray jsonData = getJsonData(colorParameters);
+        JSONArray jsonData = getJsonData(colorParameters, null);
 
         for (Object card : jsonData) {
           String snapKey = color + "snap";
@@ -104,7 +105,7 @@ public class Fetcher {
     }
   }
 
-  private static JSONArray getJsonData(Map<String, String> param) throws IOException {
+  private static JSONArray getJsonData(Map<String, String> param, Map<String, String> filters) throws IOException {
     try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
       String parametersUrl = getParametersUrl(param);
       String fullUrl = BASE_URL + parametersUrl;
@@ -131,7 +132,7 @@ public class Fetcher {
       try {
         for (Object object : (JSONArray) parser.parse(builder.toString())) {
           JSONObject minimalJsonObject = retainDefaultKeys((JSONObject) object);
-          if (isStillThere(minimalJsonObject)) {
+          if (isStillThere(minimalJsonObject) && !FilterUtils.filter(minimalJsonObject, filters)) {
             returnJson.add(minimalJsonObject);
           }
         }
@@ -144,6 +145,10 @@ public class Fetcher {
   }
 
   public static JSONArray query(String search) {
+    return query(search, null);
+  }
+
+  public static JSONArray query(String search, Map<String, String> filters) {
     String encodedSearch = null;
     try {
       encodedSearch = URLEncoder.encode(search, StandardCharsets.UTF_8.toString());
@@ -156,7 +161,7 @@ public class Fetcher {
     parameters.put("q", encodedSearch);
 
     try {
-      return getJsonData(parameters);
+      return getJsonData(parameters, filters);
     } catch (IOException e) {
       System.out.println("Error on parameters: " + parameters);
       e.printStackTrace();

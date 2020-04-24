@@ -8,9 +8,9 @@ public class FibSimulation {
     float aspd = 4.8f; // 480%
     int battleDur = 15;
     int empHp = 5000;
-    int hit2xOG = 170;
-    int hitFib = 140;
-    int hitFibAct = 220;
+    int hit2xOG = 416;
+    int hitFib = 390;
+    int hitFibAct = 480;
 
 //    simulateFixedTime(aspd, hit2xOG, hitFib, hitFibAct, battleDur);
     simulateFixedHP(aspd, hit2xOG, hitFib, hitFibAct, empHp);

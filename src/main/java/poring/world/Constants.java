@@ -1,5 +1,6 @@
 package poring.world;
 
+import com.google.common.collect.ImmutableMap;
 import poring.world.cheapest.Cards;
 import poring.world.cheapest.Premium;
 import poring.world.general.Command;
@@ -9,13 +10,11 @@ import poring.world.market.ListC;
 import poring.world.market.Remove;
 import poring.world.market.Search;
 import poring.world.market.Watch;
-import poring.world.party.CreateParty;
-import poring.world.party.EndParty;
-import poring.world.party.JoinParty;
 import poring.world.thanatos.Thanatos;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Constants {
 
@@ -46,6 +45,14 @@ public class Constants {
   public static final String B = "B";
   public static final String BACKUP = "backup";
   public static final String RESET = "reset";
+
+  // Watcher filters
+  public static final String FILTER_TOKEN = "@";
+  public static final String MAX_PRICE = "maxPrice";
+  public static final Map<String, String> FILTERS_NAME = ImmutableMap.of(
+      MAX_PRICE, "Max price"
+  );
+  public static final Set<String> QUERY_FILTERS = FILTERS_NAME.keySet();
 
   // General Stuff
   public static final int TIME_DIFF

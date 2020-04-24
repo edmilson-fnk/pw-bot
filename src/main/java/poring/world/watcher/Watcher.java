@@ -29,6 +29,7 @@ public class Watcher extends Thread {
 
   private static final int WAITING_MINUTES = 60;
   private Map<Long, List<WatchObject>> watchMap;
+  private Map<WatchObject, Map<String, String>> watchMapFilters;
   private DiscordApi api;
 
   public Watcher(DiscordApi api) {
@@ -39,7 +40,17 @@ public class Watcher extends Thread {
     return this.watchMap;
   }
 
+
+  public Map<WatchObject, Map<String, String>> getFilters() {
+    return this.watchMapFilters;
+  }
+
   public void add(String query, MessageAuthor messageAuthor, TextChannel channel) {
+    add(query, messageAuthor, channel, null);
+  }
+
+
+  public void add(String query, MessageAuthor messageAuthor, TextChannel channel, Map<String, String> filters) {
     WatchObject listenObj = new WatchObject(query, messageAuthor, channel);
 
     long authorId = messageAuthor.getId();
@@ -50,6 +61,9 @@ public class Watcher extends Thread {
       List<String> strObjects = watchMap.get(authorId).stream().map(WatchObject::toString).collect(Collectors.toList());
       if (!strObjects.contains(listenObj.toString())) {
         watchMap.get(authorId).add(listenObj);
+        if (filters != null && !filters.isEmpty()) {
+          watchMapFilters.put(listenObj, filters);
+        }
         this.saveMap();
       }
     }
@@ -157,6 +171,7 @@ public class Watcher extends Thread {
 
   public synchronized void loadMap() {
     this.watchMap = new HashMap<>();
+    this.watchMapFilters = new HashMap<>();
     try {
       File file = S3Files.downloadWatchlist();
       FileInputStream fis = new FileInputStream(file);
