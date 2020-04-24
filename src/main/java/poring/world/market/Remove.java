@@ -53,7 +53,9 @@ public class Remove extends Command {
           return;
         }
         WatchObject removed = objList.remove(pos - 1);
-        filters.remove(removed.toString());
+        if (filters != null) {
+          filters.remove(removed.toString());
+        }
         sb.append(String.format("Removed _%s_ for _%s_", removed.getQuery(), messageAuthor.getDisplayName()));
       }
       event.getChannel().sendMessage(sb.toString());
