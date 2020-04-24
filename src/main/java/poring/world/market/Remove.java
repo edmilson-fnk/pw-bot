@@ -14,10 +14,13 @@ import poring.world.watcher.WatchObject;
 import poring.world.watcher.Watcher;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Remove extends Command {
 
@@ -35,7 +38,7 @@ public class Remove extends Command {
 
     if (objList != null && !objList.isEmpty()) {
       StringBuilder sb = new StringBuilder();
-      List<String> numbers = Arrays.asList(query.split(" "));
+      List<String> numbers = new LinkedList<>(new HashSet<>(Arrays.asList(query.split(" "))));
       numbers.sort(Collections.reverseOrder());
       HashSet<String> numbersSet = new HashSet<>(numbers);
       for (String num : numbersSet) {
