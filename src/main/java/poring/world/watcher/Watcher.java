@@ -1,7 +1,5 @@
 package poring.world.watcher;
 
-import static poring.world.s3.S3Files.THANATOS_TEAM_DAT;
-import static poring.world.s3.S3Files.THANATOS_TIME_DAT;
 import static poring.world.s3.S3Files.WATCHER_FILTERS_DAT;
 import static poring.world.s3.S3Files.WATCHER_MAP_DAT;
 
@@ -17,12 +15,6 @@ import poring.world.Utils;
 import poring.world.s3.S3Files;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +24,6 @@ import java.util.stream.Collectors;
 
 public class Watcher extends Thread {
 
-  private static final int WAITING_MINUTES = 60;
   private Map<Long, List<WatchObject>> watchMap;
   private Map<Long, Map<String, Map<String, String>>> watchMapFilters;
   private DiscordApi api;
