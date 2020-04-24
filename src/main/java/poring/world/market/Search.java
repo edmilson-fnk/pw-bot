@@ -46,6 +46,7 @@ public class Search extends Command {
             if (validate != null) {
               event.getChannel().sendMessage(String.format("Invalid value for _%s_: _%s_ (**%s**)",
                   key, value, validate));
+              return;
             }
             searchFilters.put(key, value);
             break;
