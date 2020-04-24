@@ -2,6 +2,7 @@ package poring.world.market;
 
 import static poring.world.Constants.GLOBAL_CALL;
 import static poring.world.Constants.HELP;
+import static poring.world.Constants.LIST;
 import static poring.world.Constants.REMOVE;
 
 import com.google.common.collect.ImmutableList;
@@ -33,13 +34,13 @@ public class Remove extends Command {
     if (objList != null && !objList.isEmpty()) {
       StringBuilder sb = new StringBuilder();
       List<String> numbers = Arrays.asList(query.split(" "));
-      Collections.sort(numbers, Collections.reverseOrder());
+      numbers.sort(Collections.reverseOrder());
       for (String num : numbers) {
         try {
           Integer.parseInt(num);
         } catch (NumberFormatException e) {
           event.getChannel().sendMessage(
-              String.format("Invalid option **%s**\nPlease see !%s %s %s", query, GLOBAL_CALL, HELP, REMOVE)
+              String.format("Invalid option **%s**\nPlease check _!%s %s %s_", query, GLOBAL_CALL, HELP, REMOVE)
           );
           return;
         }
@@ -49,26 +50,25 @@ public class Remove extends Command {
           return;
         }
         WatchObject removed = objList.remove(pos - 1);
-        watcher.saveMap();
-
         sb.append(String.format("Removed _%s_ for _%s_", removed.getQuery(), messageAuthor.getDisplayName()));
       }
       event.getChannel().sendMessage(sb.toString());
+      watcher.saveMap();
     } else {
-      event.getChannel().sendMessage("No watch list for _" + messageAuthor.getDisplayName() + "_");
+      event.getChannel().sendMessage(String.format("No watch list for _%s_", messageAuthor.getDisplayName()));
     }
   }
 
   @Override
   public String getHelp() {
-    return "removes selected item from you watch list. try _!" + GLOBAL_CALL +
-        " list_ to check the index before removing";
+    return String.format(
+        "removes selected items from your watch list. try _!%s %s_ and check indexes to remove", GLOBAL_CALL, LIST);
   }
 
   @Override
   public List<String> getQueries() {
     return ImmutableList.of(
-        "2", "13"
+        "1", "2", "5 6 1 10"
     );
   }
 
