@@ -15,6 +15,7 @@ import poring.world.market.extra.FilterUtils;
 import poring.world.watcher.Watcher;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -70,18 +71,19 @@ public class Search extends Command {
 
   @Override
   public String getHelp() {
-    return "searches for items in poring.world database";
+    return "searches for items in poring.world database. Filter available: _maxPrice_";
   }
 
   @Override
   public List<String> getQueries() {
-    return ImmutableList.of(
-        "morale",
-        "morale 4",
-        "Eye of Dullahan [1]",
-        "+4 Eye of Dullahan",
-        "+4 Eye of Dullahan <Sharp Blade 1> (broken)"
-    );
+    return new LinkedList<String>(){{
+      this.add("morale");
+      this.add("morale 4");
+      this.add("Eye of Dullahan [1]");
+      this.add("+4 Eye of Dullahan");
+      this.add("+4 Eye of Dullahan <Sharp Blade 1> (broken)");
+      this.add("Eye of Dullahan [1] ::maxPrice=1000000");
+    }};
   }
 
 }

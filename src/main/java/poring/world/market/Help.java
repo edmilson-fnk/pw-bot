@@ -20,8 +20,10 @@ public class Help extends Command {
   public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
     String query = Utils.getQuery(command);
     Set<String> helpMap = new HashSet<>();
+    boolean addQueries = true;
     if (query.isEmpty()) {
       helpMap.addAll(COMMAND_MAP.keySet());
+      addQueries = false;
     } else if (COMMAND_MAP.containsKey(query)) {
       helpMap.add(query);
     } else {
@@ -32,19 +34,17 @@ public class Help extends Command {
     StringBuilder helpMessage = new StringBuilder();
     helpMessage.append(":question: **GTB help**\n");
     for (String key : helpMap) {
-      helpMessage.append("  _");
-      helpMessage.append(key);
-      helpMessage.append("_ ");
-      helpMessage.append(COMMAND_MAP.get(key).getHelp());
-      helpMessage.append("\n");
-      for (String commandQuery : COMMAND_MAP.get(key).getQueries()) {
-        helpMessage.append("       - !");
-        helpMessage.append(GLOBAL_CALL);
-        helpMessage.append(" ");
-        helpMessage.append(key);
-        helpMessage.append(" ");
-        helpMessage.append(commandQuery);
-        helpMessage.append("\n");
+      helpMessage.append(String.format("  _%s_   %s\n", key, COMMAND_MAP.get(key).getHelp()));
+      if (addQueries) {
+        for (String commandQuery : COMMAND_MAP.get(key).getQueries()) {
+          helpMessage.append("       - !");
+          helpMessage.append(GLOBAL_CALL);
+          helpMessage.append(" ");
+          helpMessage.append(key);
+          helpMessage.append(" ");
+          helpMessage.append(commandQuery);
+          helpMessage.append("\n");
+        }
       }
     }
 
