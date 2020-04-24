@@ -58,7 +58,7 @@ public class Remove extends Command {
         if (filters != null) {
           filters.remove(removed.toString());
         }
-        sb.append(String.format("Removed _%s_ for _%s_", removed.getQuery(), messageAuthor.getDisplayName()));
+        sb.append(String.format("Removed _%s_ for _%s_\n", removed.getQuery(), messageAuthor.getDisplayName()));
       }
       event.getChannel().sendMessage(sb.toString());
       watcher.saveMap();
