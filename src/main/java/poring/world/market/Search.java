@@ -71,7 +71,7 @@ public class Search extends Command {
 
   @Override
   public String getHelp() {
-    return "searches for items in poring.world database. Filter available: _maxPrice_";
+    return "searches for items in poring.world database. Filter available: _maxPrice_, see filter example";
   }
 
   @Override
