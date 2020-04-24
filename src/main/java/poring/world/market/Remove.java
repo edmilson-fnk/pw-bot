@@ -15,6 +15,7 @@ import poring.world.watcher.Watcher;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,8 @@ public class Remove extends Command {
       StringBuilder sb = new StringBuilder();
       List<String> numbers = Arrays.asList(query.split(" "));
       numbers.sort(Collections.reverseOrder());
-      for (String num : numbers) {
+      HashSet<String> numbersSet = new HashSet<>(numbers);
+      for (String num : numbersSet) {
         try {
           Integer.parseInt(num);
         } catch (NumberFormatException e) {
@@ -68,7 +70,7 @@ public class Remove extends Command {
   @Override
   public List<String> getQueries() {
     return ImmutableList.of(
-        "1", "2", "5 6 1 10"
+        "1", "2", "5 10 6 1"
     );
   }
 
