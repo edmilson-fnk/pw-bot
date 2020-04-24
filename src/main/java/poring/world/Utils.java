@@ -81,7 +81,7 @@ public class Utils {
 
   public static String getNearestCommand(String key) {
     String nearest = EditDistance.findNearest(key, COMMAND_MAP.keySet().toArray(new String[0]));
-    if (EditDistance.editDistance(key, nearest) <= 5) {
+    if (EditDistance.editDistance(key, nearest) <= 4) {
       return nearest;
     } else {
       return null;

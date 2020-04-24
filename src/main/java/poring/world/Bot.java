@@ -57,8 +57,8 @@ public class Bot {
         } else {
           String nearestCommand = Utils.getNearestCommand(command[1]);
           if (nearestCommand != null) {
-            event.getChannel().sendMessage(String.format("Invalid command **%s**, did you mean **%s**? " +
-                    "Running it instead...",
+            event.getChannel().sendMessage(
+                String.format("Invalid command **%s**, did you mean **%s**? Running it instead...",
                 command[1], nearestCommand));
             COMMAND_MAP.get(nearestCommand).run(command, event, watcher, parameters);
           } else {
