@@ -107,7 +107,8 @@ public class Watcher extends Thread {
 
           boolean theresSomethingFlag = false;
           for (WatchObject obj : watchMap.get(author.getId())) {
-            JSONArray marketItems = Fetcher.query(obj.getQuery());
+            Map<String, String> filters = watchMapFilters.getOrDefault(obj, null);
+            JSONArray marketItems = Fetcher.query(obj.getQuery(), filters);
             if (marketItems.size() > 0) {
               StringBuilder objMessage = new StringBuilder();
               theresSomethingFlag = true;

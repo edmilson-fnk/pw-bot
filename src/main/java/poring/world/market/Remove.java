@@ -2,7 +2,6 @@ package poring.world.market;
 
 import static poring.world.Constants.GLOBAL_CALL;
 import static poring.world.Constants.HELP;
-import static poring.world.Constants.LIST;
 import static poring.world.Constants.REMOVE;
 
 import com.google.common.collect.ImmutableList;
@@ -13,6 +12,8 @@ import poring.world.general.Command;
 import poring.world.watcher.WatchObject;
 import poring.world.watcher.Watcher;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -25,29 +26,34 @@ public class Remove extends Command {
     List<WatchObject> objList = watcher.getMap().get(messageAuthor.getId());
     if (query == null || query.isEmpty()) {
       event.getChannel().sendMessage(
-          String.format("No index, Try _!%s %s %s_ for more information", GLOBAL_CALL, HELP, LIST));
+          String.format("No index, Try _!%s %s %s_ for more information", GLOBAL_CALL, HELP, REMOVE));
       return;
     }
 
     if (objList != null && !objList.isEmpty()) {
-      try {
-        Integer.parseInt(query);
-      } catch (NumberFormatException e) {
-        event.getChannel().sendMessage(
-            String.format("Invalid option **%s**\nPlease see !%s %s %s", query, GLOBAL_CALL, HELP, REMOVE)
-        );
-        return;
-      }
-      int pos = Integer.parseInt(query);
-      if (pos > objList.size()) {
-        event.getChannel().sendMessage(String.format("Maximum value to remove is **%s**", objList.size()));
-        return;
-      }
-      WatchObject removed = objList.remove(pos - 1);
-      watcher.saveMap();
+      StringBuilder sb = new StringBuilder();
+      List<String> numbers = Arrays.asList(query.split(" "));
+      Collections.sort(numbers, Collections.reverseOrder());
+      for (String num : numbers) {
+        try {
+          Integer.parseInt(num);
+        } catch (NumberFormatException e) {
+          event.getChannel().sendMessage(
+              String.format("Invalid option **%s**\nPlease see !%s %s %s", query, GLOBAL_CALL, HELP, REMOVE)
+          );
+          return;
+        }
+        int pos = Integer.parseInt(num);
+        if (pos > objList.size()) {
+          event.getChannel().sendMessage(String.format("Maximum value to remove is **%s**", objList.size()));
+          return;
+        }
+        WatchObject removed = objList.remove(pos - 1);
+        watcher.saveMap();
 
-      event.getChannel().sendMessage(
-          String.format("Removed _%s_ for _%s_", removed.getQuery(), messageAuthor.getDisplayName()));
+        sb.append(String.format("Removed _%s_ for _%s_", removed.getQuery(), messageAuthor.getDisplayName()));
+      }
+      event.getChannel().sendMessage(sb.toString());
     } else {
       event.getChannel().sendMessage("No watch list for _" + messageAuthor.getDisplayName() + "_");
     }
