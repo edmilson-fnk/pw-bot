@@ -14,13 +14,11 @@ import poring.world.watcher.WatchObject;
 import poring.world.watcher.Watcher;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Remove extends Command {
 
@@ -61,7 +59,7 @@ public class Remove extends Command {
         sb.append(String.format("Removed _%s_ for _%s_\n", removed.getQuery(), messageAuthor.getDisplayName()));
       }
       event.getChannel().sendMessage(sb.toString());
-      watcher.saveMap();
+      watcher.saveMaps();
     } else {
       event.getChannel().sendMessage(String.format("No watch list for _%s_", messageAuthor.getDisplayName()));
     }

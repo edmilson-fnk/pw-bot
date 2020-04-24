@@ -16,7 +16,7 @@ public class Metrics {
     System.out.println("Environment: " + ENV);
 
     Watcher w = new Watcher(null);
-    w.loadMap();
+    w.loadMaps();
     Map<Long, List<WatchObject>> m = w.getMap();
 
     int numLists = 0;
@@ -38,11 +38,7 @@ public class Metrics {
       }
     }
     System.out.println(String.format("\nListas: %s\nTotal de itens: %s\nMaior lista: %s %s\nMenor lista: %s %s",
-        numLists, numItens, maxSize, pluralItem(maxSize), minSize, pluralItem(minSize)));
+        numLists, numItens, maxSize, Utils.pluralItem(maxSize), minSize, Utils.pluralItem(minSize)));
   }
 
-  private static String pluralItem(int num) {
-    return Utils.pluralize(num, "item", "itens");
-  }
-
-  }
+}

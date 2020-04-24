@@ -56,8 +56,7 @@ public class Watch extends Command {
     TextChannel channel = event.getChannel();
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
-//    watcher.add(query, messageAuthor, channel, filters);
-    watcher.add(query, messageAuthor, channel, null);
+    watcher.add(query, messageAuthor, channel, filters);
     event.getChannel().sendMessage(String.format("GTB is watching _%s_ for _%s_. %s",
         query, messageAuthor.getDisplayName(), filtersStr.toString()));
   }

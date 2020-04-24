@@ -6,10 +6,21 @@ import static poring.world.Constants.TIME_DIFF;
 
 import com.sun.xml.bind.v2.util.EditDistance;
 import org.json.simple.JSONObject;
+import poring.world.s3.S3Files;
+import poring.world.thanatos.ThanatosTeamObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringJoiner;
 
 public class Utils {
@@ -75,6 +86,10 @@ public class Utils {
     return str.substring(0, 1).toUpperCase() + str.substring(1);
   }
 
+  public static String pluralItem(int num) {
+    return Utils.pluralize(num, "item", "itens");
+  }
+
   public static String pluralize(int num, String singular, String plural) {
     return num == 1 ? singular : plural;
   }
@@ -86,6 +101,41 @@ public class Utils {
     } else {
       return null;
     }
+  }
+
+  public static synchronized File saveMapFile(Map map, String fileName) {
+    try {
+      FileOutputStream fos = new FileOutputStream(fileName);
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+      oos.writeObject(map);
+      oos.close();
+      fos.close();
+      return new File(fileName);
+    } catch (FileNotFoundException e) {
+      System.out.println(String.format("File %s not found on saving", fileName));
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.out.println(String.format("Error on saving %s", fileName));
+    }
+    return null;
+  }
+
+  public static synchronized Map loadMapFile(String fileName) {
+    try {
+      File file = S3Files.getFile(fileName);
+      FileInputStream fis = new FileInputStream(file);
+      ObjectInputStream ois = new ObjectInputStream(fis);
+      Map<Long, ThanatosTeamObject> map = new HashMap<>((Map) ois.readObject());
+      ois.close();
+      return map;
+    } catch (FileNotFoundException e) {
+      System.out.println(String.format("File %s not found on reading", fileName));
+    } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
+      System.out.println(String.format("Error on loading %s", fileName));
+    }
+    return new HashMap();
   }
 
 }

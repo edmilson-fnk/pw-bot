@@ -3,6 +3,7 @@ package poring.world.market;
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
+import poring.world.Utils;
 import poring.world.general.Command;
 import poring.world.watcher.WatchObject;
 import poring.world.watcher.Watcher;
@@ -21,9 +22,10 @@ public class Clear extends Command {
       authorList.clear();
       Map<String, Map<String, String>> authorFilters = watcher.getFilters().get(messageAuthor.getId());
       authorFilters.clear();
-      watcher.saveMap();
+      watcher.saveMaps();
       event.getChannel().sendMessage(
-          String.format("Removed _%s_ item(s) for _%s_", authorList.size(), messageAuthor.getDisplayName())
+          String.format("Removed _%s_ %s for _%s_", authorList.size(),
+              Utils.pluralItem(authorList.size()), messageAuthor.getDisplayName())
       );
     }
   }

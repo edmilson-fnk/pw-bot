@@ -1,5 +1,10 @@
 package poring.world.watcher;
 
+import static poring.world.s3.S3Files.THANATOS_TEAM_DAT;
+import static poring.world.s3.S3Files.THANATOS_TIME_DAT;
+import static poring.world.s3.S3Files.WATCHER_FILTERS_DAT;
+import static poring.world.s3.S3Files.WATCHER_MAP_DAT;
+
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
@@ -62,16 +67,20 @@ public class Watcher extends Thread {
       String listenObjStr = listenObj.toString();
       if (!strObjects.contains(listenObjStr)) {
         watchMap.get(authorId).add(listenObj);
+
+        // Save filters on this query
         if (filters != null && !filters.isEmpty()) {
           if (!watchMapFilters.containsKey(authorId)) {
             watchMapFilters.put(authorId, new HashMap<>());
           }
-          if (watchMapFilters.get(authorId).containsKey(listenObjStr)) {
-            watchMapFilters.get(authorId).put(listenObjStr, new HashMap<>());
+          Map<String, Map<String, String>> filterMap = watchMapFilters.get(authorId);
+          if (filterMap.containsKey(listenObjStr)) {
+            filterMap.put(listenObjStr, new HashMap<>());
           }
-          watchMapFilters.get(authorId).put(listenObjStr, filters);
+          filterMap.put(listenObjStr, filters);
         }
-        this.saveMap();
+
+        this.saveMaps();
       }
     }
   }
@@ -84,7 +93,7 @@ public class Watcher extends Thread {
 
   @Override
   public void run() {
-    this.loadMap();
+    this.loadMaps();
 
     while (true) {
       waitAMinute();
@@ -144,16 +153,6 @@ public class Watcher extends Thread {
     }
   }
 
-  private void waitSomeTime() {
-    try {
-      System.out.println("Waiting " + WAITING_MINUTES + " minutes...");
-      Thread.sleep(1000 * 60 * WAITING_MINUTES);
-    } catch (InterruptedException e) {
-      System.out.println("Error on watcher thread!");
-      throw new RuntimeException(e);
-    }
-  }
-
   private void waitAMinute() {
     try {
       Thread.sleep(1000 * 60);
@@ -162,40 +161,16 @@ public class Watcher extends Thread {
     }
   }
 
-  public synchronized void saveMap() {
-    try {
-      FileOutputStream fos = new FileOutputStream("watcherMap.dat");
-      ObjectOutputStream oos = new ObjectOutputStream(fos);
-      oos.writeObject(this.watchMap);
-      oos.close();
-      fos.close();
-      S3Files.uploadWatchList(new File("watcherMap.dat"));
-    } catch (FileNotFoundException e) {
-      System.out.println("File watcherMap.dat not found on saving");
-      e.printStackTrace();
-    } catch (IOException e) {
-      System.out.println("Error on saving watcherMap.dat");
-      e.printStackTrace();
-    }
+  public synchronized void saveMaps() {
+    File mapFile = Utils.saveMapFile(this.watchMap, WATCHER_MAP_DAT);
+    S3Files.uploadWatchList(mapFile);
+    File filtersFile = Utils.saveMapFile(this.watchMapFilters, WATCHER_FILTERS_DAT);
+    S3Files.uploadFiltersList(filtersFile);
   }
 
-  public synchronized void loadMap() {
-    this.watchMap = new HashMap<>();
-    this.watchMapFilters = new HashMap<>();
-    try {
-      File file = S3Files.downloadWatchlist();
-      FileInputStream fis = new FileInputStream(file);
-      ObjectInputStream ois = new ObjectInputStream(fis);
-      Map<Long, List<WatchObject>> map = new HashMap<>((Map) ois.readObject());
-      ois.close();
-      this.watchMap = map;
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-      System.out.println("File watcherMap.dat not found on reading");
-    } catch (IOException | ClassNotFoundException e) {
-      System.out.println("Error on loading map file");
-      e.printStackTrace();
-    }
+  public synchronized void loadMaps() {
+    this.watchMap = Utils.loadMapFile(WATCHER_MAP_DAT);
+    this.watchMapFilters = Utils.loadMapFile(WATCHER_FILTERS_DAT);
   }
 
 }

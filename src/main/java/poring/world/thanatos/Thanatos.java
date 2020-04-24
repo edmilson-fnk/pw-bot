@@ -163,48 +163,14 @@ public class Thanatos extends Command {
   }
 
   private synchronized void saveMaps() {
-    File teamFile = saveMapFile(this.thanatosTime, THANATOS_TIME_DAT);
+    File teamFile = Utils.saveMapFile(this.thanatosTime, THANATOS_TIME_DAT);
     S3Files.uploadThanatosTeam(teamFile);
-    File timeFile = saveMapFile(this.thanatosTeam, THANATOS_TEAM_DAT);
+    File timeFile = Utils.saveMapFile(this.thanatosTeam, THANATOS_TEAM_DAT);
     S3Files.uploadThanatosTime(timeFile);
   }
 
-  private synchronized File saveMapFile(Map map, String fileName) {
-    try {
-      FileOutputStream fos = new FileOutputStream(fileName);
-      ObjectOutputStream oos = new ObjectOutputStream(fos);
-      oos.writeObject(map);
-      oos.close();
-      fos.close();
-      return new File(fileName);
-    } catch (FileNotFoundException e) {
-      System.out.println(String.format("File %s not found on saving", fileName));
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-      System.out.println(String.format("Error on saving %s", fileName));
-    }
-    return null;
-  }
-
   private synchronized void loadMaps() {
-    this.thanatosTeam = loadMapFile(S3Files.downloadThanatosTeam(), THANATOS_TEAM_DAT);
-    this.thanatosTime = loadMapFile(S3Files.downloadThanatosTime(), THANATOS_TIME_DAT);
-  }
-
-  private synchronized Map loadMapFile(File file, String fileName) {
-    try {
-      FileInputStream fis = new FileInputStream(file);
-      ObjectInputStream ois = new ObjectInputStream(fis);
-      Map<Long, ThanatosTeamObject> map = new HashMap<>((Map) ois.readObject());
-      ois.close();
-      return map;
-    } catch (FileNotFoundException e) {
-      System.out.println(String.format("File %s not found on reading", fileName));
-    } catch (IOException | ClassNotFoundException e) {
-      e.printStackTrace();
-      System.out.println(String.format("Error on loading %s", fileName));
-    }
-    return new HashMap();
+    this.thanatosTeam = Utils.loadMapFile(THANATOS_TEAM_DAT);
+    this.thanatosTime = Utils.loadMapFile(THANATOS_TIME_DAT);
   }
 }
