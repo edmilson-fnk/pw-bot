@@ -32,13 +32,13 @@ public class FilterUtils {
 
   public static boolean filter(JSONObject minimalJsonObject, Map<String, String> filters) {
     if (filters == null || filters.isEmpty()) {
-      return true;
+      return false;
     }
 
     for (String key : filters.keySet()) {
       String value = filters.get(key);
       if (key.equalsIgnoreCase(MAX_PRICE)) {
-        return ((int) ((JSONObject) minimalJsonObject.get("lastRecord")).get("price")) < Integer.parseInt(value);
+        return ((long) ((JSONObject) minimalJsonObject.get("lastRecord")).get("price")) > Long.parseLong(value);
       }
     }
     return false;
