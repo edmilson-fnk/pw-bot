@@ -40,8 +40,7 @@ public class Remove extends Command {
       StringBuilder sb = new StringBuilder();
       List<String> numbers = new LinkedList<>(new HashSet<>(Arrays.asList(query.split(" "))));
       numbers.sort(Collections.reverseOrder());
-      HashSet<String> numbersSet = new HashSet<>(numbers);
-      for (String num : numbersSet) {
+      for (String num : numbers) {
         try {
           Integer.parseInt(num);
         } catch (NumberFormatException e) {
