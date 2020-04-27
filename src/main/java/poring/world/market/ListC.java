@@ -30,12 +30,12 @@ public class ListC extends Command {
       for (int i = 0; i < objList.size(); i++) {
         StringBuilder subSb = new StringBuilder();
         WatchObject obj = objList.get(i);
-        Map<String, String> filter = filtersList != null ? filtersList.get(obj.toString()) : null;
+        Map<String, String> filters = filtersList != null ? filtersList.get(obj.toString()) : null;
 
         subSb.append(String.format("(%s) _%s_ ", i + 1, obj.getQuery()));
-        if (filter != null && !filter.isEmpty()) {
-          for (String key : filter.keySet()) {
-            subSb.append(FilterUtils.translate(key, filter.get(key)));
+        if (filters != null && !filters.isEmpty()) {
+          for (String key : filters.keySet()) {
+            subSb.append(FilterUtils.translate(key, filters.get(key)));
           }
         }
         subSb.append("\n");

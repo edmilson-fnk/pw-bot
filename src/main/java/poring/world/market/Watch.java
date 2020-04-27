@@ -23,10 +23,6 @@ public class Watch extends Command {
     String query = Utils.getQuery(command);
     StringBuilder filtersStr = new StringBuilder();
     Map<String, String> filters = new HashMap<>();
-    if (query.isEmpty()) {
-      event.getChannel().sendMessage("No query to watch");
-      return;
-    }
 
     if (query.contains(FILTER_TOKEN)) {
       String[] queryFilters = query.split(FILTER_TOKEN);
@@ -51,6 +47,11 @@ public class Watch extends Command {
           }
         }
       }
+    }
+
+    if (query.isEmpty()) {
+      event.getChannel().sendMessage("No query to watch");
+      return;
     }
 
     TextChannel channel = event.getChannel();

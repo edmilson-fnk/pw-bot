@@ -12,6 +12,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
+import poring.world.market.filter.FilterUtils;
 import poring.world.s3.S3Files;
 
 import java.io.File;
@@ -85,7 +86,7 @@ public class Watcher extends Thread {
   @Override
   public synchronized void start() {
     super.start();
-    System.out.println("Running poring.world bot watcher...");
+    System.out.println("Running poring.world bot watcher");
   }
 
   @Override
@@ -100,7 +101,7 @@ public class Watcher extends Thread {
       }
 
       synchronized (this) {
-        System.out.println("verifying watch list on poring.world API...");
+        System.out.println("notifying watch list");
         if (watchMap == null || watchMap.isEmpty()) {
           continue;
         }
@@ -127,7 +128,13 @@ public class Watcher extends Thread {
             if (marketItems.size() > 0) {
               StringBuilder objMessage = new StringBuilder();
               theresSomethingFlag = true;
-              objMessage.append(String.format("_%s_\n", obj.getQuery()));
+              objMessage.append(String.format("_%s_ ", obj.getQuery()));
+              if (filters != null && !filters.isEmpty()) {
+                for (String key : filters.keySet()) {
+                  objMessage.append(FilterUtils.translate(key, filters.get(key)));
+                }
+              }
+              objMessage.append("\n");
               for (Object marketItem : marketItems) {
                 objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
               }
