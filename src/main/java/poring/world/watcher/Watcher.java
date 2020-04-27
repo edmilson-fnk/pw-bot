@@ -121,7 +121,7 @@ public class Watcher extends Thread {
           boolean theresSomethingFlag = false;
           for (WatchObject obj : watchMap.get(authorId)) {
             Map<String, String> filters = watchMapFilters.containsKey(authorId) ?
-                watchMapFilters.get(authorId).getOrDefault(obj, null) :
+                watchMapFilters.get(authorId).getOrDefault(obj.toString(), null) :
                 null;
             JSONArray marketItems = Fetcher.query(obj.getQuery(), filters);
             if (marketItems.size() > 0) {
