@@ -50,9 +50,11 @@ public class Bot {
 
       String msg = event.getMessageContent();
       if (msg.toLowerCase().startsWith("!" + GLOBAL_CALL + " ")) {
-        String[] command = msg.split(" ");
+        String[] command = msg.trim().replaceAll(" +", " ").split(" ");
 
-        if (COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
+        if (command.length <= 1 || command[1].trim().isEmpty()) {
+          event.getChannel().sendMessage("No command for gtb");
+        } else if (COMMAND_MAP.keySet().contains(command[1].toLowerCase())) {
           COMMAND_MAP.get(command[1]).run(command, event, watcher, parameters);
         } else {
           String nearestCommand = Utils.getNearestCommand(command[1]);
