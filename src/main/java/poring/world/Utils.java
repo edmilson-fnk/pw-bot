@@ -131,6 +131,7 @@ public class Utils {
       return map;
     } catch (FileNotFoundException e) {
       System.out.println(String.format("File %s not found on reading", fileName));
+      e.printStackTrace();
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
       System.out.println(String.format("Error on loading %s", fileName));

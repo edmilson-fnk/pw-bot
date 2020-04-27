@@ -106,7 +106,7 @@ public class Constants {
     this.put(PREMIUM, new Premium());
 
     // Thanatos Tower Team
-    this.put(THANATOS, new Thanatos());
+//    this.put(THANATOS, new Thanatos());
 
     // Party
 //    this.put(CREATE_PARTY, new CreateParty());
