@@ -2,7 +2,9 @@ package poring.world.market;
 
 import static poring.world.Constants.GLOBAL_CALL;
 import static poring.world.Constants.FILTER_TOKEN;
+import static poring.world.Constants.HELP;
 import static poring.world.Constants.QUERY_FILTERS;
+import static poring.world.Constants.SEARCH;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.json.simple.JSONArray;
@@ -28,7 +30,7 @@ public class Search extends Command {
     String query = Utils.getQuery(command);
     StringBuilder sb = new StringBuilder();
     if (query.isEmpty()) {
-      sb.append(String.format("No query to search.\nTry _!%s help search_\n", GLOBAL_CALL));
+      sb.append(String.format("No query to search.\nTry _!%s %s %s_\n", GLOBAL_CALL, HELP, SEARCH));
     }
 
     if (query.contains(FILTER_TOKEN)) {

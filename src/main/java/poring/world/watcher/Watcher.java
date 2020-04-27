@@ -1,5 +1,6 @@
 package poring.world.watcher;
 
+import static poring.world.market.filter.FilterUtils.translate;
 import static poring.world.s3.S3Files.WATCHER_FILTERS_DAT;
 import static poring.world.s3.S3Files.WATCHER_MAP_DAT;
 
@@ -48,12 +49,12 @@ public class Watcher extends Thread {
     return this.watchMapFilters;
   }
 
-  public void add(String query, MessageAuthor messageAuthor, TextChannel channel) {
-    add(query, messageAuthor, channel, null);
+  public String add(String query, MessageAuthor messageAuthor, TextChannel channel) {
+    return add(query, messageAuthor, channel, null);
   }
 
 
-  public void add(String query, MessageAuthor messageAuthor, TextChannel channel, Map<String, String> filters) {
+  public String add(String query, MessageAuthor messageAuthor, TextChannel channel, Map<String, String> filters) {
     WatchObject listenObj = new WatchObject(query, messageAuthor, channel);
 
     long authorId = messageAuthor.getId();
@@ -79,7 +80,12 @@ public class Watcher extends Thread {
         }
 
         this.saveMaps();
+      } else {
+        return String.format("You're already watching _%s_. Remove current _%s_ before adding a new one",
+            query, query);
       }
+      return String.format("GTB is watching _%s_ for _%s_ with %s", query,
+          messageAuthor.getDisplayName(), translate(filters));
     }
   }
 
@@ -128,13 +134,7 @@ public class Watcher extends Thread {
             if (marketItems.size() > 0) {
               StringBuilder objMessage = new StringBuilder();
               theresSomethingFlag = true;
-              objMessage.append(String.format("_%s_ ", obj.getQuery()));
-              if (filters != null && !filters.isEmpty()) {
-                for (String key : filters.keySet()) {
-                  objMessage.append(FilterUtils.translate(key, filters.get(key)));
-                }
-              }
-              objMessage.append("\n");
+              objMessage.append(String.format("_%s_ %s\n", obj.getQuery(), FilterUtils.translate(filters)));
               for (Object marketItem : marketItems) {
                 objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
               }

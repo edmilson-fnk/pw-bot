@@ -7,6 +7,7 @@ import static poring.world.Constants.BACKUP;
 import static poring.world.Constants.CALL;
 import static poring.world.Constants.GENERAL_TIME_FORMAT;
 import static poring.world.Constants.GLOBAL_CALL;
+import static poring.world.Constants.HELP;
 import static poring.world.Constants.LEAVE;
 import static poring.world.Constants.RESET;
 import static poring.world.Constants.THANATOS;
@@ -24,12 +25,6 @@ import poring.world.s3.S3Files;
 import poring.world.watcher.Watcher;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,20 +103,16 @@ public class Thanatos extends Command {
       if (ttName.equals(ttTeam.getName())) {
         thanatosTeam.put(serverId, new ThanatosTeamObject(event.getServer().get().getName(), serverId));
         thanatosTime.remove(timeKey);
-        String msg = String.format("Thanatos team **%s** was unmade.", ttName);
-        channel.sendMessage(msg);
+        channel.sendMessage(String.format("Thanatos team **%s** unmade", ttName));
       } else {
-        String msg = String.format("**%s** team not found. Try using _!%s %s %s %s_", ttName, GLOBAL_CALL, THANATOS,
-            RESET, ttTeam.getName());
-        channel.sendMessage(msg);
+        channel.sendMessage(String.format("**%s** team not found. Try _!%s %s %s %s_", ttName, GLOBAL_CALL, THANATOS,
+            RESET, ttTeam.getName()));
       }
     } else if (option.toLowerCase().startsWith(RESET)) {
-      String msg = String.format("Try _!%s %s %s %s_", GLOBAL_CALL, THANATOS,
-          RESET, ttTeam.getName());
-      channel.sendMessage(msg);
+      channel.sendMessage(String.format("Try _!%s %s %s %s_", GLOBAL_CALL, THANATOS, RESET, ttTeam.getName()));
     } else {
       // invalid option
-      channel.sendMessage(String.format("Invalid option **%s**", option));
+      channel.sendMessage(String.format("Invalid option **%s**, try !%s %s %s", option, GLOBAL_CALL, HELP, THANATOS));
     }
     this.saveMaps();
   }

@@ -27,8 +27,7 @@ public class TTUtils {
 
   private static String show(ThanatosTeamObject tt, DiscordApi api, String ttTime, boolean call) {
     StringBuilder sb = new StringBuilder();
-    sb.append(String.format(":tokyo_tower: Thanatos Tower Team: **%s**\n", tt.getName()));
-    sb.append(String.format("Date: _%s_\n", ttTime));
+    sb.append(String.format(":tokyo_tower: Thanatos Tower Team: **%s**\nDate: _%s_\n", tt.getName(), ttTime));
     sb.append(getTeamStr(tt, api, A, call));
     sb.append(getTeamStr(tt, api, B, call));
     if (!tt.getParties().get(BACKUP).isEmpty()) {
@@ -72,8 +71,8 @@ public class TTUtils {
         if (call) {
           sb.append(String.format("   %s. <@%s>\n", i, memberId));
         } else {
-          String name = api.getUserById(memberId).get().getDisplayName(api.getServerById(tt.getServerId()).get());
-          sb.append(String.format("   %s. %s\n", i, name));
+          String memberName = api.getUserById(memberId).get().getDisplayName(api.getServerById(tt.getServerId()).get());
+          sb.append(String.format("   %s. %s\n", i, memberName));
         }
       } catch (InterruptedException | ExecutionException e) {
         sb.append(String.format("   %s.\n", i));
@@ -85,22 +84,22 @@ public class TTUtils {
     return sb.toString();
   }
 
-  public static boolean remove(Long author, ThanatosTeamObject tt) {
-    return tt.getParties().get(A).remove(author)
-        || tt.getParties().get(B).remove(author)
-        || tt.getParties().get(BACKUP).remove(author);
+  public static boolean remove(Long authorId, ThanatosTeamObject tt) {
+    return tt.getParties().get(A).remove(authorId)
+        || tt.getParties().get(B).remove(authorId)
+        || tt.getParties().get(BACKUP).remove(authorId);
   }
 
-  public static boolean add(Long author, ThanatosTeamObject tt, String team) {
+  public static boolean add(Long authorId, ThanatosTeamObject tt, String team) {
     if (full(tt, team)) {
       return false;
     }
 
-    if (contains(tt, author)) {
-      remove(author, tt);
+    if (contains(tt, authorId)) {
+      remove(authorId, tt);
     }
 
-    tt.getParties().get(team).add(author);
+    tt.getParties().get(team).add(authorId);
     return true;
   }
 
@@ -110,10 +109,10 @@ public class TTUtils {
         && (tt.getParties().get(B).size() == 6);
   }
 
-  private static boolean contains(ThanatosTeamObject tt, Long author) {
-    return tt.getParties().get(A).contains(author)
-        || tt.getParties().get(B).contains(author)
-        || tt.getParties().get(BACKUP).contains(author);
+  private static boolean contains(ThanatosTeamObject tt, Long authorId) {
+    return tt.getParties().get(A).contains(authorId)
+        || tt.getParties().get(B).contains(authorId)
+        || tt.getParties().get(BACKUP).contains(authorId);
   }
 
 }

@@ -10,6 +10,17 @@ import java.util.Map;
 
 public class FilterUtils {
 
+  public static String translate(Map<String, String> filters) {
+    if (filters == null) {
+      return "";
+    }
+    StringBuilder sb = new StringBuilder();
+    for (String filterKey : filters.keySet()) {
+      sb.append(translate(filterKey, filters.get(filterKey)));
+    }
+    return sb.toString();
+  }
+
   public static String translate(String key, String value) {
     String rKey = FILTERS_NAME.get(key.toLowerCase());
     String rValue = value;
