@@ -33,11 +33,17 @@ public class Watcher extends Thread {
   }
 
   public Map<Long, List<WatchObject>> getMap() {
+    if (this.watchMap == null) {
+      loadMaps();
+    }
     return this.watchMap;
   }
 
 
   public Map<Long, Map<String, Map<String, String>>> getFilters() {
+    if (this.watchMapFilters == null) {
+      loadMaps();
+    }
     return this.watchMapFilters;
   }
 

@@ -11,12 +11,12 @@ import java.util.Map;
 public class FilterUtils {
 
   public static String translate(String key, String value) {
-    String rKey = FILTERS_NAME.get(key);
+    String rKey = FILTERS_NAME.get(key.toLowerCase());
     String rValue = value;
     if (key.equalsIgnoreCase(MAX_PRICE)) {
       rValue = new DecimalFormat("###,###,###,###").format(Double.parseDouble(value));
     }
-    return String.format("%s: %s; ", rKey, rValue);
+    return String.format("_%s_: %s; ", rKey, rValue);
   }
 
   public static String validate(String key, String value) {

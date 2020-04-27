@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.general.Command;
+import poring.world.market.filter.FilterUtils;
 import poring.world.watcher.WatchObject;
 import poring.world.watcher.Watcher;
 
@@ -25,16 +26,16 @@ public class ListC extends Command {
       sb.append(messageAuthor.getDisplayName());
       sb.append("**\n");
       List<WatchObject> objList = watcherMap.get(messageAuthor.getId());
-      Map<String, Map<String, String>> filtersList = filtersMap.get(messageAuthor.getId());
+      Map<String, Map<String, String>> filtersList = filtersMap != null ? filtersMap.get(messageAuthor.getId()) : null;
       for (int i = 0; i < objList.size(); i++) {
         StringBuilder subSb = new StringBuilder();
         WatchObject obj = objList.get(i);
-        Map<String, String> filter = filtersList.get(objList.toString());
+        Map<String, String> filter = filtersList != null ? filtersList.get(obj.toString()) : null;
 
         subSb.append(String.format("(%s) _%s_ ", i + 1, obj.getQuery()));
         if (filter != null && !filter.isEmpty()) {
           for (String key : filter.keySet()) {
-            subSb.append(String.format("::%s=%s ", key, filter.get(key)));
+            subSb.append(FilterUtils.translate(key, filter.get(key)));
           }
         }
         subSb.append("\n");

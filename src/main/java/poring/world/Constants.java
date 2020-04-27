@@ -48,7 +48,7 @@ public class Constants {
 
   // Watcher filters
   public static final String FILTER_TOKEN = "::";
-  public static final String MAX_PRICE = "maxPrice";
+  public static final String MAX_PRICE = "maxprice";
   public static final Map<String, String> FILTERS_NAME = ImmutableMap.of(
       MAX_PRICE, "Max price"
   );
