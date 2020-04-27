@@ -81,7 +81,7 @@ public class Search extends Command {
       this.add("Eye of Dullahan [1]");
       this.add("+4 Eye of Dullahan");
       this.add("+4 Eye of Dullahan <Sharp Blade 1> (broken)");
-      this.add("Eye of Dullahan [1] ::maxPrice=1000000");
+      this.add("Eye of Dullahan ::maxPrice=2000000");
     }};
   }
 

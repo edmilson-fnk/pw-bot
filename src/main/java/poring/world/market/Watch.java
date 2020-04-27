@@ -64,7 +64,8 @@ public class Watch extends Command {
 
   @Override
   public String getHelp() {
-    return "hourly checks poring.world and privately alerts user if search query is found";
+    return "hourly checks poring.world and privately alerts user if search query is found. " +
+        "Filter available: _maxPrice_, see filter example";
   }
 
   @Override
@@ -74,7 +75,8 @@ public class Watch extends Command {
         "morale 4",
         "Eye of Dullahan [1]",
         "+4 Eye of Dullahan",
-        "+4 Eye of Dullahan <Sharp Blade 1> (broken)"
+        "+4 Eye of Dullahan <Sharp Blade 1> (broken)",
+        "Eye of Dullahan ::maxPrice=2000000"
     );
   }
 
