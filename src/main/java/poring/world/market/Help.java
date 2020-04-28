@@ -5,6 +5,7 @@ import static poring.world.Constants.GLOBAL_CALL;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
+import poring.world.Constants;
 import poring.world.Utils;
 import poring.world.general.Command;
 import poring.world.watcher.Watcher;
@@ -30,6 +31,7 @@ public class Help extends Command {
       event.getChannel().sendMessage("Invalid command: **" + query + "**");
       return;
     }
+    helpMap.remove(Constants.URL);
 
     StringBuilder helpMessage = new StringBuilder();
     helpMessage.append(":question: **GTB help**\n");

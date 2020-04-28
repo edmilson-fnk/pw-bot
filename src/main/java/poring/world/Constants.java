@@ -9,6 +9,7 @@ import poring.world.market.Help;
 import poring.world.market.ListC;
 import poring.world.market.Remove;
 import poring.world.market.Search;
+import poring.world.market.URL;
 import poring.world.market.Watch;
 import poring.world.thanatos.Thanatos;
 
@@ -99,7 +100,7 @@ public class Constants {
     this.put(CLEAR, new Clear());
     this.put(LIST, new ListC());
     this.put(REMOVE, new Remove());
-//    this.put(URL, new URL());
+    this.put(URL, new URL());
 
     // Cheapest
     this.put(CARDS_CALL, new Cards());
