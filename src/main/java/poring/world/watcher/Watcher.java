@@ -84,8 +84,9 @@ public class Watcher extends Thread {
         return String.format("You're already watching _%s_. Remove current _%s_ before adding a new one",
             query, query);
       }
-      return String.format("GTB is watching _%s_ for _%s_ with %s", query,
-          messageAuthor.getDisplayName(), translate(filters));
+      String filtersStr = translate(filters);
+      return String.format("GTB is watching _%s_ for _%s_ %s %s", query,
+          messageAuthor.getDisplayName(), filtersStr.isEmpty() ? "" : "with", filtersStr);
     }
   }
 
