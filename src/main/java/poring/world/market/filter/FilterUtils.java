@@ -30,7 +30,7 @@ public class FilterUtils {
     if (key.equalsIgnoreCase(MAX_PRICE)) {
       rValue = new DecimalFormat("###,###,###,###").format(Double.parseDouble(value));
     } else if (key.equalsIgnoreCase(BROKEN)) {
-      rValue = value;
+      rValue = value.toLowerCase();
     }
     return String.format("_%s_: %s; ", rKey, rValue);
   }
