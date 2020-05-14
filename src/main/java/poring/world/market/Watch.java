@@ -30,7 +30,7 @@ public class Watch extends Command {
       for (int i = 1; i < queryFilters.length; i++) {
         String[] keyValue = queryFilters[i].split("=");
         String key = keyValue[0].trim();
-        String value = keyValue[1].trim();
+        String value = keyValue.length > 1 ? keyValue[1].trim() : "";
         for (String queryFilter : QUERY_FILTERS) {
           if (key.equalsIgnoreCase(queryFilter)) {
             String validate = FilterUtils.validate(key, value);
