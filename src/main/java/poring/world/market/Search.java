@@ -41,7 +41,6 @@ public class Search extends Command {
         String[] keyValue = queryFilters[i].split("=");
         String key = keyValue[0].trim();
         String value = keyValue.length > 1 ? keyValue[1].trim() : "";
-        System.out.println("Key:=" + key + " value=" + value);
         for (String queryFilter : QUERY_FILTERS) {
           if (key.equalsIgnoreCase(queryFilter)) {
             String validate = FilterUtils.validate(key, value);
