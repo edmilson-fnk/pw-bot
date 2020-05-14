@@ -58,7 +58,7 @@ public class FilterUtils {
       if (key.equalsIgnoreCase(MAX_PRICE)) {
         return ((long) ((JSONObject) minimalJsonObject.get("lastRecord")).get("price")) > Long.parseLong(value);
       } else if (key.equalsIgnoreCase(BROKEN)) {
-        return value.equalsIgnoreCase(YES) == minimalJsonObject.get("name").toString().contains("(broken)");
+        return value.equalsIgnoreCase(YES) != minimalJsonObject.get("name").toString().contains("(broken)");
       }
     }
     return false;
