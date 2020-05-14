@@ -13,6 +13,7 @@ import poring.world.market.filter.FilterUtils;
 import poring.world.watcher.Watcher;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -61,19 +62,21 @@ public class Watch extends Command {
   @Override
   public String getHelp() {
     return "hourly checks poring.world and privately alerts user if search query is found. " +
-        "Filter available: _maxPrice_, see filter example";
+        "Filters available: _maxPrice_, _broken_, see filter example";
   }
 
   @Override
   public List<String> getQueries() {
-    return ImmutableList.of(
-        "morale",
-        "morale 4",
-        "Eye of Dullahan [1]",
-        "+4 Eye of Dullahan",
-        "+4 Eye of Dullahan <Sharp Blade 1> (broken)",
-        "Eye of Dullahan ::maxPrice=2000000"
-    );
+    return new LinkedList<String>(){{
+      this.add("morale");
+      this.add("morale 4");
+      this.add("Eye of Dullahan [1]");
+      this.add("+4 Eye of Dullahan");
+      this.add("+4 Eye of Dullahan <Sharp Blade 1> (broken)");
+      this.add("Eye of Dullahan ::maxPrice=2000000");
+      this.add("Eye of Dullahan ::broken=no");
+      this.add("Eye of Dullahan ::broken=yes");
+    }};
   }
 
 }

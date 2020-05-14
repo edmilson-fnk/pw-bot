@@ -21,6 +21,8 @@ public class Constants {
 
   // General
   public static final String GLOBAL_CALL = "gtb";
+  public static final String YES = "yes";
+  public static final String NO = "no";
 
   // Subcommands
   public static final String CARDS_CALL = "cards";
@@ -50,8 +52,10 @@ public class Constants {
   // Watcher filters
   public static final String FILTER_TOKEN = "::";
   public static final String MAX_PRICE = "maxprice";
+  public static final String BROKEN = "broken";
   public static final Map<String, String> FILTERS_NAME = ImmutableMap.of(
-      MAX_PRICE, "Max price"
+      MAX_PRICE, "Max price",
+      BROKEN, "Broken"
   );
   public static final Set<String> QUERY_FILTERS = FILTERS_NAME.keySet();
 
