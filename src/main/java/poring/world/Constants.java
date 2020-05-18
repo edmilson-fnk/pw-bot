@@ -7,6 +7,7 @@ import poring.world.general.Command;
 import poring.world.market.Clear;
 import poring.world.market.Help;
 import poring.world.market.ListC;
+import poring.world.market.Organize;
 import poring.world.market.Remove;
 import poring.world.market.Search;
 import poring.world.market.URL;
@@ -32,6 +33,7 @@ public class Constants {
   public static final String WATCH = "watch";
   public static final String CLEAR = "clear";
   public static final String LIST = "list";
+  public static final String ORGANIZE = "organize";
   public static final String REMOVE = "remove";
   public static final String URL = "url";
 
@@ -103,6 +105,7 @@ public class Constants {
     this.put(WATCH, new Watch());
     this.put(CLEAR, new Clear());
     this.put(LIST, new ListC());
+    this.put(ORGANIZE, new Organize());
     this.put(REMOVE, new Remove());
     this.put(URL, new URL());
 

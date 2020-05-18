@@ -25,6 +25,7 @@ public class ListC extends Command {
       sb.append("Items for **");
       sb.append(messageAuthor.getDisplayName());
       sb.append("**\n");
+      sb.append(String.format("Items for **%s**\n", messageAuthor.getDisplayName()));
       List<WatchObject> objList = watcherMap.get(messageAuthor.getId());
       Map<String, Map<String, String>> filtersList = filtersMap != null ? filtersMap.get(messageAuthor.getId()) : null;
       for (int i = 0; i < objList.size(); i++) {
