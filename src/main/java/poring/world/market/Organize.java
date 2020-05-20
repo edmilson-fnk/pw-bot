@@ -44,6 +44,6 @@ public class Organize extends Command {
 
   @Override
   public List<String> getQueries() {
-    return ImmutableList.of();
+    return ImmutableList.of("");
   }
 }
