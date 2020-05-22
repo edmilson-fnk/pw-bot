@@ -32,7 +32,7 @@ public class Utils {
     for (int i = 2; i < command.length; i++) {
       joiner.add(command[i]);
     }
-    return joiner.toString();
+    return joiner.toString().trim();
   }
 
   public static String getItemMessage(JSONObject jsonItem) {
