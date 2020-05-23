@@ -19,8 +19,10 @@ public class Clear extends Command {
 
     if (watcher.getMap().containsKey(messageAuthor.getId())) {
       List<WatchObject> authorList = watcher.getMap().get(messageAuthor.getId());
+      int size = 0;
       if (authorList != null) {
         authorList.clear();
+        size = authorList.size();
       }
       Map<String, Map<String, String>> authorFilters = watcher.getFilters().get(messageAuthor.getId());
       if (authorFilters != null) {
@@ -28,8 +30,7 @@ public class Clear extends Command {
       }
       watcher.saveMaps();
       event.getChannel().sendMessage(
-          String.format("Removed _%s_ %s for _%s_", authorList.size(),
-              Utils.pluralItem(authorList.size()), messageAuthor.getDisplayName())
+          String.format("Removed _%s_ %s for _%s_", size, Utils.pluralItem(size), messageAuthor.getDisplayName())
       );
     }
   }
