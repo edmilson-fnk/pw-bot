@@ -20,7 +20,7 @@ import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
-import poring.world.general.Command;
+import poring.world.market.Command;
 import poring.world.s3.S3Files;
 import poring.world.watcher.Watcher;
 

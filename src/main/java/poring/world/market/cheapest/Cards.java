@@ -1,4 +1,4 @@
-package poring.world.cheapest;
+package poring.world.market.cheapest;
 
 import static poring.world.Constants.CARD_COLOR;
 import static poring.world.Constants.CARD_COLOR_NAME;
@@ -10,7 +10,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
-import poring.world.general.Command;
+import poring.world.market.Command;
 import poring.world.watcher.Watcher;
 
 import java.util.HashSet;

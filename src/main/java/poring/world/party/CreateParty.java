@@ -10,7 +10,7 @@ import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
-import poring.world.general.Command;
+import poring.world.market.Command;
 import poring.world.watcher.Watcher;
 
 import java.util.HashMap;
