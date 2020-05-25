@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="itens")
+@Table(name="items")
 public class Item {
 
   @Id
