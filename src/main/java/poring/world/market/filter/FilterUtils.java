@@ -71,9 +71,10 @@ public class FilterUtils {
         }
       } else if (key.equalsIgnoreCase(ENCHANT)) {
         String name = minimalJsonObject.get("name").toString();
-        return !name.matches(String.format("<.*%s.*>", value));
+        return !name.matches(String.format(".*<.*%s.*>.*", value));
       }
     }
     return false;
   }
+
 }
