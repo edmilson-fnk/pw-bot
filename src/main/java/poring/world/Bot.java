@@ -65,7 +65,10 @@ public class Bot {
 
   private static void runCommand(String msg, MessageCreateEvent event, Map<String, Object> parameters,
                                 Watcher watcher, Map<String, Command> commands) {
-    String[] command = msg.trim().replaceAll(" +", " ").split(" ");
+    String[] command = msg.trim()
+        .replaceAll("\n", " ")
+        .replaceAll(" +", " ")
+        .split(" ");
 
     if (command.length <= 1 || command[1].trim().isEmpty()) {
       event.getChannel().sendMessage("No command for gtb");
