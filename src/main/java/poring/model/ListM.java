@@ -1,24 +1,28 @@
 package poring.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="lists")
-public class ListM {
+public class ListM implements Serializable {
 
   @Id
+  @GeneratedValue
   private int id;
 
-  @ManyToOne
-  @JoinColumn(name="author_id", nullable=false)
+  @OneToOne
+  @JoinColumn(name="id")
+  @MapsId
   private Author author;
 
   @OneToMany(mappedBy="list")
@@ -42,5 +46,13 @@ public class ListM {
 
   public void setItens(List<Item> itens) {
     this.itens = itens;
+  }
+
+  public Author getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(Author author) {
+    this.author = author;
   }
 }

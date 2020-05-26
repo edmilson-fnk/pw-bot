@@ -6,6 +6,7 @@ import static poring.world.Constants.QUERY_FILTERS;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
+import poring.model.Item;
 import poring.world.Utils;
 import poring.world.market.filter.FilterUtils;
 import poring.world.watcher.Watcher;
@@ -49,6 +50,8 @@ public class Watch extends Command {
       event.getChannel().sendMessage("No query to watch");
       return;
     }
+
+//    new Item().withQuery(query).withFilters(filters);
 
     TextChannel channel = event.getChannel();
     MessageAuthor messageAuthor = event.getMessageAuthor();

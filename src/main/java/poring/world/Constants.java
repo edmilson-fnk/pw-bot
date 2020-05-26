@@ -96,11 +96,12 @@ public class Constants {
     this.put("1", "white");
   }};
 
-  //!gtb-adm commands
+  // !gtb-adm command
+  public static final String ADM_CALL = "gtb-adm";
   public static final String USERS = "users";
   public static final String STATS = "stats";
   public static Map<String, Command> ADMIN_MAP = new HashMap<String, Command>(){{
-
+    this.put(URL, new URL());
   }};
 
   // !gtb command
@@ -113,7 +114,6 @@ public class Constants {
     this.put(LIST, new ListC());
     this.put(ORGANIZE, new Organize());
     this.put(REMOVE, new Remove());
-    this.put(URL, new URL());
 
     // Cheapest
     this.put(CARDS_CALL, new Cards());

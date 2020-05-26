@@ -1,28 +1,32 @@
 package poring.model;
 
-import java.util.List;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="authors")
-public class Author {
+public class Author implements Serializable {
 
   @Id
+  @GeneratedValue
   private int id;
 
   @Column(name="discord_id")
-  private int discordId;
+  private String discordId;
 
   @Column(name="discord_name")
   private String discordName;
 
-  @OneToMany(mappedBy="author")
-  private List<ListM> lists;
+  @OneToOne
+  @JoinColumn(name="id")
+  private ListM list;
 
   public Author() {
 
@@ -36,11 +40,11 @@ public class Author {
     this.id = id;
   }
 
-  public int getDiscordId() {
+  public String getDiscordId() {
     return discordId;
   }
 
-  public void setDiscordId(int discordId) {
+  public void setDiscordId(String discordId) {
     this.discordId = discordId;
   }
 
@@ -50,5 +54,22 @@ public class Author {
 
   public void setDiscordName(String discordName) {
     this.discordName = discordName;
+  }
+
+  public ListM getList() {
+    return list;
+  }
+
+  public void setList(ListM list) {
+    this.list = list;
+  }
+  public Author withDiscordName(String discordName) {
+    this.discordName = discordName;
+    return this;
+  }
+
+  public Author WithDiscordId(String discordId) {
+    this.discordId = discordId;
+    return this;
   }
 }

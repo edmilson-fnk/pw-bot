@@ -1,15 +1,19 @@
 package poring.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="servers")
-public class Server {
+public class Server implements Serializable {
 
   @Id
+  @GeneratedValue
   private int id;
 
   @Column(name="discord_id")
