@@ -48,7 +48,7 @@ public class FilterUtils {
     } else if (key.equalsIgnoreCase(BROKEN)) {
       return value.equalsIgnoreCase(YES) || value.equalsIgnoreCase(NO) ? null : value;
     } else if (key.equalsIgnoreCase(ENCHANT)) {
-      return value.isEmpty() ? null : "empty value";
+      return !value.isEmpty() ? null : "empty value";
     }
     return null;
   }
