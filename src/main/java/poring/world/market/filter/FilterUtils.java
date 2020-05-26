@@ -1,6 +1,7 @@
 package poring.world.market.filter;
 
 import static poring.world.Constants.BROKEN;
+import static poring.world.Constants.ENCHANT;
 import static poring.world.Constants.MAX_PRICE;
 import static poring.world.Constants.FILTERS_NAME;
 import static poring.world.Constants.NO;
@@ -31,6 +32,8 @@ public class FilterUtils {
       rValue = new DecimalFormat("###,###,###,###").format(Double.parseDouble(value));
     } else if (key.equalsIgnoreCase(BROKEN)) {
       rValue = value.toLowerCase();
+    } else if (key.equalsIgnoreCase(ENCHANT)) {
+      rValue = value.toLowerCase();
     }
     return String.format("_%s_: %s; ", rKey, rValue);
   }
@@ -44,6 +47,8 @@ public class FilterUtils {
       }
     } else if (key.equalsIgnoreCase(BROKEN)) {
       return value.equalsIgnoreCase(YES) || value.equalsIgnoreCase(NO) ? null : value;
+    } else if (key.equalsIgnoreCase(ENCHANT)) {
+      return value.isEmpty() ? null : "empty value";
     }
     return null;
   }
@@ -64,6 +69,9 @@ public class FilterUtils {
         || value.equalsIgnoreCase(NO) && minimalJsonObject.get("name").toString().contains("(broken)")) {
           return true;
         }
+      } else if (key.equalsIgnoreCase(ENCHANT)) {
+        String name = minimalJsonObject.get("name").toString();
+        return !name.matches(String.format("<.*%s.*>", value));
       }
     }
     return false;

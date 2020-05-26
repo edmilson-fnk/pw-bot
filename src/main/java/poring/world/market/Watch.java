@@ -63,7 +63,7 @@ public class Watch extends Command {
   @Override
   public String getHelp() {
     return "hourly checks poring.world and privately alerts user if search query is found. " +
-        "Filters available: _maxPrice_, _broken_, see filter example";
+        "Filters available: _maxPrice_, _broken_";
   }
 
   @Override

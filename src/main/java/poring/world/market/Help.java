@@ -30,7 +30,6 @@ public class Help extends Command {
       event.getChannel().sendMessage("Invalid command: **" + query + "**");
       return;
     }
-    helpMap.remove(Constants.URL);
 
     StringBuilder helpMessage = new StringBuilder();
     helpMessage.append(":question: **GTB help**\n");
@@ -38,13 +37,7 @@ public class Help extends Command {
       helpMessage.append(String.format("  _%s_   %s\n", key, COMMAND_MAP.get(key).getHelp()));
       if (addQueries) {
         for (String commandQuery : COMMAND_MAP.get(key).getQueries()) {
-          helpMessage.append("       - !");
-          helpMessage.append(GLOBAL_CALL);
-          helpMessage.append(" ");
-          helpMessage.append(key);
-          helpMessage.append(" ");
-          helpMessage.append(commandQuery);
-          helpMessage.append("\n");
+          helpMessage.append(String.format("       - !%s %s %s\n", GLOBAL_CALL, key, commandQuery));
         }
       }
     }

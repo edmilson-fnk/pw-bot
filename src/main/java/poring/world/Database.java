@@ -1,14 +1,11 @@
 package poring.world;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.query.Query;
 import poring.model.Author;
 
 import java.net.URI;
@@ -28,6 +25,11 @@ public class Database {
 
   public SessionFactory getDBConnection() {
     if (sessionFactory == null) {
+      if (DATABASE_URL == null) {
+        System.out.println("Invalid jdbc URI to connect, exiting...");
+        return null;
+      }
+
       Map<String,String> jdbcUrlSettings = new HashMap<>();
       URI uri = URI.create(DATABASE_URL);
       String[] userInfo = uri.getUserInfo().split(":");
