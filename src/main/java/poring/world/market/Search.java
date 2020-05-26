@@ -71,7 +71,7 @@ public class Search extends Command {
 
   @Override
   public String getHelp() {
-    return "searches for items in poring.world database. Filters available: _maxPrice_, _broken_";
+    return "searches for items in poring.world database. Filters available: _maxPrice_, _broken_, _enchant_";
   }
 
   @Override
@@ -85,6 +85,8 @@ public class Search extends Command {
       this.add("Eye of Dullahan ::maxPrice=2000000");
       this.add("Eye of Dullahan ::broken=yes");
       this.add("Eye of Dullahan ::broken=no");
+      this.add("Eye of Dullahan ::enchant=sharp blade");
+      this.add("Eye of Dullahan ::enchant=sharp blade 1");
     }};
   }
 
