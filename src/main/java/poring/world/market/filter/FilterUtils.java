@@ -70,8 +70,8 @@ public class FilterUtils {
           return true;
         }
       } else if (key.equalsIgnoreCase(ENCHANT)) {
-        String name = minimalJsonObject.get("name").toString();
-        return !name.matches(String.format(".*<.*%s.*>.*", value));
+        String name = minimalJsonObject.get("name").toString().toLowerCase();
+        return !name.matches(String.format(".*<.*%s.*>.*", value.toLowerCase()));
       }
     }
     return false;
