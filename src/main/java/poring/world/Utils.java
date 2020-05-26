@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringJoiner;
 
 public class Utils {
@@ -94,13 +95,17 @@ public class Utils {
     return num == 1 ? singular : plural;
   }
 
-  public static String getNearestCommand(String key) {
-    String nearest = EditDistance.findNearest(key, COMMAND_MAP.keySet().toArray(new String[0]));
+  public static String getNearestCommand(String key, Set<String> commands) {
+    String nearest = EditDistance.findNearest(key, commands.toArray(new String[0]));
     if (EditDistance.editDistance(key, nearest) <= 4) {
       return nearest;
     } else {
       return null;
     }
+  }
+
+  public static String getNearestCommand(String key) {
+    return getNearestCommand(key, COMMAND_MAP.keySet());
   }
 
   public static synchronized File saveMapFile(Map map, String fileName) {

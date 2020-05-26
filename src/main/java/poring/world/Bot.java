@@ -72,7 +72,7 @@ public class Bot {
     } else if (commands.keySet().contains(command[1].toLowerCase())) {
       commands.get(command[1]).run(command, event, watcher, parameters);
     } else {
-      String nearestCommand = Utils.getNearestCommand(command[1].toLowerCase());
+      String nearestCommand = Utils.getNearestCommand(command[1].toLowerCase(), commands.keySet());
       if (nearestCommand != null) {
         event.getChannel().sendMessage(
             String.format("Invalid command **%s**, did you mean **%s**? Running it instead...",
