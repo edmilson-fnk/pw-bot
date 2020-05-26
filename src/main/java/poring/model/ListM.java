@@ -26,7 +26,7 @@ public class ListM implements Serializable {
   private Author author;
 
   @OneToMany(mappedBy="list")
-  private List<Item> itens;
+  private List<Item> items;
 
   public ListM() {
 
@@ -40,12 +40,12 @@ public class ListM implements Serializable {
     this.id = id;
   }
 
-  public List<Item> getItens() {
-    return itens;
+  public List<Item> getItems() {
+    return items;
   }
 
-  public void setItens(List<Item> itens) {
-    this.itens = itens;
+  public void setItems(List<Item> items) {
+    this.items = items;
   }
 
   public Author getAuthor() {

@@ -55,14 +55,14 @@ public class Search extends Command {
       }
     }
 
-    JSONArray itens = Fetcher.query(query, searchFilters);
-    if (itens.size() == 0) {
+    JSONArray items = Fetcher.query(query, searchFilters);
+    if (items.size() == 0) {
       sb.append(String.format("No item found for _%s_ :poop:", query));
     }
-    for (Object item : itens.subList(0, Math.min(MAX_RESULTS, itens.size()))) {
+    for (Object item : items.subList(0, Math.min(MAX_RESULTS, items.size()))) {
       sb.append(String.format("%s\n", Utils.getItemMessage((JSONObject) item)));
     }
-    if (itens.size() > MAX_RESULTS) {
+    if (items.size() > MAX_RESULTS) {
       sb.append("More than 10 items found. Refine your search...");
     }
 

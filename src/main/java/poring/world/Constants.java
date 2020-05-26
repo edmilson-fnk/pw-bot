@@ -1,6 +1,7 @@
 package poring.world;
 
 import com.google.common.collect.ImmutableMap;
+import poring.world.adm.Metrics;
 import poring.world.market.cheapest.Cards;
 import poring.world.market.cheapest.Premium;
 import poring.world.market.Command;
@@ -10,7 +11,7 @@ import poring.world.market.ListC;
 import poring.world.market.Organize;
 import poring.world.market.Remove;
 import poring.world.market.Search;
-import poring.world.market.URL;
+import poring.world.adm.URL;
 import poring.world.market.Watch;
 
 import java.util.HashMap;
@@ -98,10 +99,11 @@ public class Constants {
 
   // !gtb-adm command
   public static final String ADM_CALL = "gtb-adm";
+  public static final String METRICS = "metrics";
   public static final String USERS = "users";
-  public static final String STATS = "stats";
   public static Map<String, Command> ADMIN_MAP = new HashMap<String, Command>(){{
     this.put(URL, new URL());
+    this.put(METRICS, new Metrics());
   }};
 
   // !gtb command

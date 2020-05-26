@@ -87,7 +87,7 @@ public class Utils {
   }
 
   public static String pluralItem(int num) {
-    return Utils.pluralize(num, "item", "itens");
+    return Utils.pluralize(num, "item", "items");
   }
 
   public static String pluralize(int num, String singular, String plural) {
