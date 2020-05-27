@@ -74,6 +74,7 @@ public class SearchAdv extends Command {
     StringBuilder itemsMsg = new StringBuilder();
     for (Object item : items.subList(0, Math.min(MAX_RESULTS, items.size()))) {
       itemsMsg.append(Utils.getItemMessage((JSONObject) item));
+      itemsMsg.append("\n");
     }
     embed.addField("Items", itemsMsg.toString());
 
