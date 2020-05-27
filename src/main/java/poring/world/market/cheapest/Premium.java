@@ -3,6 +3,8 @@ package poring.world.market.cheapest;
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
+import org.javacord.api.exception.MissingPermissionsException;
+import org.javacord.api.util.logging.ExceptionLogger;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
@@ -23,7 +25,7 @@ public class Premium extends Command {
     } else {
       embed.addField("", "No premium found");
     }
-    event.getChannel().sendMessage(embed);
+    event.getChannel().sendMessage(embed).exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
   }
 
   @Override

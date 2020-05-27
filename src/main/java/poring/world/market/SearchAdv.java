@@ -8,6 +8,8 @@ import static poring.world.Constants.SEARCH;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
+import org.javacord.api.exception.MissingPermissionsException;
+import org.javacord.api.util.logging.ExceptionLogger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
@@ -77,7 +79,7 @@ public class SearchAdv extends Command {
       embed.setFooter("More than 10 items found. Refine your search...");
     }
 
-    event.getChannel().sendMessage(embed);
+    event.getChannel().sendMessage(embed).exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
   }
 
   @Override
