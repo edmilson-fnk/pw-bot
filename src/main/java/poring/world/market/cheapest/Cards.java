@@ -69,7 +69,7 @@ public class Cards extends Command {
             Utils.priceWithoutDecimal(perDust)));
       }
 
-      embed.addField(fieldName, content.toString(), false);
+      embed.addField(fieldName, content.toString());
     }
 
     channel.sendMessage(embed)
