@@ -48,7 +48,7 @@ public class Utils {
     returnMessage.append(highlighter);
     returnMessage.append(jsonItem.get("name"));
     returnMessage.append(highlighter);
-    returnMessage.append(" Price: ");
+    returnMessage.append(" for ");
     String priceStr = lastRecord.get("price").toString();
     returnMessage.append(priceWithoutDecimal(Double.parseDouble(priceStr)));
 

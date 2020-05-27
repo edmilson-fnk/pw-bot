@@ -76,7 +76,7 @@ public class SearchAdv extends Command {
       itemsMsg.append(Utils.getItemMessage((JSONObject) item));
       itemsMsg.append("\n");
     }
-    embed.addField("Items", itemsMsg.toString());
+    embed.addInlineField("Items", itemsMsg.toString());
 
     if (items.size() > MAX_RESULTS) {
       embed.setFooter("More than 10 items found. Refine your search...");
