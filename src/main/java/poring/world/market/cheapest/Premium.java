@@ -9,11 +9,10 @@ import poring.world.market.Command;
 import poring.world.watcher.Watcher;
 
 import java.util.List;
-import java.util.Map;
 
 public class Premium extends Command {
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     JSONObject premiums = Fetcher.getCheapestPremiums();
     StringBuilder sb = new StringBuilder();
     sb.append("**Cheapest premiums**\n");

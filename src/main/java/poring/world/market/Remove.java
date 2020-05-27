@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class Remove extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     MessageAuthor messageAuthor = event.getMessageAuthor();
     String query = Utils.getQuery(command);
     List<WatchObject> objList = watcher.getMap().get(messageAuthor.getId());

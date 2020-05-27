@@ -14,7 +14,7 @@ import java.util.Map;
 public class ListC extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     Map<Long, List<WatchObject>> watcherMap = watcher.getMap();
     Map<Long, Map<String, Map<String, String>>> filtersMap = watcher.getFilters();
     MessageAuthor messageAuthor = event.getMessageAuthor();

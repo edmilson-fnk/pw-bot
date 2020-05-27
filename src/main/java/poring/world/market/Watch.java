@@ -6,7 +6,6 @@ import static poring.world.Constants.QUERY_FILTERS;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
-import poring.model.Item;
 import poring.world.Utils;
 import poring.world.market.filter.FilterUtils;
 import poring.world.watcher.Watcher;
@@ -19,7 +18,7 @@ import java.util.Map;
 public class Watch extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     String query = Utils.getQuery(command);
     Map<String, String> filters = new HashMap<>();
 

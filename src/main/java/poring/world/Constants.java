@@ -3,6 +3,7 @@ package poring.world;
 import com.google.common.collect.ImmutableMap;
 import poring.world.adm.Metrics;
 import poring.world.market.cheapest.Cards;
+import poring.world.market.cheapest.CardsAdv;
 import poring.world.market.cheapest.Premium;
 import poring.world.market.Command;
 import poring.world.market.Clear;
@@ -37,11 +38,6 @@ public class Constants {
   public static final String REMOVE = "remove";
   public static final String URL = "url";
 
-  // JoinParty
-  public static final String CREATE_PARTY = "party";
-  public static final String JOIN_PARTY = "join";
-  public static final String END_PARTY = "end";
-
   // Thanatos Tower Dungeon
   public static final String THANATOS = "tt";
   public static final String LEAVE = "leave";
@@ -72,9 +68,7 @@ public class Constants {
   public static final String GENERAL_TIME_FORMAT = "dd/MM/yyyy HH:mm";
 
   // Parameters
-  public static final String BOT_URL = "bot_url";
   public static final String PARTIES = "parties";
-  public static final String API = "api";
 
   // Card Colors
   public static Map<String, String> CARD_COLOR = new HashMap<String, String>(){{
@@ -100,12 +94,12 @@ public class Constants {
   }};
 
   // !gtb-adm command
-  public static final String ADM_CALL = "gtb-adm";
+  public static final String ADM_CALL = "gtbadm";
   public static final String METRICS = "metrics";
-  public static final String USERS = "users";
   public static Map<String, Command> ADMIN_MAP = new HashMap<String, Command>(){{
     this.put(URL, new URL());
     this.put(METRICS, new Metrics());
+    this.put(CARDS_CALL, new CardsAdv());
   }};
 
   // !gtb command
@@ -125,11 +119,6 @@ public class Constants {
 
     // Thanatos Tower Team
 //    this.put(THANATOS, new Thanatos());
-
-    // Party
-//    this.put(CREATE_PARTY, new CreateParty());
-//    this.put(JOIN_PARTY, new JoinParty());
-//    this.put(END_PARTY, new EndParty());
   }};
 
 }

@@ -13,7 +13,7 @@ import java.util.Map;
 public class Metrics extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     Map<Long, List<WatchObject>> m = watcher.getMap();
 
     int numLists = 0;

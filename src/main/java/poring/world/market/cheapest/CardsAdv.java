@@ -6,7 +6,10 @@ import static poring.world.Constants.COLOR_DUST;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.channel.TextChannel;
+import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
+import org.javacord.api.exception.MissingPermissionsException;
+import org.javacord.api.util.logging.ExceptionLogger;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
@@ -17,7 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Cards extends Command {
+public class CardsAdv extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
@@ -64,7 +67,12 @@ public class Cards extends Command {
       }
     }
 
-    channel.sendMessage(sb.toString());
+    EmbedBuilder embed = new EmbedBuilder()
+        .setTitle("Card")
+        .setAuthor(event.getMessageAuthor())
+        .addField("Cards", sb.toString(), true);
+    channel.sendMessage(embed)
+        .exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
   }
 
   @Override

@@ -1,7 +1,7 @@
 package poring.world.market;
 
-import static poring.world.Constants.GLOBAL_CALL;
 import static poring.world.Constants.FILTER_TOKEN;
+import static poring.world.Constants.GLOBAL_CALL;
 import static poring.world.Constants.HELP;
 import static poring.world.Constants.QUERY_FILTERS;
 import static poring.world.Constants.SEARCH;
@@ -24,7 +24,7 @@ public class Search extends Command {
   private static final int MAX_RESULTS = 10;
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     Map<String, String> searchFilters = new HashMap<>();
     String query = Utils.getQuery(command);
     StringBuilder sb = new StringBuilder();

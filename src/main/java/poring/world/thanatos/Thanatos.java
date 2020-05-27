@@ -1,7 +1,6 @@
 package poring.world.thanatos;
 
 import static poring.world.Constants.A;
-import static poring.world.Constants.API;
 import static poring.world.Constants.B;
 import static poring.world.Constants.BACKUP;
 import static poring.world.Constants.CALL;
@@ -40,7 +39,7 @@ public class Thanatos extends Command {
   }
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     TextChannel channel = event.getChannel();
     if (!event.getServer().isPresent()) {
       channel.sendMessage(String.format("Try _!%s %s_ in a server channel", GLOBAL_CALL, THANATOS));
@@ -65,17 +64,17 @@ public class Thanatos extends Command {
         thanatosTime.put(timeKey, TTUtils.getNextSaturday());
       }
       String ttTime = thanatosTime.get(timeKey);
-      String msg = showTT(parameters, ttTeam, ttTime);
+      String msg = showTT(event.getApi(), ttTeam, ttTime);
       channel.sendMessage(msg);
     } else if (TTUtils.isDateTime(option)) {
       thanatosTime.put(timeKey, option);
       String ttTime = thanatosTime.get(timeKey);
-      String msg = showTT(parameters, ttTeam, ttTime);
+      String msg = showTT(event.getApi(), ttTeam, ttTime);
       channel.sendMessage(msg);
     } else if (option.equalsIgnoreCase(CALL)) {
       // call the team
       String ttTime = thanatosTime.get(timeKey);
-      String msg = callTT(parameters, ttTeam, ttTime);
+      String msg = callTT(event.getApi(), ttTeam, ttTime);
       channel.sendMessage(msg);
     } else if (option.equalsIgnoreCase(A)) {
       // joins party A
@@ -135,12 +134,12 @@ public class Thanatos extends Command {
         String.format("_Party %s_ for Thanatos Tower is full, try joining backup party", team);
   }
 
-  private String callTT(Map<String, Object> parameters, ThanatosTeamObject ttTeam, String ttTime) {
-    return TTUtils.call(ttTeam, (DiscordApi) parameters.get(API), ttTime);
+  private String callTT(DiscordApi api, ThanatosTeamObject ttTeam, String ttTime) {
+    return TTUtils.call(ttTeam, api, ttTime);
   }
 
-  private String showTT(Map<String, Object> parameters, ThanatosTeamObject ttTeam, String ttTime) {
-    return TTUtils.show(ttTeam, (DiscordApi) parameters.get(API), ttTime);
+  private String showTT(DiscordApi api, ThanatosTeamObject ttTeam, String ttTime) {
+    return TTUtils.show(ttTeam, api, ttTime);
   }
 
   @Override

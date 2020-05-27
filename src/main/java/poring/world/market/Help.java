@@ -5,19 +5,17 @@ import static poring.world.Constants.GLOBAL_CALL;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
-import poring.world.Constants;
 import poring.world.Utils;
 import poring.world.watcher.Watcher;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class Help extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     String query = Utils.getQuery(command);
     Set<String> helpMap = new HashSet<>();
     boolean addQueries = true;

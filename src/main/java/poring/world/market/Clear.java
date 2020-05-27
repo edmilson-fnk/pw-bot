@@ -13,7 +13,7 @@ import java.util.Map;
 public class Clear extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher, Map<String, Object> parameters) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
     if (watcher.getMap().containsKey(messageAuthor.getId())) {
