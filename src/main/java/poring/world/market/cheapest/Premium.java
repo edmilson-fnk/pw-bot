@@ -21,9 +21,9 @@ public class Premium extends Command {
     EmbedBuilder embed = new EmbedBuilder().setTitle("Cheapest premiums").setColor(Color.ORANGE);
     JSONObject premiums = Fetcher.getCheapestPremiums();
     if (premiums != null) {
-      embed.addField("", Utils.getItemMessage(premiums));
+      embed.addField("Premium", Utils.getItemMessage(premiums));
     } else {
-      embed.addField("", "No premium found");
+      embed.addField(">", "No premium found");
     }
     event.getChannel().sendMessage(embed).exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
   }

@@ -72,7 +72,7 @@ public class SearchAdv extends Command {
         .setAuthor(event.getMessageAuthor())
         .setColor(Color.ORANGE);
     for (Object item : items.subList(0, Math.min(MAX_RESULTS, items.size()))) {
-      embed.addField("", Utils.getItemMessage((JSONObject) item));
+      embed.addField("Items", Utils.getItemMessage((JSONObject) item));
     }
     if (items.size() > MAX_RESULTS) {
       embed.addField(">", "More than 10 items found. Refine your search...");
