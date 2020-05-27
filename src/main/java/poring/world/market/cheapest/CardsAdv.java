@@ -16,6 +16,7 @@ import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.watcher.Watcher;
 
+import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,7 +38,9 @@ public class CardsAdv extends Command {
     }
 
     JSONObject cards = Fetcher.getCheapestCards(colors);
-    EmbedBuilder embed = new EmbedBuilder().setTitle(":black_joker: Cheapest Cards");
+    EmbedBuilder embed = new EmbedBuilder()
+        .setTitle(":black_joker: Cheapest Cards")
+        .setColor(Color.ORANGE);
     for (String color : colors) {
       String snapKey = color + "snap";
       String noSnapKey = color + "nosnap";
