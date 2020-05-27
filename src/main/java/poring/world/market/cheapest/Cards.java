@@ -6,13 +6,17 @@ import static poring.world.Constants.COLOR_DUST;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.channel.TextChannel;
+import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
+import org.javacord.api.exception.MissingPermissionsException;
+import org.javacord.api.util.logging.ExceptionLogger;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.watcher.Watcher;
 
+import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,12 +38,13 @@ public class Cards extends Command {
     }
 
     JSONObject cards = Fetcher.getCheapestCards(colors);
-    StringBuilder sb = new StringBuilder();
-    sb.append(":black_joker: **Cheapest cards**\n");
+    EmbedBuilder embed = new EmbedBuilder()
+        .setTitle("Cheapest Cards :black_joker:")
+        .setColor(Color.ORANGE);
     for (String color : colors) {
       String snapKey = color + "snap";
       String noSnapKey = color + "nosnap";
-      sb.append(String.format("(_%s_)\n", Utils.capitalize(CARD_COLOR_NAME.get(color))));
+      String fieldName = Utils.capitalize(CARD_COLOR_NAME.get(color));
       if (cards.containsKey(snapKey) && cards.containsKey(noSnapKey)) {
         long snapPrice =
             Long.parseLong(((JSONObject) ((JSONObject) cards.get(snapKey)).get("lastRecord")).get("price").toString());
@@ -50,21 +55,25 @@ public class Cards extends Command {
         }
       }
 
+      StringBuilder content = new StringBuilder();
       if (cards.containsKey(snapKey)) {
         JSONObject card = (JSONObject) cards.get(snapKey);
         double perDust = ((long) ((JSONObject) card.get("lastRecord")).get("price")) / COLOR_DUST.get(color);
-        sb.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
+        content.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
             Utils.priceWithoutDecimal(perDust)));
       }
       if (cards.containsKey(noSnapKey)) {
         JSONObject card = (JSONObject) cards.get(noSnapKey);
         double perDust = ((long) ((JSONObject) card.get("lastRecord")).get("price")) / COLOR_DUST.get(color);
-        sb.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
+        content.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
             Utils.priceWithoutDecimal(perDust)));
       }
+
+      embed.addField(fieldName, content.toString(), false);
     }
 
-    channel.sendMessage(sb.toString());
+    channel.sendMessage(embed)
+        .exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
   }
 
   @Override
