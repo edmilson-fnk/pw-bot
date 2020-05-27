@@ -71,11 +71,13 @@ public class SearchAdv extends Command {
         .setTitle(query)
         .setAuthor(event.getMessageAuthor())
         .setColor(Color.ORANGE);
+    StringBuilder itemsMsg = new StringBuilder();
     for (Object item : items.subList(0, Math.min(MAX_RESULTS, items.size()))) {
-      embed.addField("Items", Utils.getItemMessage((JSONObject) item));
+      itemsMsg.append(Utils.getItemMessage((JSONObject) item));
     }
+    embed.addField("Items", itemsMsg.toString());
+
     if (items.size() > MAX_RESULTS) {
-      embed.addField(">", "More than 10 items found. Refine your search...");
       embed.setFooter("More than 10 items found. Refine your search...");
     }
 
