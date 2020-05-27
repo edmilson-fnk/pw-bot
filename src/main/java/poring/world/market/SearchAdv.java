@@ -77,7 +77,7 @@ public class SearchAdv extends Command {
       embed.setFooter("More than 10 items found. Refine your search...");
     }
 
-    event.getChannel().sendMessage(sb.toString());
+    event.getChannel().sendMessage(embed.toString());
   }
 
   @Override
