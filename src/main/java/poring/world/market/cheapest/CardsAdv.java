@@ -37,12 +37,11 @@ public class CardsAdv extends Command {
     }
 
     JSONObject cards = Fetcher.getCheapestCards(colors);
-    StringBuilder sb = new StringBuilder();
-    sb.append(":black_joker: **Cheapest cards**\n");
+    EmbedBuilder embed = new EmbedBuilder().setTitle(":black_joker: Cheapest Cards");
     for (String color : colors) {
       String snapKey = color + "snap";
       String noSnapKey = color + "nosnap";
-      sb.append(String.format("(_%s_)\n", Utils.capitalize(CARD_COLOR_NAME.get(color))));
+      String fieldName = Utils.capitalize(CARD_COLOR_NAME.get(color));
       if (cards.containsKey(snapKey) && cards.containsKey(noSnapKey)) {
         long snapPrice =
             Long.parseLong(((JSONObject) ((JSONObject) cards.get(snapKey)).get("lastRecord")).get("price").toString());
@@ -53,24 +52,23 @@ public class CardsAdv extends Command {
         }
       }
 
+      StringBuilder content = new StringBuilder();
       if (cards.containsKey(snapKey)) {
         JSONObject card = (JSONObject) cards.get(snapKey);
         double perDust = ((long) ((JSONObject) card.get("lastRecord")).get("price")) / COLOR_DUST.get(color);
-        sb.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
+        content.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
             Utils.priceWithoutDecimal(perDust)));
       }
       if (cards.containsKey(noSnapKey)) {
         JSONObject card = (JSONObject) cards.get(noSnapKey);
         double perDust = ((long) ((JSONObject) card.get("lastRecord")).get("price")) / COLOR_DUST.get(color);
-        sb.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
+        content.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
             Utils.priceWithoutDecimal(perDust)));
       }
+
+      embed.addField(fieldName, content.toString(), true);
     }
 
-    EmbedBuilder embed = new EmbedBuilder()
-        .setTitle("Card")
-        .setAuthor(event.getMessageAuthor())
-        .addField("Cards", sb.toString(), true);
     channel.sendMessage(embed)
         .exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
   }
