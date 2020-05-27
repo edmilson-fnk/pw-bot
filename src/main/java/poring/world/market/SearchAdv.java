@@ -72,11 +72,21 @@ public class SearchAdv extends Command {
         .setAuthor(event.getMessageAuthor())
         .setColor(Color.ORANGE);
     StringBuilder itemsMsg = new StringBuilder();
+    StringBuilder priceMsg = new StringBuilder();
+    StringBuilder snapMsg = new StringBuilder();
     for (Object item : items.subList(0, Math.min(MAX_RESULTS, items.size()))) {
-      itemsMsg.append(Utils.getItemMessage((JSONObject) item));
+      itemsMsg.append(Utils.getItemName(item));
       itemsMsg.append("\n");
+
+      priceMsg.append(Utils.getItemPrice(item));
+      priceMsg.append("\n");
+
+      snapMsg.append(Utils.getItemSnap(item));
+      snapMsg.append("\n");
     }
-    embed.addInlineField("Items", itemsMsg.toString());
+    embed.addInlineField("Item", itemsMsg.toString());
+    embed.addInlineField("Price", priceMsg.toString());
+    embed.addInlineField("In snap", snapMsg.toString());
 
     if (items.size() > MAX_RESULTS) {
       embed.setFooter("More than 10 items found. Refine your search...");

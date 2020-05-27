@@ -40,6 +40,33 @@ public class Utils {
     return getItemMessage(jsonItem, "**");
   }
 
+  public static String getItemName(Object jsonItem) {
+    return ((JSONObject) jsonItem).get("name").toString();
+  }
+
+  public static String getItemSnap(Object jsonItem) {
+    JSONObject lastRecord = (JSONObject) ((JSONObject) jsonItem).get("lastRecord");
+    long snapEnd = Long.parseLong(lastRecord.get("snapEnd").toString());
+    StringBuilder returnMessage = new StringBuilder();
+    if (snapEnd > 0) {
+      returnMessage.append(" until ");
+      returnMessage.append(formatTimestamp(snapEnd*1000));
+      returnMessage.append(" by ");
+      returnMessage.append(lastRecord.get("snapBuyers").toString());
+    } else {
+      returnMessage.append("-");
+    }
+    return returnMessage.toString();
+  }
+
+  public static String getItemPrice(Object jsonItem) {
+    return priceWithoutDecimal(
+        Double.parseDouble(
+            ((JSONObject) ((JSONObject) jsonItem).get("lastRecord")).get("price").toString()
+        )
+    );
+  }
+
   public static String getItemMessage(JSONObject jsonItem, String highlighter) {
     StringBuilder returnMessage = new StringBuilder();
     JSONObject lastRecord = (JSONObject) jsonItem.get("lastRecord");
