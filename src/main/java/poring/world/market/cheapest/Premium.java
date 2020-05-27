@@ -9,13 +9,14 @@ import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.watcher.Watcher;
 
+import java.awt.*;
 import java.util.List;
 
 public class Premium extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
-    EmbedBuilder embed = new EmbedBuilder().setTitle("Cheapest premiums");
+    EmbedBuilder embed = new EmbedBuilder().setTitle("Cheapest premiums").setColor(Color.ORANGE);
     JSONObject premiums = Fetcher.getCheapestPremiums();
     if (premiums != null) {
       embed.addField("", Utils.getItemMessage(premiums));
