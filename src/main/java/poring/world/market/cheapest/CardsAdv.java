@@ -39,7 +39,7 @@ public class CardsAdv extends Command {
 
     JSONObject cards = Fetcher.getCheapestCards(colors);
     EmbedBuilder embed = new EmbedBuilder()
-        .setTitle(":black_joker: Cheapest Cards")
+        .setTitle("Cheapest Cards :black_joker:")
         .setColor(Color.ORANGE);
     for (String color : colors) {
       String snapKey = color + "snap";
@@ -69,7 +69,7 @@ public class CardsAdv extends Command {
             Utils.priceWithoutDecimal(perDust)));
       }
 
-      embed.addField(fieldName, content.toString(), true);
+      embed.addField(fieldName, content.toString(), false);
     }
 
     channel.sendMessage(embed)
