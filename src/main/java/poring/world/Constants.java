@@ -99,7 +99,7 @@ public class Constants {
   public static Map<String, Command> ADMIN_MAP = new HashMap<String, Command>(){{
     this.put(URL, new URL());
     this.put(METRICS, new Metrics());
-//    this.put(SEARCH, new SearchAdv());
+    this.put(SEARCH, new SearchAdv());
   }};
 
   // !gtb command

@@ -36,16 +36,17 @@ public class Utils {
     return joiner.toString().trim();
   }
 
-  public static String getItemMessage(JSONObject jsonItem) {
-    return getItemMessage(jsonItem, "**");
+  public static String getItemStock(Object item) {
+    JSONObject lastRecord = (JSONObject) ((JSONObject) item).get("lastRecord");
+    return String.format("%sx", lastRecord.get("stock").toString());
   }
 
-  public static String getItemName(Object jsonItem) {
-    return ((JSONObject) jsonItem).get("name").toString();
+  public static String getItemName(Object item) {
+    return ((JSONObject) item).get("name").toString();
   }
 
-  public static String getItemSnap(Object jsonItem) {
-    JSONObject lastRecord = (JSONObject) ((JSONObject) jsonItem).get("lastRecord");
+  public static String getItemSnap(Object item) {
+    JSONObject lastRecord = (JSONObject) ((JSONObject) item).get("lastRecord");
     long snapEnd = Long.parseLong(lastRecord.get("snapEnd").toString());
     StringBuilder returnMessage = new StringBuilder();
     if (snapEnd > 0) {
@@ -53,18 +54,18 @@ public class Utils {
       returnMessage.append(formatTimestamp(snapEnd*1000));
       returnMessage.append(" by ");
       returnMessage.append(lastRecord.get("snapBuyers").toString());
-    } else {
-      returnMessage.append("-");
     }
     return returnMessage.toString();
   }
 
-  public static String getItemPrice(Object jsonItem) {
+  public static String getItemPrice(Object item) {
     return priceWithoutDecimal(
-        Double.parseDouble(
-            ((JSONObject) ((JSONObject) jsonItem).get("lastRecord")).get("price").toString()
-        )
+        Double.parseDouble(((JSONObject) ((JSONObject) item).get("lastRecord")).get("price").toString())
     );
+  }
+
+  public static String getItemMessage(JSONObject jsonItem) {
+    return getItemMessage(jsonItem, "**");
   }
 
   public static String getItemMessage(JSONObject jsonItem, String highlighter) {

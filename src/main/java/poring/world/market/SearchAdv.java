@@ -11,7 +11,6 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.exception.MissingPermissionsException;
 import org.javacord.api.util.logging.ExceptionLogger;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
 import poring.world.market.filter.FilterUtils;
@@ -71,22 +70,22 @@ public class SearchAdv extends Command {
         .setTitle(query)
         .setAuthor(event.getMessageAuthor())
         .setColor(Color.ORANGE);
-    StringBuilder itemsMsg = new StringBuilder();
-    StringBuilder priceMsg = new StringBuilder();
-    StringBuilder snapMsg = new StringBuilder();
+    StringBuilder fieldMsg = new StringBuilder();
     for (Object item : items.subList(0, Math.min(MAX_RESULTS, items.size()))) {
-      itemsMsg.append(Utils.getItemName(item));
-      itemsMsg.append("\n");
+      fieldMsg.append(
+          String.format("%s  **%s** for _%s_\n",
+              Utils.getItemStock(item),
+              Utils.getItemName(item),
+              Utils.getItemPrice(item)
+          )
+      );
 
-      priceMsg.append(Utils.getItemPrice(item));
-      priceMsg.append("\n");
-
-      snapMsg.append(Utils.getItemSnap(item));
-      snapMsg.append("\n");
+      String snap = Utils.getItemSnap(item);
+      if (!snap.isEmpty()) {
+        fieldMsg.append(String.format("> in snap %s\n", snap));
+      }
     }
-    embed.addInlineField("Item", itemsMsg.toString());
-    embed.addInlineField("Price", priceMsg.toString());
-    embed.addInlineField("In snap", snapMsg.toString());
+    embed.addField("Items", fieldMsg.toString());
 
     if (items.size() > MAX_RESULTS) {
       embed.setFooter("More than 10 items found. Refine your search...");
