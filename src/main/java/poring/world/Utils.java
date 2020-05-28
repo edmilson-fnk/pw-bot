@@ -91,7 +91,7 @@ public class Utils {
 
   public static void waitSomeTime() {
     try {
-      Thread.sleep(1500);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       System.out.println("Error on watcher thread!");
       throw new RuntimeException(e);
