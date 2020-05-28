@@ -78,6 +78,7 @@ public class WatchAdv extends Command {
 
     author.getList().addItem(item);
     db.save(author);
+    db.save(author.getList());
     db.close();
 
     String filtersStr = translate(filters);
