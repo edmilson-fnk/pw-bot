@@ -1,6 +1,9 @@
 package poring.model;
 
+import poring.world.market.Watch;
+
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -31,7 +34,7 @@ public class WatchList implements Serializable {
   private List<Item> items;
 
   public WatchList() {
-
+    this.items = new LinkedList<>();
   }
 
   public int getId() {
