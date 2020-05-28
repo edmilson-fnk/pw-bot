@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public interface MigrateS3ToPsql {
+public class MigrateS3ToPsql {
 
   public static void main(String[] args) {
     Watcher watcher = new Watcher(null);
