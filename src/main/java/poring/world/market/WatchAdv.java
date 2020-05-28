@@ -73,6 +73,7 @@ public class WatchAdv extends Command {
 
     Item item = new Item()
         .withQuery(query)
+        .withList(author.getList())
         .withFilters(filters);
 
     if (author.getList().isWatching(query)) {
