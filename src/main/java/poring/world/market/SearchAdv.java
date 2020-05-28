@@ -30,7 +30,6 @@ public class SearchAdv extends Command {
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     Map<String, String> searchFilters = new HashMap<>();
     String query = Utils.getQuery(command);
-    StringBuilder sb = new StringBuilder();
     if (query.isEmpty()) {
       event.getChannel().sendMessage(
           String.format("No query to search.\nTry _!%s %s %s_\n", GLOBAL_CALL, HELP, SEARCH));
