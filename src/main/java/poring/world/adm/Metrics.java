@@ -7,8 +7,11 @@ import poring.world.market.Command;
 import poring.world.watcher.WatchObject;
 import poring.world.watcher.Watcher;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.function.Function;
 
 public class Metrics extends Command {
 
@@ -20,9 +23,11 @@ public class Metrics extends Command {
     int numItems = 0;
     int maxSize = 0;
     int minSize = 99999;
+    Map<Integer, Integer> sizeMap = new TreeMap<>();
 
     for (Long id : m.keySet()) {
       List<WatchObject> list = m.get(id);
+      sizeMap.put(list.size(), sizeMap.getOrDefault(list.size(), 0) + 1);
       if (list.size() > 0) {
         numLists++;
         numItems += list.size();
@@ -34,9 +39,14 @@ public class Metrics extends Command {
         }
       }
     }
-
-    event.getChannel().sendMessage(String.format("%s lists; %s items; largest list: %s %s; smallest list: %s %s",
+    StringBuilder sb = new StringBuilder(String.format("%s lists; %s items; largest list: %s %s; smallest list: %s %s",
         numLists, numItems, maxSize, Utils.pluralItem(maxSize), minSize, Utils.pluralItem(minSize)));
+
+    sb.append("Amount by size:\n");
+    for (Integer size : sizeMap.keySet()) {
+      sb.append(String.format("> %s: %s", size, sizeMap.get(size)));
+    }
+    event.getChannel().sendMessage(sb.toString());
   }
 
   @Override
