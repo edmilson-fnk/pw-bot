@@ -42,7 +42,7 @@ public class Metrics extends Command {
     StringBuilder sb = new StringBuilder(String.format("%s lists; %s items; largest list: %s %s; smallest list: %s %s",
         numLists, numItems, maxSize, Utils.pluralItem(maxSize), minSize, Utils.pluralItem(minSize)));
 
-    sb.append("Amount by size:\n");
+    sb.append("\nAmount by size:\n");
     for (Integer size : sizeMap.keySet()) {
       sb.append(String.format("> %s: %s\n", size, sizeMap.get(size)));
     }
