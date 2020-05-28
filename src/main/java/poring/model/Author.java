@@ -26,10 +26,10 @@ public class Author implements Serializable {
 
   @OneToOne
   @JoinColumn(name="id")
-  private ListM list;
+  private WatchList list;
 
   public Author() {
-
+    this.list = new WatchList();
   }
 
   public int getId() {
@@ -56,20 +56,26 @@ public class Author implements Serializable {
     this.discordName = discordName;
   }
 
-  public ListM getList() {
+  public WatchList getList() {
     return list;
   }
 
-  public void setList(ListM list) {
+  public void setList(WatchList list) {
     this.list = list;
   }
+
   public Author withDiscordName(String discordName) {
     this.discordName = discordName;
     return this;
   }
 
-  public Author WithDiscordId(String discordId) {
+  public Author withDiscordId(String discordId) {
     this.discordId = discordId;
+    return this;
+  }
+
+  public Author withList(WatchList list) {
+    this.list = list;
     return this;
   }
 }

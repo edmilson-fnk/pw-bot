@@ -2,12 +2,14 @@ package poring.world;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import poring.model.Author;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,14 +56,30 @@ public class Database {
     return sessionFactory;
   }
 
-  public Author findByDiscordId(String discordId) {
-    Session s = new Database().getDBConnection().openSession();
+  public Author findAuthorByDiscordId(String discordId) {
+    Session s = this.getDBConnection().openSession();
     CriteriaBuilder builder = s.getCriteriaBuilder();
     CriteriaQuery<Author> query = builder.createQuery(Author.class);
     Root<Author> root = query.from(Author.class);
     query.select(root).where(builder.equal(root.get("discord_id"), discordId));
 
-    return s.createQuery(query).getSingleResult();
+    Author author = s.createQuery(query).getSingleResult();
+    s.close();
+    return author;
+  }
+
+  public void save(Serializable obj) {
+    Session s = this.getDBConnection().openSession();
+    Transaction tx = s.beginTransaction();
+    s.saveOrUpdate(obj);
+    tx.commit();
+    s.close();
+  }
+
+  public void close() {
+    if (this.sessionFactory != null) {
+      this.sessionFactory.close();
+    }
   }
 
 }

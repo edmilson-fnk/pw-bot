@@ -14,7 +14,7 @@
 
         <mapping class="poring.model.Author"/>
         <mapping class="poring.model.Item"/>
-        <mapping class="poring.model.ListM"/>
+        <mapping class="poring.model.WatchList"/>
         <mapping class="poring.model.Server"/>
     </session-factory>
 </hibernate-configuration>

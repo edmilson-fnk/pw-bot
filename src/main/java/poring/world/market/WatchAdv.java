@@ -2,10 +2,14 @@ package poring.world.market;
 
 import static poring.world.Constants.FILTER_TOKEN;
 import static poring.world.Constants.QUERY_FILTERS;
+import static poring.world.market.filter.FilterUtils.translate;
 
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
+import poring.model.Author;
+import poring.model.Item;
+import poring.model.WatchList;
 import poring.world.Database;
 import poring.world.Utils;
 import poring.world.market.filter.FilterUtils;
@@ -16,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Watch extends Command {
+public class WatchAdv extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
@@ -51,11 +55,34 @@ public class Watch extends Command {
       return;
     }
 
-    TextChannel channel = event.getChannel();
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
-    String msg = watcher.add(query, messageAuthor, channel, filters);
-    event.getChannel().sendMessage(msg);
+    Database db = new Database();
+
+    Author author = db.findAuthorByDiscordId(messageAuthor.getIdAsString());
+    if (author == null) {
+      author = new Author()
+          .withDiscordId(messageAuthor.getIdAsString())
+          .withDiscordName(messageAuthor.getDisplayName());
+    }
+
+    Item item = new Item()
+        .withQuery(query)
+        .withFilters(filters);
+
+    if (author.getList().isWatching(query)) {
+      event.getChannel().sendMessage(String.format("You're already watching _%s_. Remove current _%s_ before adding a new one",
+          query, query));
+      return;
+    }
+
+    author.getList().addItem(item);
+    db.save(author);
+    db.close();
+
+    String filtersStr = translate(filters);
+    event.getChannel().sendMessage(String.format("GTB is watching _%s_ for _%s_ %s %s", query,
+        messageAuthor.getDisplayName(), filtersStr.isEmpty() ? "" : "with", filtersStr));
   }
 
   @Override

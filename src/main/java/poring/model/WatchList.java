@@ -3,7 +3,9 @@ package poring.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="lists")
-public class ListM implements Serializable {
+public class WatchList implements Serializable {
 
   @Id
   @GeneratedValue
@@ -25,10 +27,10 @@ public class ListM implements Serializable {
   @MapsId
   private Author author;
 
-  @OneToMany(mappedBy="list")
+  @OneToMany(mappedBy="list", cascade= CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Item> items;
 
-  public ListM() {
+  public WatchList() {
 
   }
 
@@ -55,4 +57,29 @@ public class ListM implements Serializable {
   public void setAuthor(Author author) {
     this.author = author;
   }
+
+  public WatchList withAuthor(Author author) {
+    this.author = author;
+    return this;
+  }
+
+  public WatchList withItems(List<Item> items) {
+    this.items = items;
+    return this;
+  }
+
+  public boolean isWatching(String query) {
+    for (Item i : this.items) {
+      if (i.getQuery().equalsIgnoreCase(query)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public WatchList addItem(Item item) {
+    this.items.add(item);
+    return this;
+  }
+
 }

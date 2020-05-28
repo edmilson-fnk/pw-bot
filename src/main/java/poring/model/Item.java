@@ -27,7 +27,7 @@ public class Item implements Serializable {
 
   @ManyToOne
   @JoinColumn(name="list_id", nullable=false)
-  private ListM list;
+  private WatchList list;
 
   @ElementCollection
   @CollectionTable(name="MAP")
@@ -55,11 +55,11 @@ public class Item implements Serializable {
     this.query = query;
   }
 
-  public ListM getList() {
+  public WatchList getList() {
     return list;
   }
 
-  public void setList(ListM list) {
+  public void setList(WatchList list) {
     this.list = list;
   }
 
@@ -76,7 +76,7 @@ public class Item implements Serializable {
     return this;
   }
 
-  public Item withList(ListM list) {
+  public Item withList(WatchList list) {
     this.list = list;
     return this;
   }

@@ -3,6 +3,7 @@ package poring.world;
 import com.google.common.collect.ImmutableMap;
 import poring.world.adm.Metrics;
 import poring.world.market.SearchAdv;
+import poring.world.market.WatchAdv;
 import poring.world.market.cheapest.Cards;
 import poring.world.market.cheapest.Premium;
 import poring.world.market.Command;
@@ -99,6 +100,7 @@ public class Constants {
   public static Map<String, Command> ADMIN_MAP = new HashMap<String, Command>(){{
     this.put(URL, new URL());
     this.put(METRICS, new Metrics());
+    this.put(WATCH, new WatchAdv());
   }};
 
   // !gtb command
