@@ -66,6 +66,10 @@ public class WatchAdv extends Command {
           .withDiscordName(messageAuthor.getDisplayName());
     }
 
+    if (author.getList() == null) {
+      author.setList(new WatchList());
+    }
+
     Item item = new Item()
         .withQuery(query)
         .withFilters(filters);

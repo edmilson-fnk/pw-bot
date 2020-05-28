@@ -66,8 +66,7 @@ public class Database {
     Author author = null;
     try {
       author = s.createQuery(query).getSingleResult();
-    } catch (NoResultException ignored) {
-    }
+    } catch (NoResultException ignored) { }
     s.close();
     return author;
   }
