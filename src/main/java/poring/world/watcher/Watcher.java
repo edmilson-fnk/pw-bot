@@ -113,50 +113,55 @@ public class Watcher extends Thread {
         continue;
       }
 
+      HashMap<Long, List<WatchObject>> currentWatchMap = new HashMap<>();
+      HashMap<Long, Map<String, Map<String, String>>> currentFilters = new HashMap<>();
       synchronized (this) {
-        System.out.println("notifying watch list");
-        if (watchMap == null || watchMap.isEmpty()) {
+        currentWatchMap.putAll(this.watchMap);
+        currentFilters.putAll(this.watchMapFilters);
+      }
+
+      System.out.println("notifying watch list");
+      if (currentWatchMap.isEmpty()) {
+        continue;
+      }
+
+      for (Long authorId : currentWatchMap.keySet()) {
+        User author;
+        try {
+          author = api.getUserById(authorId).get();
+        } catch (InterruptedException | ExecutionException e) {
+          e.printStackTrace();
           continue;
         }
 
-        for (Long authorId : watchMap.keySet()) {
-          User author;
-          try {
-            author = api.getUserById(authorId).get();
-          } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            continue;
-          }
+        List<String> messages = new LinkedList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Hey <@%s>, we found something for you\n", authorId));
 
-          List<String> messages = new LinkedList<>();
-          StringBuilder sb = new StringBuilder();
-          sb.append(String.format("Hey <@%s>, we found something for you\n", authorId));
-
-          boolean theresSomethingFlag = false;
-          for (WatchObject obj : watchMap.get(authorId)) {
-            Map<String, String> filters = watchMapFilters.containsKey(authorId) ?
-                watchMapFilters.get(authorId).getOrDefault(obj.toString(), null) :
-                null;
-            JSONArray marketItems = Fetcher.query(obj.getQuery(), filters);
-            if (marketItems.size() > 0) {
-              StringBuilder objMessage = new StringBuilder();
-              theresSomethingFlag = true;
-              objMessage.append(String.format("_%s_ %s\n", obj.getQuery(), FilterUtils.translate(filters)));
-              for (Object marketItem : marketItems) {
-                objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
-              }
-              if (objMessage.length() + sb.length() >= 2000) {
-                messages.add(sb.toString());
-                sb = new StringBuilder();
-              }
-              sb.append(objMessage.toString());
+        boolean theresSomethingFlag = false;
+        for (WatchObject obj : currentWatchMap.get(authorId)) {
+          Map<String, String> filters = currentFilters.containsKey(authorId) ?
+              currentFilters.get(authorId).getOrDefault(obj.toString(), null) :
+              null;
+          JSONArray marketItems = Fetcher.query(obj.getQuery(), filters);
+          if (marketItems.size() > 0) {
+            StringBuilder objMessage = new StringBuilder();
+            theresSomethingFlag = true;
+            objMessage.append(String.format("_%s_ %s\n", obj.getQuery(), FilterUtils.translate(filters)));
+            for (Object marketItem : marketItems) {
+              objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
             }
+            if (objMessage.length() + sb.length() >= 2000) {
+              messages.add(sb.toString());
+              sb = new StringBuilder();
+            }
+            sb.append(objMessage.toString());
           }
-          messages.add(sb.toString());
-          if (theresSomethingFlag) {
-            for (String msg : messages) {
-              author.sendMessage(msg);
-            }
+        }
+        messages.add(sb.toString());
+        if (theresSomethingFlag) {
+          for (String msg : messages) {
+            author.sendMessage(msg);
           }
         }
       }
