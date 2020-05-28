@@ -107,7 +107,7 @@ public class Constants {
   public static Map<String, Command> COMMAND_MAP = new HashMap<String, Command>(){{
     // Market
     this.put(HELP, new Help());
-    this.put(SEARCH, new SearchAdv());
+    this.put(SEARCH, new Search());
     this.put(WATCH, new Watch());
     this.put(CLEAR, new Clear());
     this.put(LIST, new ListC());
