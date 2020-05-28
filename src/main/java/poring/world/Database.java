@@ -14,6 +14,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -61,7 +62,11 @@ public class Database {
     CriteriaBuilder builder = s.getCriteriaBuilder();
     CriteriaQuery<Author> query = builder.createQuery(Author.class);
     Root<Author> root = query.from(Author.class);
-    query.select(root).where(builder.equal(root.get("discordId"), discordId));
+    try {
+      query.select(root).where(builder.equal(root.get("discordId"), discordId));
+    } catch (NoResultException e) {
+      return null;
+    }
 
     Author author = s.createQuery(query).getSingleResult();
     s.close();
