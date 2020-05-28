@@ -82,8 +82,8 @@ public class Utils {
 
     long snapEnd = Long.parseLong(lastRecord.get("snapEnd").toString());
     if (snapEnd > 0) {
-      returnMessage.append(" in snap until ");
-      returnMessage.append(formatTimestamp(snapEnd*1000));
+      returnMessage.append(String.format(" in snap until %s by %s", formatTimestamp(snapEnd*1000),
+          lastRecord.get("snapBuyers")));
     }
 
     return returnMessage.toString();
