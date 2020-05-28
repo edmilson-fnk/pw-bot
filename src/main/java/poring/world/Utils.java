@@ -93,7 +93,7 @@ public class Utils {
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
-      System.out.println("Error on watcher thread!");
+      System.out.println("Error while waiting a second!");
       throw new RuntimeException(e);
     }
   }
