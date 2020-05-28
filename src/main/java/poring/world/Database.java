@@ -21,7 +21,7 @@ import javax.persistence.criteria.Root;
 public class Database {
 
   // Database
-  public static final String DATABASE_URL = System.getenv("JDBC_DATABASE_URL");
+  public static final String DATABASE_URL = System.getenv("DATABASE_URL");
 
   private SessionFactory sessionFactory;
 

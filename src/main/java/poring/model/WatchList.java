@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="lists")
+@Table(name="watchlists")
 public class WatchList implements Serializable {
 
   @Id
