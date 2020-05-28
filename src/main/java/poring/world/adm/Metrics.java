@@ -44,7 +44,7 @@ public class Metrics extends Command {
 
     sb.append("Amount by size:\n");
     for (Integer size : sizeMap.keySet()) {
-      sb.append(String.format("> %s: %s", size, sizeMap.get(size)));
+      sb.append(String.format("> %s: %s\n", size, sizeMap.get(size)));
     }
     event.getChannel().sendMessage(sb.toString());
   }
