@@ -68,6 +68,7 @@ public class WatchAdv extends Command {
 
     if (author.getList() == null) {
       author.setList(new WatchList());
+      author.getList().setAuthor(author);
     }
 
     Item item = new Item()
