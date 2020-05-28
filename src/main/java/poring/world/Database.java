@@ -62,13 +62,12 @@ public class Database {
     CriteriaBuilder builder = s.getCriteriaBuilder();
     CriteriaQuery<Author> query = builder.createQuery(Author.class);
     Root<Author> root = query.from(Author.class);
+    query.select(root).where(builder.equal(root.get("discordId"), discordId));
+    Author author = null;
     try {
-      query.select(root).where(builder.equal(root.get("discordId"), discordId));
-    } catch (NoResultException e) {
-      return null;
+      author = s.createQuery(query).getSingleResult();
+    } catch (NoResultException ignored) {
     }
-
-    Author author = s.createQuery(query).getSingleResult();
     s.close();
     return author;
   }
