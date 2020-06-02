@@ -1,4 +1,4 @@
-package poring.world.market;
+package poring.world.market.commands;
 
 import static poring.world.Constants.Constants.CHANNEL;
 import static poring.world.Constants.Constants.CHANNEL_OPTIONS;
@@ -14,6 +14,7 @@ import poring.model.Channel;
 import poring.model.WatchingChannel;
 import poring.world.Database;
 import poring.world.Utils;
+import poring.world.market.Command;
 import poring.world.watcher.Watcher;
 
 import java.util.List;

@@ -1,7 +1,5 @@
 package poring.model;
 
-import poring.world.market.Watch;
-
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;

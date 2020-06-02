@@ -4,15 +4,15 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import poring.world.adm.Metrics;
 import poring.world.adm.URL;
-import poring.world.market.ChannelC;
-import poring.world.market.Clear;
+import poring.world.market.commands.ChannelC;
+import poring.world.market.commands.Clear;
 import poring.world.market.Command;
-import poring.world.market.Help;
-import poring.world.market.ListC;
-import poring.world.market.Organize;
-import poring.world.market.Remove;
-import poring.world.market.Search;
-import poring.world.market.Watch;
+import poring.world.market.commands.Help;
+import poring.world.market.commands.ListC;
+import poring.world.market.commands.Organize;
+import poring.world.market.commands.Remove;
+import poring.world.market.commands.Search;
+import poring.world.market.commands.Watch;
 import poring.world.market.WatchAdv;
 import poring.world.market.cheapest.Cards;
 import poring.world.market.cheapest.Premium;
@@ -74,7 +74,7 @@ public class Constants {
   public static final boolean IS_PRODUCTION = ENV.equalsIgnoreCase("production");
   public static final String GENERAL_TIME_FORMAT = "dd/MM/yyyy HH:mm";
 
-  public static final Set<String> MVP_CARDS_LIST = MVPCardsList.getAll();
+  public static final Set<String> MVP_CARDS_LIST = MvpCardsList.getAll();
 
   // Parameters
   public static final String PARTIES = "parties";

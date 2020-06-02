@@ -1,12 +1,17 @@
-package poring.world.market;
+package poring.world.market.commands;
 
 import static poring.world.Constants.Constants.FILTER_TOKEN;
+import static poring.world.Constants.Constants.GLOBAL_CALL;
+import static poring.world.Constants.Constants.HELP;
 import static poring.world.Constants.Constants.QUERY_FILTERS;
+import static poring.world.Constants.Constants.SEARCH;
 
-import org.javacord.api.entity.channel.TextChannel;
-import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import poring.world.Fetcher;
 import poring.world.Utils;
+import poring.world.market.Command;
 import poring.world.market.filter.FilterUtils;
 import poring.world.watcher.Watcher;
 
@@ -15,12 +20,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Watch extends Command {
+public class Search extends Command {
+
+  private static final int MAX_RESULTS = 10;
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+    Map<String, String> searchFilters = new HashMap<>();
     String query = Utils.getQuery(command);
-    Map<String, String> filters = new HashMap<>();
+    StringBuilder sb = new StringBuilder();
+    if (query.isEmpty()) {
+      sb.append(String.format("No query to search.\nTry _!%s %s %s_\n", GLOBAL_CALL, HELP, SEARCH));
+    }
 
     if (query.contains(FILTER_TOKEN)) {
       String[] queryFilters = query.split(FILTER_TOKEN);
@@ -38,29 +49,30 @@ public class Watch extends Command {
                   key, value, validate));
               return;
             }
-            filters.put(key, value);
+            searchFilters.put(key, value);
             break;
           }
         }
       }
     }
 
-    if (query.isEmpty()) {
-      event.getChannel().sendMessage("No query to watch");
-      return;
+    JSONArray items = Fetcher.query(query, searchFilters);
+    if (items.size() == 0) {
+      sb.append(String.format("No item found for _%s_ :poop:", query));
+    }
+    for (Object item : items.subList(0, Math.min(MAX_RESULTS, items.size()))) {
+      sb.append(String.format("%s\n", Utils.getItemMessage((JSONObject) item)));
+    }
+    if (items.size() > MAX_RESULTS) {
+      sb.append("More than 10 items found. Refine your search...");
     }
 
-    TextChannel channel = event.getChannel();
-    MessageAuthor messageAuthor = event.getMessageAuthor();
-
-    String msg = watcher.add(query, messageAuthor, channel, filters);
-    event.getChannel().sendMessage(msg);
+    event.getChannel().sendMessage(sb.toString());
   }
 
   @Override
   public String getHelp() {
-    return "hourly checks poring.world and privately alerts user if search query is found. " +
-        "Filters available: _maxPrice_, _broken_, _enchant_";
+    return "searches for items in poring.world database. Filters available: _maxPrice_, _broken_, _enchant_";
   }
 
   @Override
@@ -72,8 +84,8 @@ public class Watch extends Command {
       this.add("+4 Eye of Dullahan");
       this.add("+4 Eye of Dullahan <Sharp Blade 1> (broken)");
       this.add("Eye of Dullahan ::maxPrice=2000000");
-      this.add("Eye of Dullahan ::broken=no");
       this.add("Eye of Dullahan ::broken=yes");
+      this.add("Eye of Dullahan ::broken=no");
       this.add("Eye of Dullahan ::enchant=sharp blade");
       this.add("Eye of Dullahan ::enchant=sharp blade 1");
     }};

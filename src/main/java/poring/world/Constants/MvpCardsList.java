@@ -3,7 +3,7 @@ package poring.world.Constants;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MVPCardsList {
+public class MvpCardsList {
 
   public static Set<String> getAll() {
     return new HashSet<String>(){{

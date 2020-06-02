@@ -1,4 +1,4 @@
-package poring.world.market;
+package poring.world.market.commands;
 
 import static poring.world.Constants.Constants.GLOBAL_CALL;
 import static poring.world.Constants.Constants.HELP;
@@ -9,6 +9,7 @@ import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
+import poring.world.market.Command;
 import poring.world.watcher.WatchObject;
 import poring.world.watcher.Watcher;
 
