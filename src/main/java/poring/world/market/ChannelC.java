@@ -2,6 +2,7 @@ package poring.world.market;
 
 import static poring.world.Constants.Constants.CHANNEL;
 import static poring.world.Constants.Constants.CHANNEL_OPTIONS;
+import static poring.world.Constants.Constants.CLEAR;
 import static poring.world.Constants.Constants.GLOBAL_CALL;
 import static poring.world.Constants.Constants.HELP;
 import static poring.world.Constants.Constants.MVP_CARDS;
@@ -30,6 +31,7 @@ public class ChannelC extends Command {
       return;
     }
 
+
     Database db = new Database();
     Channel dbChannel = db.findChannelByDiscordId(discordId);
     if (dbChannel == null) {
@@ -39,12 +41,20 @@ public class ChannelC extends Command {
     if (dbChannel.getList() == null) {
       dbChannel.setList(new WatchingChannel());
     }
-    dbChannel.getList().add(query);
+
+    if (dbChannel.getList().contains(query)) {
+      channel.sendMessage(String.format("<#%s> is already watching _%s_", discordId, query));
+      return;
+    } else if (query.equalsIgnoreCase(CLEAR)) {
+      dbChannel.getList().clear();
+      channel.sendMessage(String.format("<#%s> list cleared", discordId));
+    } else {
+      dbChannel.getList().add(query);
+      channel.sendMessage(String.format("Watching **%s** on <#%s>", query, discordId));
+    }
     db.save(dbChannel);
     db.save(dbChannel.getList());
     db.close();
-
-    channel.sendMessage(String.format("Watching **%s** on <#%s>", query, discordId));
   }
 
   @Override
@@ -55,7 +65,7 @@ public class ChannelC extends Command {
 
   @Override
   public List<String> getQueries() {
-    return ImmutableList.of(MVP_CARDS);
+    return ImmutableList.of(MVP_CARDS, CLEAR);
   }
 
 }

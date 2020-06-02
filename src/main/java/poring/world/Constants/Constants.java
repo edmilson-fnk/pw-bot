@@ -43,7 +43,7 @@ public class Constants {
   // Channel commands
   public static final String CHANNEL = "channel";
   public static final String MVP_CARDS = "mvpcards";
-  public static final Set<String> CHANNEL_OPTIONS = ImmutableSet.of(MVP_CARDS);
+  public static final Set<String> CHANNEL_OPTIONS = ImmutableSet.of(MVP_CARDS, CLEAR);
 
   // Thanatos Tower Dungeon
   public static final String THANATOS = "tt";

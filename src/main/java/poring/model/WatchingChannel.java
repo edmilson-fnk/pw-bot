@@ -71,4 +71,12 @@ public class WatchingChannel implements Serializable {
     return this.items.remove(item);
   }
 
+  public void clear() {
+    this.items.clear();
+  }
+
+  public boolean contains(String item) {
+    return this.items.contains(item);
+  }
+
 }
