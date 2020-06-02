@@ -185,13 +185,13 @@ public class Watcher extends Thread {
           channelsByOption.get(option).add(c);
         }
       }
-      // for each option, get notifications
       for (String option : channelsByOption.keySet()) {
-        // for each channel on this option, notify
-        String data = ChannelOptions.valueOf(option).getData();
-        if (data.length() > 0) {
+        // for each option, get notifications
+        String optionData = ChannelOptions.valueOf(option).getData();
+        if (optionData.length() > 0) {
           String title = ChannelOptions.valueOf(option).getTitle();
-          String message = String.format("**%s**\n%s", title, data);
+          String message = String.format("**%s**\n%s", title, optionData);
+          // for each channel on this option, notify
           for (poring.model.Channel c : channelsByOption.get(option)) {
             api.getChannelById(c.getDiscordId()).get().asTextChannel().get().sendMessage(message);
           }
