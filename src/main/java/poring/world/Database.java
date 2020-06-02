@@ -13,7 +13,9 @@ import poring.model.Channel;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.NoResultException;
@@ -83,10 +85,24 @@ public class Database {
     try {
       channel = s.createQuery(query).getSingleResult();
       Hibernate.initialize(channel);
-      Hibernate.initialize(channel.getList());
     } catch (NoResultException ignored) { }
     s.close();
     return channel;
+  }
+
+  public Collection<Channel> getAllChannels() {
+    return getAll(Channel.class);
+  }
+
+  private <T> List<T> getAll(Class<T> type) {
+    Session s = this.getDBConnection().openSession();
+    CriteriaBuilder builder = s.getCriteriaBuilder();
+    CriteriaQuery<T> criteria = builder.createQuery(type);
+    criteria.from(type);
+    List<T> data = s.createQuery(criteria).getResultList();
+    Hibernate.initialize(data);
+    s.close();
+    return data;
   }
 
   public void save(Serializable obj) {

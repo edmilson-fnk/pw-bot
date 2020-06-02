@@ -5,6 +5,7 @@ import static poring.world.s3.S3Files.WATCHER_FILTERS_DAT;
 import static poring.world.s3.S3Files.WATCHER_MAP_DAT;
 
 import org.javacord.api.DiscordApi;
+import org.javacord.api.entity.channel.Channel;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.entity.user.User;
@@ -12,16 +13,22 @@ import org.joda.time.DateTime;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import poring.model.Item;
+import poring.world.Database;
 import poring.world.Fetcher;
 import poring.world.Utils;
+import poring.world.market.channel.ChannelOptions;
 import poring.world.market.filter.FilterUtils;
 import poring.world.s3.S3Files;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -166,12 +173,31 @@ public class Watcher extends Thread {
         }
       }
       System.out.println("watch list was notified! doing it again in an hour");
+
       System.out.println("notifying channels");
       // get all channels
+      Collection<poring.model.Channel> channels = new Database().getAllChannels();
       // group by notification option
+      Map<String, Set<poring.model.Channel>> channelsByOption = new HashMap<>();
+      for (poring.model.Channel c : channels) {
+        for (String option : c.getList().getItems()) {
+          channelsByOption.putIfAbsent(option, new HashSet<>());
+          channelsByOption.get(option).add(c);
+        }
+      }
       // for each option, get notifications
-      // for each channel on that option, notify
-      System.out.println("channels notified! doing it again in an hour");
+      for (String option : channelsByOption.keySet()) {
+        // for each channel on this option, notify
+        String data = ChannelOptions.valueOf(option).getData();
+        if (data.length() > 0) {
+          String title = ChannelOptions.valueOf(option).getTitle();
+          String message = String.format("**%s**\n%s", title, data);
+          for (poring.model.Channel c : channelsByOption.get(option)) {
+            api.getChannelById(c.getDiscordId()).get().asTextChannel().get().sendMessage(message);
+          }
+        }
+      }
+      System.out.println("channels list was notified! doing it again in an hour");
     }
   }
 
