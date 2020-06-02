@@ -12,7 +12,7 @@ public class MVPCards extends Command {
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     TextChannel channel = event.getChannel();
-    channel.sendMessage(String.format("Watching MVP card list for <@%s>", channel.getId()));
+    channel.sendMessage(String.format("Watching MVP card list for <#%s>", channel.getId()));
   }
 
   @Override
