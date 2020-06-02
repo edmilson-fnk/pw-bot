@@ -46,9 +46,9 @@ public class Bot {
         runCommand(msg, event, watcher, ADMIN_MAP);
       }
 
-      if (msg.toLowerCase().startsWith("!" + GLOBAL_CALL + " ")) {
-        runCommand(msg, event, watcher, COMMAND_MAP);
-      }
+//      if (msg.toLowerCase().startsWith("!" + GLOBAL_CALL + " ")) {
+//        runCommand(msg, event, watcher, COMMAND_MAP);
+//      }
     };
   }
 

@@ -30,7 +30,7 @@ public class WatchList implements Serializable {
   @MapsId
   private Author author;
 
-  @OneToMany(mappedBy="list", cascade= CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy="list", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
   private List<Item> items;
 
   public WatchList() {

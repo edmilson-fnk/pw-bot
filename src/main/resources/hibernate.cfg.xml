@@ -16,5 +16,7 @@
         <mapping class="poring.model.Item"/>
         <mapping class="poring.model.WatchList"/>
         <mapping class="poring.model.Server"/>
+        <mapping class="poring.model.Channel"/>
+        <mapping class="poring.model.WatchingChannel"/>
     </session-factory>
 </hibernate-configuration>

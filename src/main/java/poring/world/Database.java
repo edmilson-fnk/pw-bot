@@ -1,5 +1,6 @@
 package poring.world;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -8,6 +9,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import poring.model.Author;
+import poring.model.Channel;
 
 import java.io.Serializable;
 import java.net.URI;
@@ -71,6 +73,22 @@ public class Database {
     return author;
   }
 
+  public Channel findChannelByDiscordId(String discordId) {
+    Session s = this.getDBConnection().openSession();
+    CriteriaBuilder builder = s.getCriteriaBuilder();
+    CriteriaQuery<Channel> query = builder.createQuery(Channel.class);
+    Root<Channel> root = query.from(Channel.class);
+    query.select(root).where(builder.equal(root.get("discordId"), discordId));
+    Channel channel = null;
+    try {
+      channel = s.createQuery(query).getSingleResult();
+      Hibernate.initialize(channel);
+      Hibernate.initialize(channel.getList());
+    } catch (NoResultException ignored) { }
+    s.close();
+    return channel;
+  }
+
   public void save(Serializable obj) {
     Session s = this.getDBConnection().openSession();
     Transaction tx = s.beginTransaction();
@@ -84,5 +102,4 @@ public class Database {
       this.sessionFactory.close();
     }
   }
-
 }

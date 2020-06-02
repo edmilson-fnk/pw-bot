@@ -1,20 +1,21 @@
 package poring.world.Constants;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import poring.world.adm.Metrics;
-import poring.world.market.MVPCards;
-import poring.world.market.WatchAdv;
-import poring.world.market.cheapest.Cards;
-import poring.world.market.cheapest.Premium;
-import poring.world.market.Command;
+import poring.world.adm.URL;
+import poring.world.market.ChannelC;
 import poring.world.market.Clear;
+import poring.world.market.Command;
 import poring.world.market.Help;
 import poring.world.market.ListC;
 import poring.world.market.Organize;
 import poring.world.market.Remove;
 import poring.world.market.Search;
-import poring.world.adm.URL;
 import poring.world.market.Watch;
+import poring.world.market.WatchAdv;
+import poring.world.market.cheapest.Cards;
+import poring.world.market.cheapest.Premium;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,6 @@ public class Constants {
 
   // Subcommands
   public static final String CARDS_CALL = "cards";
-  public static final String MVP_CARDS = "mvpcards";
   public static final String PREMIUM = "premium";
   public static final String HELP = "help";
   public static final String SEARCH = "search";
@@ -39,6 +39,11 @@ public class Constants {
   public static final String ORGANIZE = "organize";
   public static final String REMOVE = "remove";
   public static final String URL = "url";
+
+  // Channel commands
+  public static final String CHANNEL = "channel";
+  public static final String MVP_CARDS = "mvpcards";
+  public static final Set<String> CHANNEL_OPTIONS = ImmutableSet.of(MVP_CARDS);
 
   // Thanatos Tower Dungeon
   public static final String THANATOS = "tt";
@@ -106,7 +111,7 @@ public class Constants {
 
     // under tests
     this.put(WATCH, new WatchAdv());
-    this.put(MVP_CARDS, new MVPCards());
+    this.put(CHANNEL, new ChannelC());
   }};
 
   // !gtb command
@@ -125,7 +130,7 @@ public class Constants {
     this.put(PREMIUM, new Premium());
 
     // MVP cards
-//    this.put(MVP_CARDS, new MVPCards());
+//    this.put(MVP_CARDS, new ChannelC());
 
     // Thanatos Tower Team
 //    this.put(THANATOS, new Thanatos());
