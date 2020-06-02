@@ -166,6 +166,11 @@ public class Watcher extends Thread {
         }
       }
       System.out.println("watch list was notified! doing it again in an hour");
+      System.out.println("notifying channels");
+      // get all channels
+      // group by notification option
+      // for each option, get notifications
+      // for each channel on that option, notify
     }
   }
 
