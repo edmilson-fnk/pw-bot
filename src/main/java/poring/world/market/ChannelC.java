@@ -59,8 +59,8 @@ public class ChannelC extends Command {
 
   @Override
   public String getHelp() {
-    return String.format("watches market and notifies channels if anything is found. Valid options: %s",
-        String.join(",", CHANNEL_OPTIONS));
+    return String.format("watches exchange and notifies channels if anything is found. Valid options: %s",
+        String.join(", ", CHANNEL_OPTIONS));
   }
 
   @Override
