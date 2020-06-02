@@ -171,6 +171,7 @@ public class Watcher extends Thread {
       // group by notification option
       // for each option, get notifications
       // for each channel on that option, notify
+      System.out.println("channels notified! doing it again in an hour");
     }
   }
 

@@ -111,7 +111,6 @@ public class Constants {
 
     // under tests
     this.put(WATCH, new WatchAdv());
-    this.put(CHANNEL, new ChannelC());
   }};
 
   // !gtb command
@@ -124,6 +123,7 @@ public class Constants {
     this.put(LIST, new ListC());
     this.put(ORGANIZE, new Organize());
     this.put(REMOVE, new Remove());
+    this.put(CHANNEL, new ChannelC());
 
     // Cheapest
     this.put(CARDS_CALL, new Cards());
