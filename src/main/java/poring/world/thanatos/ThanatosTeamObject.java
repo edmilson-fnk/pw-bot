@@ -1,8 +1,8 @@
 package poring.world.thanatos;
 
-import static poring.world.Constants.A;
-import static poring.world.Constants.B;
-import static poring.world.Constants.BACKUP;
+import static poring.world.Constants.Constants.A;
+import static poring.world.Constants.Constants.B;
+import static poring.world.Constants.Constants.BACKUP;
 
 import java.io.Serializable;
 import java.util.HashMap;

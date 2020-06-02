@@ -1,8 +1,8 @@
-package poring.world;
+package poring.world.Constants;
 
 import com.google.common.collect.ImmutableMap;
 import poring.world.adm.Metrics;
-import poring.world.market.SearchAdv;
+import poring.world.market.MVPCards;
 import poring.world.market.WatchAdv;
 import poring.world.market.cheapest.Cards;
 import poring.world.market.cheapest.Premium;
@@ -29,6 +29,7 @@ public class Constants {
 
   // Subcommands
   public static final String CARDS_CALL = "cards";
+  public static final String MVP_CARDS = "mvpcards";
   public static final String PREMIUM = "premium";
   public static final String HELP = "help";
   public static final String SEARCH = "search";
@@ -68,6 +69,8 @@ public class Constants {
   public static final boolean IS_PRODUCTION = ENV.equalsIgnoreCase("production");
   public static final String GENERAL_TIME_FORMAT = "dd/MM/yyyy HH:mm";
 
+  public static final Set<String> MVP_CARDS_LIST = MVPCardsList.getAll();
+
   // Parameters
   public static final String PARTIES = "parties";
 
@@ -100,7 +103,10 @@ public class Constants {
   public static Map<String, Command> ADMIN_MAP = new HashMap<String, Command>(){{
     this.put(URL, new URL());
     this.put(METRICS, new Metrics());
+
+    // under tests
     this.put(WATCH, new WatchAdv());
+    this.put(MVP_CARDS, new MVPCards());
   }};
 
   // !gtb command
@@ -117,6 +123,9 @@ public class Constants {
     // Cheapest
     this.put(CARDS_CALL, new Cards());
     this.put(PREMIUM, new Premium());
+
+    // MVP cards
+//    this.put(MVP_CARDS, new MVPCards());
 
     // Thanatos Tower Team
 //    this.put(THANATOS, new Thanatos());

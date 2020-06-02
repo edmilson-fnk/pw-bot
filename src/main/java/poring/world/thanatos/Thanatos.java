@@ -1,15 +1,15 @@
 package poring.world.thanatos;
 
-import static poring.world.Constants.A;
-import static poring.world.Constants.B;
-import static poring.world.Constants.BACKUP;
-import static poring.world.Constants.CALL;
-import static poring.world.Constants.GENERAL_TIME_FORMAT;
-import static poring.world.Constants.GLOBAL_CALL;
-import static poring.world.Constants.HELP;
-import static poring.world.Constants.LEAVE;
-import static poring.world.Constants.RESET;
-import static poring.world.Constants.THANATOS;
+import static poring.world.Constants.Constants.A;
+import static poring.world.Constants.Constants.B;
+import static poring.world.Constants.Constants.BACKUP;
+import static poring.world.Constants.Constants.CALL;
+import static poring.world.Constants.Constants.GENERAL_TIME_FORMAT;
+import static poring.world.Constants.Constants.GLOBAL_CALL;
+import static poring.world.Constants.Constants.HELP;
+import static poring.world.Constants.Constants.LEAVE;
+import static poring.world.Constants.Constants.RESET;
+import static poring.world.Constants.Constants.THANATOS;
 import static poring.world.s3.S3Files.THANATOS_TEAM_DAT;
 import static poring.world.s3.S3Files.THANATOS_TIME_DAT;
 

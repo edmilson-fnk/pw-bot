@@ -1,8 +1,8 @@
 package poring.world.market.cheapest;
 
-import static poring.world.Constants.CARD_COLOR;
-import static poring.world.Constants.CARD_COLOR_NAME;
-import static poring.world.Constants.COLOR_DUST;
+import static poring.world.Constants.Constants.CARD_COLOR;
+import static poring.world.Constants.Constants.CARD_COLOR_NAME;
+import static poring.world.Constants.Constants.COLOR_DUST;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.channel.TextChannel;

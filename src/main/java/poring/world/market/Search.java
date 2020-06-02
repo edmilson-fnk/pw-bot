@@ -1,10 +1,10 @@
 package poring.world.market;
 
-import static poring.world.Constants.FILTER_TOKEN;
-import static poring.world.Constants.GLOBAL_CALL;
-import static poring.world.Constants.HELP;
-import static poring.world.Constants.QUERY_FILTERS;
-import static poring.world.Constants.SEARCH;
+import static poring.world.Constants.Constants.FILTER_TOKEN;
+import static poring.world.Constants.Constants.GLOBAL_CALL;
+import static poring.world.Constants.Constants.HELP;
+import static poring.world.Constants.Constants.QUERY_FILTERS;
+import static poring.world.Constants.Constants.SEARCH;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.json.simple.JSONArray;

@@ -1,12 +1,11 @@
 package poring.world.market;
 
-import static poring.world.Constants.FILTER_TOKEN;
-import static poring.world.Constants.QUERY_FILTERS;
+import static poring.world.Constants.Constants.FILTER_TOKEN;
+import static poring.world.Constants.Constants.QUERY_FILTERS;
 
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
-import poring.world.Database;
 import poring.world.Utils;
 import poring.world.market.filter.FilterUtils;
 import poring.world.watcher.Watcher;

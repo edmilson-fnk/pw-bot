@@ -1,11 +1,11 @@
 package poring.world;
 
-import static poring.world.Constants.ADMIN_MAP;
-import static poring.world.Constants.ADM_CALL;
-import static poring.world.Constants.COMMAND_MAP;
-import static poring.world.Constants.ENV;
-import static poring.world.Constants.GLOBAL_CALL;
-import static poring.world.Constants.IS_PRODUCTION;
+import static poring.world.Constants.Constants.ADMIN_MAP;
+import static poring.world.Constants.Constants.ADM_CALL;
+import static poring.world.Constants.Constants.COMMAND_MAP;
+import static poring.world.Constants.Constants.ENV;
+import static poring.world.Constants.Constants.GLOBAL_CALL;
+import static poring.world.Constants.Constants.IS_PRODUCTION;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;

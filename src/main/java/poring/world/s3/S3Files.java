@@ -1,6 +1,6 @@
 package poring.world.s3;
 
-import static poring.world.Constants.IS_PRODUCTION;
+import static poring.world.Constants.Constants.IS_PRODUCTION;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;

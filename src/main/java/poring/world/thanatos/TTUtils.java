@@ -1,9 +1,9 @@
 package poring.world.thanatos;
 
-import static poring.world.Constants.A;
-import static poring.world.Constants.B;
-import static poring.world.Constants.BACKUP;
-import static poring.world.Constants.GENERAL_TIME_FORMAT;
+import static poring.world.Constants.Constants.A;
+import static poring.world.Constants.Constants.B;
+import static poring.world.Constants.Constants.BACKUP;
+import static poring.world.Constants.Constants.GENERAL_TIME_FORMAT;
 
 import org.javacord.api.DiscordApi;
 

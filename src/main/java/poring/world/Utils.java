@@ -1,8 +1,8 @@
 package poring.world;
 
-import static poring.world.Constants.COMMAND_MAP;
-import static poring.world.Constants.GENERAL_TIME_FORMAT;
-import static poring.world.Constants.TIME_DIFF;
+import static poring.world.Constants.Constants.COMMAND_MAP;
+import static poring.world.Constants.Constants.GENERAL_TIME_FORMAT;
+import static poring.world.Constants.Constants.TIME_DIFF;
 
 import com.sun.xml.bind.v2.util.EditDistance;
 import org.json.simple.JSONObject;

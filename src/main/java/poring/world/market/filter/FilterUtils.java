@@ -1,11 +1,11 @@
 package poring.world.market.filter;
 
-import static poring.world.Constants.BROKEN;
-import static poring.world.Constants.ENCHANT;
-import static poring.world.Constants.MAX_PRICE;
-import static poring.world.Constants.FILTERS_NAME;
-import static poring.world.Constants.NO;
-import static poring.world.Constants.YES;
+import static poring.world.Constants.Constants.BROKEN;
+import static poring.world.Constants.Constants.ENCHANT;
+import static poring.world.Constants.Constants.MAX_PRICE;
+import static poring.world.Constants.Constants.FILTERS_NAME;
+import static poring.world.Constants.Constants.NO;
+import static poring.world.Constants.Constants.YES;
 
 import org.json.simple.JSONObject;
 

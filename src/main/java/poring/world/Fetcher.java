@@ -1,6 +1,6 @@
 package poring.world;
 
-import static poring.world.Constants.CARD_COLOR;
+import static poring.world.Constants.Constants.CARD_COLOR;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
