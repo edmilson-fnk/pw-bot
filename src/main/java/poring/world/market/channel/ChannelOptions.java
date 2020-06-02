@@ -31,7 +31,23 @@ public enum ChannelOptions {
 
   };
 
-  ChannelOptions(String option) {
+  private String name;
+
+  ChannelOptions(String name) {
+    this.name = name;
+  }
+
+  public static ChannelOptions getByName(String name) {
+    for (ChannelOptions i : ChannelOptions.values()) {
+      if (name.equalsIgnoreCase(i.getName())) {
+        return i;
+      }
+    }
+    return null;
+  }
+
+  public String getName() {
+    return this.name;
   }
 
   public abstract String getData();

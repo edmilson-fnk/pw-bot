@@ -1,6 +1,7 @@
 package poring.world.Constants;
 
 import com.google.common.collect.ImmutableSet;
+import poring.world.market.channel.ChannelOptions;
 
 import java.util.Set;
 
