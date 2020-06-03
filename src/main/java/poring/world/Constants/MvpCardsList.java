@@ -26,7 +26,7 @@ public class MvpCardsList {
       this.add("Atroce Card");
       this.add("Orc Lord Helm Card");
       this.add("Detarderous Card");
-      this.add("Owl Duke Card");
+      this.add("Owl Baron Card");
       this.add("Bloody Knight Card");
       this.add("Dracula Card");
       this.add("Chimera Card");
