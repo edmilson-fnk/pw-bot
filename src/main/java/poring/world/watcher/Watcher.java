@@ -197,7 +197,8 @@ public class Watcher extends Thread {
           String message = String.format("**%s**\n%s", title, optionData);
           // for each channel on this option, notify
           for (poring.model.Channel c : channelsByOption.get(optionName)) {
-            api.getChannelById(c.getDiscordId()).get().asTextChannel().get().sendMessage(message);
+            Optional<Channel> channelById = api.getChannelById(c.getDiscordId());
+            channelById.ifPresent(channel -> channel.asTextChannel().get().sendMessage(message));
           }
         }
       }
