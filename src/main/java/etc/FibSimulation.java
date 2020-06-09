@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 public class FibSimulation {
 
   public static void main(String[] args) {
-    float aspd = 3f; // 480%
+    float aspd = 4.8f; // 480%
     int battleDur = 15;
     int empHp = 5000;
     int hit2xOG = 416;
@@ -34,6 +34,7 @@ public class FibSimulation {
         if (fibDmg < hp) {
           double prob = rand(0, 1);
           if (prob <= fibChance) {
+            System.out.println("chance");
             buffedHits = (int) aspd * fibDur;
           }
           if (buffedHits > 0) {
