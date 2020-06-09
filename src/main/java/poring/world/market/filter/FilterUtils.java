@@ -2,6 +2,7 @@ package poring.world.market.filter;
 
 import static poring.world.Constants.Constants.BROKEN;
 import static poring.world.Constants.Constants.ENCHANT;
+import static poring.world.Constants.Constants.EXCEPT;
 import static poring.world.Constants.Constants.MAX_PRICE;
 import static poring.world.Constants.Constants.FILTERS_NAME;
 import static poring.world.Constants.Constants.NO;
@@ -34,6 +35,8 @@ public class FilterUtils {
       rValue = value.toLowerCase();
     } else if (key.equalsIgnoreCase(ENCHANT)) {
       rValue = value.toLowerCase();
+    } else if (key.equalsIgnoreCase(EXCEPT)) {
+      rValue = value.toLowerCase();
     }
     return String.format("_%s_: %s; ", rKey, rValue);
   }
@@ -48,6 +51,8 @@ public class FilterUtils {
     } else if (key.equalsIgnoreCase(BROKEN)) {
       return value.equalsIgnoreCase(YES) || value.equalsIgnoreCase(NO) ? null : value;
     } else if (key.equalsIgnoreCase(ENCHANT)) {
+      return !value.isEmpty() ? null : "empty value";
+    } else if (key.equalsIgnoreCase(EXCEPT)) {
       return !value.isEmpty() ? null : "empty value";
     }
     return null;
@@ -72,6 +77,9 @@ public class FilterUtils {
       } else if (key.equalsIgnoreCase(ENCHANT)) {
         String name = minimalJsonObject.get("name").toString().toLowerCase();
         return !name.matches(String.format(".*<.*%s.*>.*", value.toLowerCase()));
+      } else if (key.equalsIgnoreCase(EXCEPT)) {
+        String name = minimalJsonObject.get("name").toString().toLowerCase();
+        return name.contains(value.toLowerCase());
       }
     }
     return false;

@@ -59,10 +59,12 @@ public class Constants {
   public static final String MAX_PRICE = "maxprice";
   public static final String BROKEN = "broken";
   public static final String ENCHANT = "enchant";
+  public static final String EXCEPT = "except";
   public static final Map<String, String> FILTERS_NAME = ImmutableMap.of(
       MAX_PRICE, "Max price",
       BROKEN, "Broken",
-      ENCHANT, "Enchantment"
+      ENCHANT, "Enchantment",
+      EXCEPT, "Except"
   );
   public static final Set<String> QUERY_FILTERS = FILTERS_NAME.keySet();
 
