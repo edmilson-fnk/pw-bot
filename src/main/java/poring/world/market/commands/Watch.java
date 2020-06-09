@@ -61,7 +61,7 @@ public class Watch extends Command {
   @Override
   public String getHelp() {
     return "hourly checks poring.world and privately alerts user if search query is found. " +
-        "Filters available: _maxPrice_, _broken_, _enchant_";
+        "Filters available: _maxPrice_, _broken_, _enchant_, _except_";
   }
 
   @Override
@@ -77,6 +77,8 @@ public class Watch extends Command {
       this.add("Eye of Dullahan ::broken=yes");
       this.add("Eye of Dullahan ::enchant=sharp blade");
       this.add("Eye of Dullahan ::enchant=sharp blade 1");
+      this.add("Majestic Goat ::except=blueprint");
+      this.add("Majestic Goat ::except=+10");
     }};
   }
 
