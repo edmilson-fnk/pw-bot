@@ -68,19 +68,19 @@ public class FilterUtils {
       String value = filters.get(key);
       if (key.equalsIgnoreCase(MAX_PRICE)) {
         if (((long) ((JSONObject) minimalJsonObject.get("lastRecord")).get("price")) > Long.parseLong(value)) {
-          filter = true;
+          filter = filter || true;
         }
       } else if (key.equalsIgnoreCase(BROKEN)) {
         if (value.equalsIgnoreCase(YES) && !minimalJsonObject.get("name").toString().contains("(broken)")
         || value.equalsIgnoreCase(NO) && minimalJsonObject.get("name").toString().contains("(broken)")) {
-          filter = true;
+          filter = filter || true;
         }
       } else if (key.equalsIgnoreCase(ENCHANT)) {
         String name = minimalJsonObject.get("name").toString().toLowerCase();
-        filter = !name.matches(String.format(".*<.*%s.*>.*", value.toLowerCase()));
+        filter = filter || !name.matches(String.format(".*<.*%s.*>.*", value.toLowerCase()));
       } else if (key.equalsIgnoreCase(EXCEPT)) {
         String name = minimalJsonObject.get("name").toString().toLowerCase();
-        filter = name.contains(value.toLowerCase());
+        filter = filter || name.contains(value.toLowerCase());
       }
     }
     return filter;
