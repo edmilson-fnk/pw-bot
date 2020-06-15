@@ -63,26 +63,27 @@ public class FilterUtils {
       return false;
     }
 
+    boolean filter = false;
     for (String key : filters.keySet()) {
       String value = filters.get(key);
       if (key.equalsIgnoreCase(MAX_PRICE)) {
         if (((long) ((JSONObject) minimalJsonObject.get("lastRecord")).get("price")) > Long.parseLong(value)) {
-          return true;
+          filter = true;
         }
       } else if (key.equalsIgnoreCase(BROKEN)) {
         if (value.equalsIgnoreCase(YES) && !minimalJsonObject.get("name").toString().contains("(broken)")
         || value.equalsIgnoreCase(NO) && minimalJsonObject.get("name").toString().contains("(broken)")) {
-          return true;
+          filter = true;
         }
       } else if (key.equalsIgnoreCase(ENCHANT)) {
         String name = minimalJsonObject.get("name").toString().toLowerCase();
-        return !name.matches(String.format(".*<.*%s.*>.*", value.toLowerCase()));
+        filter = !name.matches(String.format(".*<.*%s.*>.*", value.toLowerCase()));
       } else if (key.equalsIgnoreCase(EXCEPT)) {
         String name = minimalJsonObject.get("name").toString().toLowerCase();
-        return name.contains(value.toLowerCase());
+        filter = name.contains(value.toLowerCase());
       }
     }
-    return false;
+    return filter;
   }
 
 }
