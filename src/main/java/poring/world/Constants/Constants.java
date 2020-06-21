@@ -3,6 +3,7 @@ package poring.world.Constants;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import poring.world.adm.Metrics;
+import poring.world.adm.Reset;
 import poring.world.adm.URL;
 import poring.world.market.commands.ChannelC;
 import poring.world.market.commands.Clear;
@@ -107,9 +108,11 @@ public class Constants {
   // !gtb-adm command
   public static final String ADM_CALL = "gtbadm";
   public static final String METRICS = "metrics";
+  public static final String RESET_GTB = "resetgtb";
   public static Map<String, Command> ADMIN_MAP = new HashMap<String, Command>(){{
     this.put(URL, new URL());
     this.put(METRICS, new Metrics());
+    this.put(RESET_GTB, new Reset());
 
     // under tests
     this.put(WATCH, new WatchAdv());
