@@ -1,6 +1,8 @@
 package poring.world.adm;
 
+import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
+import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.watcher.Watcher;
 
@@ -10,21 +12,22 @@ public class Reset extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
-    if (watcher.isAlive()) {
-      event.getChannel().sendMessage("GTB Watcher is still alive, no need to reset");
-    } else {
+    String query = Utils.getQuery(command);
+    if (!watcher.isAlive() || query.equalsIgnoreCase("force")) {
       watcher.start();
       event.getChannel().sendMessage("GTB Watcher reset");
+    } else {
+      event.getChannel().sendMessage("GTB Watcher is still alive, no need to reset");
     }
   }
 
   @Override
   public String getHelp() {
-    return null;
+    return "resets GTB watcher";
   }
 
   @Override
   public List<String> getQueries() {
-    return null;
+    return ImmutableList.of("");
   }
 }
