@@ -19,6 +19,7 @@ public class Watcher {
   public void restart() {
     this.watcherThread.interrupt();
     this.watcherThread = new WatcherThread(this.api);
+    this.watcherThread.start();
   }
 
   public WatcherThread getWatcherThread() {
