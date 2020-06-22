@@ -15,7 +15,8 @@ public class Reset extends Command {
     String query = Utils.getQuery(command);
     if (!watcher.getWatcherThread().isAlive() || query.equalsIgnoreCase("force")) {
       watcher.restart();
-      event.getChannel().sendMessage("GTB WatcherThread reset");
+      String user = event.getMessageAuthor().getDisplayName();
+      event.getChannel().sendMessage(String.format("GTB WatcherThread reset by %s", user));
     } else {
       event.getChannel().sendMessage("GTB WatcherThread is still alive, no need to reset");
     }
