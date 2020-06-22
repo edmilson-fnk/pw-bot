@@ -14,7 +14,7 @@ import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
 import poring.world.market.Command;
-import poring.world.watcher.WatcherThread;
+import poring.world.watcher.Watcher;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -24,7 +24,7 @@ import java.util.Set;
 public class Cards extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     String query = Utils.getQuery(command);
     Set<String> colors = new HashSet<>();
     TextChannel channel = event.getChannel();

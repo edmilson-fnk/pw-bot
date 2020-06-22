@@ -12,7 +12,7 @@ import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 import poring.world.market.Command;
-import poring.world.watcher.WatcherThread;
+import poring.world.watcher.Watcher;
 
 import java.util.Map;
 
@@ -27,7 +27,7 @@ public class Bot {
     discordApiBuilder.setWaitForServersOnStartup(true);
     DiscordApi api = discordApiBuilder.setToken(token).login().join();
 
-    WatcherThread watcher = new WatcherThread(api);
+    Watcher watcher = new Watcher(api);
     if (IS_PRODUCTION) {
       watcher.start();
     }
@@ -35,7 +35,7 @@ public class Bot {
     api.addMessageCreateListener(getMarketListener(watcher));
   }
 
-  private static MessageCreateListener getMarketListener(WatcherThread watcher) {
+  private static MessageCreateListener getMarketListener(Watcher watcher) {
     return event -> {
       if (event.getMessageAuthor().isBotUser()) {
         return;
@@ -53,7 +53,7 @@ public class Bot {
   }
 
   private static void runCommand(String msg, MessageCreateEvent event,
-                                 WatcherThread watcher, Map<String, Command> commands) {
+                                 Watcher watcher, Map<String, Command> commands) {
     String[] command = msg.trim()
         .replaceAll("\n", " ")
         .replaceAll(" +", " ")

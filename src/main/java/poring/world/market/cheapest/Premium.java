@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
 import poring.world.market.Command;
-import poring.world.watcher.WatcherThread;
+import poring.world.watcher.Watcher;
 
 import java.awt.*;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 public class Premium extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     EmbedBuilder embed = new EmbedBuilder().setTitle("Cheapest premiums").setColor(Color.ORANGE);
     JSONObject premiums = Fetcher.getCheapestPremiums();
     if (premiums != null) {

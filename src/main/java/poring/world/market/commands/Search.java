@@ -13,7 +13,7 @@ import poring.world.Fetcher;
 import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.market.filter.FilterUtils;
-import poring.world.watcher.WatcherThread;
+import poring.world.watcher.Watcher;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -25,7 +25,7 @@ public class Search extends Command {
   private static final int MAX_RESULTS = 10;
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     Map<String, String> searchFilters = new HashMap<>();
     String query = Utils.getQuery(command);
     StringBuilder sb = new StringBuilder();

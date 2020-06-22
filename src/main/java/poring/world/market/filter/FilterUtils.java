@@ -68,12 +68,12 @@ public class FilterUtils {
       String value = filters.get(key);
       if (key.equalsIgnoreCase(MAX_PRICE)) {
         if (((long) ((JSONObject) minimalJsonObject.get("lastRecord")).get("price")) > Long.parseLong(value)) {
-          filter = filter || true;
+          filter = true;
         }
       } else if (key.equalsIgnoreCase(BROKEN)) {
         if (value.equalsIgnoreCase(YES) && !minimalJsonObject.get("name").toString().contains("(broken)")
         || value.equalsIgnoreCase(NO) && minimalJsonObject.get("name").toString().contains("(broken)")) {
-          filter = filter || true;
+          filter = true;
         }
       } else if (key.equalsIgnoreCase(ENCHANT)) {
         String name = minimalJsonObject.get("name").toString().toLowerCase();

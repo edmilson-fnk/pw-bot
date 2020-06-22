@@ -15,14 +15,14 @@ import poring.model.WatchingChannel;
 import poring.world.Database;
 import poring.world.Utils;
 import poring.world.market.Command;
-import poring.world.watcher.WatcherThread;
+import poring.world.watcher.Watcher;
 
 import java.util.List;
 
 public class ChannelC extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     TextChannel channel = event.getChannel();
     String discordId = channel.getIdAsString();
     String query = Utils.getQuery(command);

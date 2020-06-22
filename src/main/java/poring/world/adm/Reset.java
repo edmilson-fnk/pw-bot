@@ -4,18 +4,17 @@ import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.market.Command;
-import poring.world.watcher.WatcherThread;
+import poring.world.watcher.Watcher;
 
 import java.util.List;
 
 public class Reset extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     String query = Utils.getQuery(command);
-    if (!watcher.isAlive() || query.equalsIgnoreCase("force")) {
-      watcher.interrupt();
-      watcher.run();
+    if (!watcher.getWatcherThread().isAlive() || query.equalsIgnoreCase("force")) {
+      watcher.restart();
       event.getChannel().sendMessage("GTB WatcherThread reset");
     } else {
       event.getChannel().sendMessage("GTB WatcherThread is still alive, no need to reset");

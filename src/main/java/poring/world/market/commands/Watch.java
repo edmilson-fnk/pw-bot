@@ -9,7 +9,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.market.filter.FilterUtils;
-import poring.world.watcher.WatcherThread;
+import poring.world.watcher.Watcher;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -19,7 +19,7 @@ import java.util.Map;
 public class Watch extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     String query = Utils.getQuery(command);
     Map<String, String> filters = new HashMap<>();
 
@@ -54,7 +54,7 @@ public class Watch extends Command {
     TextChannel channel = event.getChannel();
     MessageAuthor messageAuthor = event.getMessageAuthor();
 
-    String msg = watcher.add(query, messageAuthor, channel, filters);
+    String msg = watcher.getWatcherThread().add(query, messageAuthor, channel, filters);
     event.getChannel().sendMessage(msg);
   }
 

@@ -21,7 +21,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.s3.S3Files;
-import poring.world.watcher.WatcherThread;
+import poring.world.watcher.Watcher;
 
 import java.io.File;
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class Thanatos extends Command {
   }
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     TextChannel channel = event.getChannel();
     if (!event.getServer().isPresent()) {
       channel.sendMessage(String.format("Try _!%s %s_ in a server channel", GLOBAL_CALL, THANATOS));

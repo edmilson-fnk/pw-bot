@@ -11,6 +11,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.watcher.WatchObject;
+import poring.world.watcher.Watcher;
 import poring.world.watcher.WatcherThread;
 
 import java.util.Arrays;
@@ -24,11 +25,12 @@ import java.util.stream.Collectors;
 public class Remove extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
+  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+    WatcherThread watcherThread = watcher.getWatcherThread();
     MessageAuthor messageAuthor = event.getMessageAuthor();
     String query = Utils.getQuery(command);
-    List<WatchObject> objList = watcher.getMap().get(messageAuthor.getId());
-    Map<String, Map<String, String>> filters = watcher.getFilters().get(messageAuthor.getId());
+    List<WatchObject> objList = watcherThread.getMap().get(messageAuthor.getId());
+    Map<String, Map<String, String>> filters = watcherThread.getFilters().get(messageAuthor.getId());
     if (query.isEmpty()) {
       event.getChannel().sendMessage(
           String.format("No index, Try _!%s %s %s_ for more information", GLOBAL_CALL, HELP, REMOVE));
@@ -65,7 +67,7 @@ public class Remove extends Command {
         sb.append(String.format("Removed _%s_ for _%s_\n", removed.getQuery(), messageAuthor.getDisplayName()));
       }
       event.getChannel().sendMessage(sb.toString());
-      watcher.saveMaps();
+      watcherThread.saveMaps();
     } else {
       event.getChannel().sendMessage(String.format("No watch list for _%s_", messageAuthor.getDisplayName()));
     }
