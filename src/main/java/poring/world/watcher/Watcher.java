@@ -210,7 +210,7 @@ public class Watcher extends Thread {
     try {
       Thread.sleep(1000 * 60);
     } catch (InterruptedException e) {
-      throw new RuntimeException(e);
+      // We've been interrupted
     }
   }
 
