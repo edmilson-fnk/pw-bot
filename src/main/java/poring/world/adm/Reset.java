@@ -15,7 +15,7 @@ public class Reset extends Command {
     String query = Utils.getQuery(command);
     if (!watcher.isAlive() || query.equalsIgnoreCase("force")) {
       watcher.interrupt();
-      watcher.start();
+      watcher.run();
       event.getChannel().sendMessage("GTB Watcher reset");
     } else {
       event.getChannel().sendMessage("GTB Watcher is still alive, no need to reset");
