@@ -15,7 +15,7 @@ public class Metrics extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
-    Map<Long, List<WatchObject>> m = watcher.getMap();
+    Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMap();
 
     int numLists = 0;
     int numItems = 0;
