@@ -12,7 +12,7 @@ import poring.model.WatchList;
 import poring.world.Database;
 import poring.world.Utils;
 import poring.world.market.filter.FilterUtils;
-import poring.world.watcher.Watcher;
+import poring.world.watcher.WatcherThread;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -22,7 +22,7 @@ import java.util.Map;
 public class WatchAdv extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
     String query = Utils.getQuery(command);
     Map<String, String> filters = new HashMap<>();
 

@@ -4,7 +4,7 @@ import poring.model.Author;
 import poring.model.Item;
 import poring.model.WatchList;
 import poring.world.watcher.WatchObject;
-import poring.world.watcher.Watcher;
+import poring.world.watcher.WatcherThread;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,7 +14,7 @@ import java.util.Map;
 public class MigrateS3ToPsql {
 
   public static void main(String[] args) {
-    Watcher watcher = new Watcher(null);
+    WatcherThread watcher = new WatcherThread(null);
 
     Map<Long, List<WatchObject>> watchMap = watcher.getMap();
     Map<Long, Map<String, Map<String, String>>> filtersMap = watcher.getFilters();

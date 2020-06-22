@@ -11,7 +11,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.watcher.WatchObject;
-import poring.world.watcher.Watcher;
+import poring.world.watcher.WatcherThread;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class Remove extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
     MessageAuthor messageAuthor = event.getMessageAuthor();
     String query = Utils.getQuery(command);
     List<WatchObject> objList = watcher.getMap().get(messageAuthor.getId());

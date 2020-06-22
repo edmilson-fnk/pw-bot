@@ -5,7 +5,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.watcher.WatchObject;
-import poring.world.watcher.Watcher;
+import poring.world.watcher.WatcherThread;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.TreeMap;
 public class Metrics extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
     Map<Long, List<WatchObject>> m = watcher.getMap();
 
     int numLists = 0;

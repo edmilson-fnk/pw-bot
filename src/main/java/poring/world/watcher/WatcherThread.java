@@ -32,13 +32,13 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-public class Watcher extends Thread {
+public class WatcherThread extends Thread {
 
   private Map<Long, List<WatchObject>> watchMap;
   private Map<Long, Map<String, Map<String, String>>> watchMapFilters;
   private DiscordApi api;
 
-  public Watcher(DiscordApi api) {
+  public WatcherThread(DiscordApi api) {
     this.api = api;
   }
 

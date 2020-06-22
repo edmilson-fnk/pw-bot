@@ -14,7 +14,7 @@ import org.json.simple.JSONArray;
 import poring.world.Fetcher;
 import poring.world.Utils;
 import poring.world.market.filter.FilterUtils;
-import poring.world.watcher.Watcher;
+import poring.world.watcher.WatcherThread;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public class SearchAdv extends Command {
   private static final int MAX_RESULTS = 10;
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
     Map<String, String> searchFilters = new HashMap<>();
     String query = Utils.getQuery(command);
     if (query.isEmpty()) {

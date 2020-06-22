@@ -6,7 +6,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.market.Command;
 import poring.world.market.filter.FilterUtils;
 import poring.world.watcher.WatchObject;
-import poring.world.watcher.Watcher;
+import poring.world.watcher.WatcherThread;
 
 import java.util.Comparator;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.Map;
 public class Organize extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
     Map<Long, List<WatchObject>> watcherMap = watcher.getMap();
     Map<Long, Map<String, Map<String, String>>> filtersMap = watcher.getFilters();
     MessageAuthor messageAuthor = event.getMessageAuthor();

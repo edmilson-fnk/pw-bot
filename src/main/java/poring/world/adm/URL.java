@@ -3,14 +3,14 @@ package poring.world.adm;
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.market.Command;
-import poring.world.watcher.Watcher;
+import poring.world.watcher.WatcherThread;
 
 import java.util.List;
 
 public class URL extends Command {
 
   @Override
-  public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+  public void run(String[] command, MessageCreateEvent event, WatcherThread watcher) {
     event.getChannel().sendMessage(String.format("Invite me to your channel! Click %s",
         event.getApi().createBotInvite()));
   }

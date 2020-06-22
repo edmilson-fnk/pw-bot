@@ -55,7 +55,7 @@ public class Constants {
   public static final String BACKUP = "backup";
   public static final String RESET = "reset";
 
-  // Watcher filters
+  // WatcherThread filters
   public static final String FILTER_TOKEN = "::";
   public static final String MAX_PRICE = "maxprice";
   public static final String BROKEN = "broken";
