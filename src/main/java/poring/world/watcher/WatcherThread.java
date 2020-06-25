@@ -174,36 +174,45 @@ public class WatcherThread extends Thread {
       }
       System.out.println("watch list was notified! doing it again in an hour");
 
-      System.out.println("notifying channels");
-      // get all channels
-      Collection<poring.model.Channel> channels = new Database().getAllChannels();
-      // group by notification option
-      Map<String, Set<poring.model.Channel>> channelsByOption = new HashMap<>();
-      for (poring.model.Channel c : channels) {
-        for (String option : c.getList().getItems()) {
-          channelsByOption.putIfAbsent(option, new HashSet<>());
-          channelsByOption.get(option).add(c);
-        }
+      try {
+        notifyChannels();
+      } catch (RuntimeException e) {
+        System.out.println(String.format("Error while notifying channels: %s", e.getMessage()));
+        e.printStackTrace();
       }
-      for (String optionName : channelsByOption.keySet()) {
-        // for each option, get notifications
-        ChannelOptions optionEnum = ChannelOptions.getByName(optionName);
-        if (optionEnum == null) {
-          continue;
-        }
-        String optionData = optionEnum.getData();
-        if (optionData.length() > 0) {
-          String title = optionEnum.getTitle();
-          String message = String.format("**%s**\n%s", title, optionData);
-          // for each channel on this option, notify
-          for (poring.model.Channel c : channelsByOption.get(optionName)) {
-            Optional<Channel> channelById = api.getChannelById(c.getDiscordId());
-            channelById.ifPresent(channel -> channel.asTextChannel().get().sendMessage(message));
-          }
-        }
-      }
-      System.out.println("channels list was notified! doing it again in an hour");
     }
+  }
+
+  private void notifyChannels() {
+    System.out.println("notifying channels");
+    // get all channels
+    Collection<poring.model.Channel> channels = new Database().getAllChannels();
+    // group by notification option
+    Map<String, Set<poring.model.Channel>> channelsByOption = new HashMap<>();
+    for (poring.model.Channel c : channels) {
+      for (String option : c.getList().getItems()) {
+        channelsByOption.putIfAbsent(option, new HashSet<>());
+        channelsByOption.get(option).add(c);
+      }
+    }
+    for (String optionName : channelsByOption.keySet()) {
+      // for each option, get notifications
+      ChannelOptions optionEnum = ChannelOptions.getByName(optionName);
+      if (optionEnum == null) {
+        continue;
+      }
+      String optionData = optionEnum.getData();
+      if (optionData.length() > 0) {
+        String title = optionEnum.getTitle();
+        String message = String.format("**%s**\n%s", title, optionData);
+        // for each channel on this option, notify
+        for (poring.model.Channel c : channelsByOption.get(optionName)) {
+          Optional<Channel> channelById = api.getChannelById(c.getDiscordId());
+          channelById.ifPresent(channel -> channel.asTextChannel().get().sendMessage(message));
+        }
+      }
+    }
+    System.out.println("channels list was notified! doing it again in an hour");
   }
 
   private void waitAMinute() {
