@@ -25,8 +25,8 @@ public class Metrics extends Command {
 
     for (Long id : m.keySet()) {
       List<WatchObject> list = m.get(id);
-      sizeMap.put(list.size(), sizeMap.getOrDefault(list.size(), 0) + 1);
       if (list.size() > 0) {
+        sizeMap.put(list.size(), sizeMap.getOrDefault(list.size(), 0) + 1);
         numLists++;
         numItems += list.size();
         if (maxSize < list.size()) {
