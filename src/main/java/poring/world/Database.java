@@ -31,7 +31,7 @@ public class Database {
   private SessionFactory sessionFactory;
 
   public SessionFactory getDBConnection() {
-    if (sessionFactory == null) {
+    if (sessionFactory == null || sessionFactory.isClosed()) {
       if (DATABASE_URL == null) {
         System.out.println("Invalid jdbc URI to connect, exiting...");
         return null;
@@ -114,7 +114,7 @@ public class Database {
   }
 
   public void close() {
-    if (this.sessionFactory != null) {
+    if (this.sessionFactory != null && !this.sessionFactory.isClosed()) {
       this.sessionFactory.close();
     }
   }

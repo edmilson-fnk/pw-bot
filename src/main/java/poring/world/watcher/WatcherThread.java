@@ -186,7 +186,9 @@ public class WatcherThread extends Thread {
   private void notifyChannels() {
     System.out.println("notifying channels");
     // get all channels
-    Collection<poring.model.Channel> channels = new Database().getAllChannels();
+    Database db = new Database();
+    Collection<poring.model.Channel> channels = db.getAllChannels();
+    db.close();
     // group by notification option
     Map<String, Set<poring.model.Channel>> channelsByOption = new HashMap<>();
     for (poring.model.Channel c : channels) {
