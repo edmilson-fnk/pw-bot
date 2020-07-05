@@ -178,7 +178,7 @@ public class WatcherThread extends Thread {
         notifyChannels();
       } catch (RuntimeException e) {
         System.out.println(String.format("Error while notifying channels: %s", e.getMessage()));
-        e.printStackTrace();
+//        e.printStackTrace();
       }
     }
   }
