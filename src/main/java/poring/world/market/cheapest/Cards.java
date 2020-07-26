@@ -72,8 +72,9 @@ public class Cards extends Command {
       embed.addField(fieldName, content.toString());
     }
 
-    channel.sendMessage(embed)
-        .exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
+//    channel.sendMessage(embed)
+//        .exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
+    channel.sendMessage(embed);
   }
 
   @Override
