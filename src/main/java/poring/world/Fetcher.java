@@ -114,6 +114,7 @@ public class Fetcher {
 
       if (response.getStatusLine().getStatusCode() != 200) {
         System.out.println("Error " + response.getStatusLine().getStatusCode());
+        System.out.println("Content: " + response.getEntity().getContent());
         System.out.println("URL " + fullUrl);
         return new JSONArray();
       }
