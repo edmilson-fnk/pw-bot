@@ -24,6 +24,8 @@ import java.util.Set;
 
 public class Constants {
 
+  public static final Boolean MAINTENANCE = true;
+
   // General
   public static final String GLOBAL_CALL = "gtb";
   public static final String YES = "yes";

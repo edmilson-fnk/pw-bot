@@ -6,6 +6,7 @@ import static poring.world.Constants.Constants.COMMAND_MAP;
 import static poring.world.Constants.Constants.ENV;
 import static poring.world.Constants.Constants.GLOBAL_CALL;
 import static poring.world.Constants.Constants.IS_PRODUCTION;
+import static poring.world.Constants.Constants.MAINTENANCE;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
@@ -28,9 +29,9 @@ public class Bot {
     DiscordApi api = discordApiBuilder.setToken(token).login().join();
 
     Watcher watcher = new Watcher(api);
-    if (IS_PRODUCTION) {
-      watcher.start();
-    }
+//    if (IS_PRODUCTION) {
+//      watcher.start();
+//    }
 
     api.addMessageCreateListener(getMarketListener(watcher));
   }
@@ -54,6 +55,11 @@ public class Bot {
 
   private static void runCommand(String msg, MessageCreateEvent event,
                                  Watcher watcher, Map<String, Command> commands) {
+    if (MAINTENANCE) {
+      event.getChannel().sendMessage("_GTB is offline for a while_");
+      return;
+    }
+
     String[] command = msg.trim()
         .replaceAll("\n", " ")
         .replaceAll(" +", " ")
