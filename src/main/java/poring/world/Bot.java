@@ -29,9 +29,9 @@ public class Bot {
     DiscordApi api = discordApiBuilder.setToken(token).login().join();
 
     Watcher watcher = new Watcher(api);
-//    if (IS_PRODUCTION) {
-//      watcher.start();
-//    }
+    if (IS_PRODUCTION && !MAINTENANCE) {
+      watcher.start();
+    }
 
     api.addMessageCreateListener(getMarketListener(watcher));
   }
