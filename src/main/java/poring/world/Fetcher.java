@@ -115,17 +115,6 @@ public class Fetcher {
       if (response.getStatusLine().getStatusCode() != 200) {
         System.out.println("Error " + response.getStatusLine().getStatusCode());
         System.out.println("URL " + fullUrl);
-
-        BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-        StringBuilder builder = new StringBuilder();
-        String line;
-
-        while ((line = bufReader.readLine()) != null) {
-          builder.append(line);
-          builder.append(System.lineSeparator());
-        }
-
-        System.out.println("Content: " + builder.toString());
         return new JSONArray();
       }
 
