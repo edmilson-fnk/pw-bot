@@ -174,15 +174,15 @@ public class WatcherThread extends Thread {
       }
       System.out.println("watch list was notified! doing it again in an hour");
 
-      try {
-        notifyChannels();
-      } catch (RuntimeException e) {
-        System.out.println(String.format("Error while notifying channels: %s", e.getMessage()));
-//        e.printStackTrace();
-      }
+//      try {
+//        notifyChannels();
+//      } catch (RuntimeException e) {
+//        System.out.println(String.format("Error while notifying channels: %s", e.getMessage()));
+//      }
     }
   }
 
+  // TODO optmize this method
   private void notifyChannels() {
     System.out.println("notifying channels");
     // get all channels
