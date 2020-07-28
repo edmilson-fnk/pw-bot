@@ -1,9 +1,9 @@
 package poring.world;
 
-import static poring.world.Constants.Constants.COMMAND_MAP;
 import static poring.world.Constants.Constants.GENERAL_TIME_FORMAT;
 import static poring.world.Constants.Constants.TIME_DIFF;
 
+import com.google.common.collect.ImmutableList;
 import com.sun.xml.bind.v2.util.EditDistance;
 import org.json.simple.JSONObject;
 import poring.world.s3.S3Files;
@@ -20,6 +20,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -132,8 +133,17 @@ public class Utils {
     }
   }
 
-  public static String getNearestCommand(String key) {
-    return getNearestCommand(key, COMMAND_MAP.keySet());
+  public static String getUserAgent() {
+    List<String> userAgents = ImmutableList.of(
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+        "Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36",
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"
+    );
+
+    return userAgents.stream()
+                     .skip((int) (userAgents.size() * Math.random()))
+                     .findFirst().get();
   }
 
   public static synchronized File saveMapFile(Map map, String fileName) {

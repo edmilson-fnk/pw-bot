@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 
 public class WatcherThread extends Thread {
 
+  public static final int LIST_MAX_SIZE = 30;
   private Map<Long, List<WatchObject>> watchMap;
   private Map<Long, Map<String, Map<String, String>>> watchMapFilters;
   private DiscordApi api;
@@ -146,7 +147,7 @@ public class WatcherThread extends Thread {
         sb.append(String.format("Hey <@%s>, we found something for you\n", authorId));
 
         boolean theresSomethingFlag = false;
-        int maxSize = Math.min(currentWatchMap.get(authorId).size(), 20);
+        int maxSize = Math.min(currentWatchMap.get(authorId).size(), LIST_MAX_SIZE);
         for (WatchObject obj : currentWatchMap.get(authorId).subList(0, maxSize)) {
           Map<String, String> filters = currentFilters.containsKey(authorId) ?
               currentFilters.get(authorId).getOrDefault(obj.toString(), null) :

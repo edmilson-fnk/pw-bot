@@ -113,7 +113,7 @@ public class Fetcher {
   }
 
   private static JSONArray getJsonData(Map<String, String> param, Map<String, String> filters) throws IOException {
-    BasicHeader h1 = new BasicHeader(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36");
+    BasicHeader h1 = new BasicHeader(HttpHeaders.USER_AGENT, Utils.getUserAgent());
 
     List<Header> headers = Lists.newArrayList(h1);
     try (CloseableHttpClient client = HttpClientBuilder.create().setDefaultHeaders(headers).build()) {
@@ -124,8 +124,7 @@ public class Fetcher {
       HttpResponse response = client.execute(request);
 
       if (response.getStatusLine().getStatusCode() != 200) {
-        System.out.println("Error " + response.getStatusLine().getStatusCode());
-        System.out.println("URL " + fullUrl);
+        System.out.println(String.format("Error %s\nURL %s", response.getStatusLine().getStatusCode(), fullUrl));
         return new JSONArray();
       }
 
