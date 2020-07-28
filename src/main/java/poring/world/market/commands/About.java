@@ -10,14 +10,14 @@ import java.util.List;
 public class About extends Command {
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
-    String msg = "> Golden Thief Bot\n> Discord bot developed by _Ved_\n> \n> Many thanks to poring.world API";
-
-    event.getChannel().sendMessage(msg);
+    event.getChannel().sendMessage(
+        "> **G**olden **T**hief **B**ot\n> Discord bot developed by _Ved_\n> \n> Many thanks to poring.world API"
+    );
   }
 
   @Override
   public String getHelp() {
-    return "about GTB";
+    return "shows some information about GTB";
   }
 
   @Override
