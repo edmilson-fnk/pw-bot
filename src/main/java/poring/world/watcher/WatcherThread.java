@@ -146,7 +146,8 @@ public class WatcherThread extends Thread {
         sb.append(String.format("Hey <@%s>, we found something for you\n", authorId));
 
         boolean theresSomethingFlag = false;
-        for (WatchObject obj : currentWatchMap.get(authorId)) {
+        int maxSize = Math.min(currentWatchMap.get(authorId).size(), 20);
+        for (WatchObject obj : currentWatchMap.get(authorId).subList(0, maxSize)) {
           Map<String, String> filters = currentFilters.containsKey(authorId) ?
               currentFilters.get(authorId).getOrDefault(obj.toString(), null) :
               null;

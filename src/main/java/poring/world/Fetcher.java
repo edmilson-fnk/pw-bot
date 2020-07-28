@@ -4,10 +4,14 @@ import static poring.world.Constants.Constants.CARD_COLOR;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
+import org.apache.http.Header;
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicHeader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,10 +24,13 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -106,7 +113,11 @@ public class Fetcher {
   }
 
   private static JSONArray getJsonData(Map<String, String> param, Map<String, String> filters) throws IOException {
-    try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
+    BasicHeader h1 = new BasicHeader(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36");
+
+    List<Header> headers = Lists.newArrayList(h1);
+    try (CloseableHttpClient client = HttpClientBuilder.create().setDefaultHeaders(headers).build()) {
+
       String parametersUrl = getParametersUrl(param);
       String fullUrl = BASE_URL + parametersUrl;
       HttpGet request = new HttpGet(fullUrl);

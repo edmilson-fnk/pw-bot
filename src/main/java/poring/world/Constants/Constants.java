@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import poring.world.adm.Metrics;
 import poring.world.adm.Reset;
 import poring.world.adm.URL;
+import poring.world.market.commands.About;
 import poring.world.market.commands.ChannelC;
 import poring.world.market.commands.Clear;
 import poring.world.market.Command;
@@ -42,6 +43,7 @@ public class Constants {
   public static final String ORGANIZE = "organize";
   public static final String REMOVE = "remove";
   public static final String URL = "url";
+  public static final String ABOUT = "about";
 
   // Channel commands
   public static final String CHANNEL = "channel";
@@ -128,9 +130,10 @@ public class Constants {
     this.put(WATCH, new Watch());
     this.put(CLEAR, new Clear());
     this.put(LIST, new ListC());
-    this.put(ORGANIZE, new Organize());
+//    this.put(ORGANIZE, new Organize());
     this.put(REMOVE, new Remove());
 //    this.put(CHANNEL, new ChannelC());
+    this.put(ABOUT, new About());
 
     // Cheapest
     this.put(CARDS_CALL, new Cards());
