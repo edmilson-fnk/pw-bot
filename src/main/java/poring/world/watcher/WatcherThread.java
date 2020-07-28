@@ -184,7 +184,7 @@ public class WatcherThread extends Thread {
     }
   }
 
-  // TODO optmize this method
+  // TODO optimize this method
   private void notifyChannels() {
     System.out.println("notifying channels");
     // get all channels
