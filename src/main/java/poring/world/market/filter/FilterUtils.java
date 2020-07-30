@@ -11,7 +11,10 @@ import static poring.world.Constants.Constants.YES;
 import org.json.simple.JSONObject;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class FilterUtils {
 
@@ -42,18 +45,40 @@ public class FilterUtils {
   }
 
   public static String validate(String key, String value) {
+    if (value.isEmpty()) {
+      return "empty value";
+    }
+
+    // Unique values keys
     if (key.equalsIgnoreCase(MAX_PRICE)) {
       try {
+        if (value.contains("&&")) {
+          return "not a multiple values field, remove _&&_";
+        }
         Integer.parseInt(value);
+        return null;
       } catch (Exception e) {
         return e.getMessage();
       }
     } else if (key.equalsIgnoreCase(BROKEN)) {
-      return value.equalsIgnoreCase(YES) || value.equalsIgnoreCase(NO) ? null : value;
-    } else if (key.equalsIgnoreCase(ENCHANT)) {
-      return !value.isEmpty() ? null : "empty value";
-    } else if (key.equalsIgnoreCase(EXCEPT)) {
-      return !value.isEmpty() ? null : "empty value";
+      if (value.contains("&&")) {
+        return "not a multiple values field, remove _&&_";
+      }
+      if (!value.equalsIgnoreCase(YES) && !value.equalsIgnoreCase(NO)) {
+        return "use only _yes_ or _no_";
+      }
+    }
+
+      // Multiple values keys
+    List<String> values = Arrays.stream(value.split("&&")).map(String::trim).collect(Collectors.toList());
+    for (String v : values) {
+      if (key.equalsIgnoreCase(ENCHANT)) {
+        // No validation yet
+        return null;
+      } else if (key.equalsIgnoreCase(EXCEPT)) {
+        // No validation yet
+        return null;
+      }
     }
     return null;
   }
@@ -63,27 +88,40 @@ public class FilterUtils {
       return false;
     }
 
-    boolean filter = false;
+    boolean outerFilter = false;
     for (String key : filters.keySet()) {
-      String value = filters.get(key);
-      if (key.equalsIgnoreCase(MAX_PRICE)) {
-        if (((long) ((JSONObject) minimalJsonObject.get("lastRecord")).get("price")) > Long.parseLong(value)) {
-          filter = true;
+      boolean innerFilter = false;
+      for (String value : filters.get(key).split("&&")) {
+        value = value.trim();
+        if (key.equalsIgnoreCase(MAX_PRICE)) {
+          if (((long) ((JSONObject) minimalJsonObject.get("lastRecord")).get("price")) > Long.parseLong(value)) {
+            innerFilter = true;
+          }
+        } else if (key.equalsIgnoreCase(BROKEN)) {
+          if (value.equalsIgnoreCase(YES) && !minimalJsonObject.get("name").toString().contains("(broken)")
+              || value.equalsIgnoreCase(NO) && minimalJsonObject.get("name").toString().contains("(broken)")) {
+            innerFilter = true;
+          }
+        } else if (key.equalsIgnoreCase(ENCHANT)) {
+          String name = minimalJsonObject.get("name").toString().toLowerCase();
+          innerFilter = !name.matches(String.format(".*<.*%s.*>.*", value.toLowerCase()));
+          if (!innerFilter) {
+            break;
+          }
+        } else if (key.equalsIgnoreCase(EXCEPT)) {
+          String name = minimalJsonObject.get("name").toString().toLowerCase();
+          innerFilter = name.contains(value.toLowerCase());
+          if (innerFilter) {
+            break;
+          }
         }
-      } else if (key.equalsIgnoreCase(BROKEN)) {
-        if (value.equalsIgnoreCase(YES) && !minimalJsonObject.get("name").toString().contains("(broken)")
-        || value.equalsIgnoreCase(NO) && minimalJsonObject.get("name").toString().contains("(broken)")) {
-          filter = true;
-        }
-      } else if (key.equalsIgnoreCase(ENCHANT)) {
-        String name = minimalJsonObject.get("name").toString().toLowerCase();
-        filter = filter || !name.matches(String.format(".*<.*%s.*>.*", value.toLowerCase()));
-      } else if (key.equalsIgnoreCase(EXCEPT)) {
-        String name = minimalJsonObject.get("name").toString().toLowerCase();
-        filter = filter || name.contains(value.toLowerCase());
+      }
+      if (innerFilter) {
+        outerFilter = true;
+        break;
       }
     }
-    return filter;
+    return outerFilter;
   }
 
 }

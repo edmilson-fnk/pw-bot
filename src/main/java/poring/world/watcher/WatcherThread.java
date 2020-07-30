@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 
 public class WatcherThread extends Thread {
 
-  public static final int LIST_MAX_SIZE = 30;
+  public static final int LIST_MAX_SIZE = 50;
   private Map<Long, List<WatchObject>> watchMap;
   private Map<Long, Map<String, Map<String, String>>> watchMapFilters;
   private DiscordApi api;
