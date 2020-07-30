@@ -11,7 +11,8 @@ public class About extends Command {
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     event.getChannel().sendMessage(
-        "> **G**olden **T**hief **B**ot\n> Discord bot developed by _Ved_\n> \n> Many thanks to poring.world API"
+        "> :bee: About **G**olden **T**hief **B**ot\n> Discord bot developed by _Ved_\n> \n" +
+            "> Many thanks to poring.world API"
     );
   }
 

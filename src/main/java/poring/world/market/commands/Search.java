@@ -86,10 +86,11 @@ public class Search extends Command {
       this.add("Eye of Dullahan ::maxPrice=2000000");
       this.add("Eye of Dullahan ::broken=yes");
       this.add("Eye of Dullahan ::broken=no");
-      this.add("Eye of Dullahan ::enchant=sharp blade");
       this.add("Eye of Dullahan ::enchant=sharp blade 1");
+      this.add("Eye of Dullahan ::enchant=sharp blade&&morale");
       this.add("Majestic Goat ::except=blueprint");
       this.add("Majestic Goat ::except=+10");
+      this.add("Majestic Goat ::except=blueprint&&+10");
     }};
   }
 

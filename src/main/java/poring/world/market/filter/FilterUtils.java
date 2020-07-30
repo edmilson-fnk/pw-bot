@@ -37,9 +37,9 @@ public class FilterUtils {
     } else if (key.equalsIgnoreCase(BROKEN)) {
       rValue = value.toLowerCase();
     } else if (key.equalsIgnoreCase(ENCHANT)) {
-      rValue = value.toLowerCase();
+      rValue = value.replaceAll("\\s*&&\\s*", " or ").toLowerCase();
     } else if (key.equalsIgnoreCase(EXCEPT)) {
-      rValue = value.toLowerCase();
+      rValue = value.replaceAll("\\s*&&\\s*", " and ").toLowerCase();
     }
     return String.format("_%s_: %s; ", rKey, rValue);
   }
