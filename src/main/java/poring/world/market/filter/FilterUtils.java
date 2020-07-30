@@ -67,6 +67,7 @@ public class FilterUtils {
       if (!value.equalsIgnoreCase(YES) && !value.equalsIgnoreCase(NO)) {
         return "use only _yes_ or _no_";
       }
+      return null;
     }
 
       // Multiple values keys
