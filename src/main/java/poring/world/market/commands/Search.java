@@ -81,6 +81,7 @@ public class Search extends Command {
   public List<String> getQueries() {
     return new LinkedList<String>(){{
       this.add("morale");
+      this.add("morale && sharp blade");
       this.add("morale 4");
       this.add("Eye of Dullahan [1]");
       this.add("+4 Eye of Dullahan");
@@ -93,6 +94,7 @@ public class Search extends Command {
       this.add("Majestic Goat ::except=blueprint");
       this.add("Majestic Goat ::except=+10");
       this.add("Majestic Goat ::except=blueprint&&+10");
+      this.add("Majestic Goat && Coif ::except=blueprint");
     }};
   }
 
