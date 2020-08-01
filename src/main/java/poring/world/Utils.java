@@ -20,6 +20,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,6 +36,16 @@ public class Utils {
       joiner.add(command[i]);
     }
     return joiner.toString().trim();
+  }
+
+  public static List<String> getNames(String query) {
+    List<String> names = new LinkedList<>();
+    for (String name : query.toLowerCase().trim().split("&&")) {
+      if (!name.trim().isEmpty()) {
+        names.add(name.trim());
+      }
+    }
+    return names;
   }
 
   public static String getItemStock(Object item) {

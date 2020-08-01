@@ -13,6 +13,7 @@ import poring.world.market.commands.About;
 import poring.world.market.commands.Clear;
 import poring.world.market.commands.Help;
 import poring.world.market.commands.ListC;
+import poring.world.market.commands.Organize;
 import poring.world.market.commands.Remove;
 import poring.world.market.commands.Search;
 import poring.world.market.commands.Watch;
@@ -128,10 +129,10 @@ public class Constants {
     this.put(WATCH, new Watch());
     this.put(CLEAR, new Clear());
     this.put(LIST, new ListC());
-//    this.put(ORGANIZE, new Organize());
+    this.put(ORGANIZE, new Organize());
     this.put(REMOVE, new Remove());
-//    this.put(CHANNEL, new ChannelC());
     this.put(ABOUT, new About());
+//    this.put(CHANNEL, new ChannelC());
 
     // Cheapest
     this.put(CARDS_CALL, new Cards());

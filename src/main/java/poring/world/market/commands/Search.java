@@ -56,15 +56,17 @@ public class Search extends Command {
       }
     }
 
-    JSONArray items = Fetcher.query(query, searchFilters);
-    if (items.size() == 0) {
-      sb.append(String.format("No item found for _%s_ :poop:", query));
-    }
-    for (Object item : items.subList(0, Math.min(MAX_RESULTS, items.size()))) {
-      sb.append(String.format("%s\n", Utils.getItemMessage((JSONObject) item)));
-    }
-    if (items.size() > MAX_RESULTS) {
-      sb.append("More than 10 items found. Refine your search...");
+    for (String name : Utils.getNames(query)) {
+      JSONArray items = Fetcher.query(name, searchFilters);
+      if (items.size() == 0) {
+        sb.append(String.format("No item found for _%s_ :poop:", name));
+      }
+      for (Object item : items.subList(0, Math.min(MAX_RESULTS, items.size()))) {
+        sb.append(String.format("%s\n", Utils.getItemMessage((JSONObject) item)));
+      }
+      if (items.size() > MAX_RESULTS) {
+        sb.append("More than 10 items found. Refine your search...");
+      }
     }
 
     event.getChannel().sendMessage(sb.toString());
