@@ -152,19 +152,21 @@ public class WatcherThread extends Thread {
           Map<String, String> filters = currentFilters.containsKey(authorId) ?
               currentFilters.get(authorId).getOrDefault(obj.toString(), null) :
               null;
-          JSONArray marketItems = Fetcher.query(obj.getQuery(), filters);
-          if (marketItems.size() > 0) {
-            StringBuilder objMessage = new StringBuilder();
-            theresSomethingFlag = true;
-            objMessage.append(String.format("_%s_ %s\n", obj.getQuery(), FilterUtils.translate(filters)));
-            for (Object marketItem : marketItems) {
-              objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
+          for (String name : Utils.getNames(obj.getQuery())) {
+            JSONArray marketItems = Fetcher.query(name, filters);
+            if (marketItems.size() > 0) {
+              StringBuilder objMessage = new StringBuilder();
+              theresSomethingFlag = true;
+              objMessage.append(String.format("_%s_ %s\n", name, FilterUtils.translate(filters)));
+              for (Object marketItem : marketItems) {
+                objMessage.append(String.format("    %s\n", Utils.getItemMessage((JSONObject) marketItem)));
+              }
+              if (objMessage.length() + sb.length() >= 2000) {
+                messages.add(sb.toString());
+                sb = new StringBuilder();
+              }
+              sb.append(objMessage.toString());
             }
-            if (objMessage.length() + sb.length() >= 2000) {
-              messages.add(sb.toString());
-              sb = new StringBuilder();
-            }
-            sb.append(objMessage.toString());
           }
         }
         messages.add(sb.toString());
