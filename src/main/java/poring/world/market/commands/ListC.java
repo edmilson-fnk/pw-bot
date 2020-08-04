@@ -3,6 +3,7 @@ package poring.world.market.commands;
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
+import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.market.filter.FilterUtils;
 import poring.world.watcher.WatchObject;
@@ -14,9 +15,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ListC extends Command {
-
+  
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+//    String query = Utils.getQuery(command);
+//    int start = 0;
+//    int end = 9999;
+//    String[] numbers = query.split(" ");
+//    if (numbers.length == 1) {
+//
+//    }
+
     WatcherThread watcherThread = watcher.getWatcherThread();
     Map<Long, List<WatchObject>> watcherMap = watcherThread.getMap();
     Map<Long, Map<String, Map<String, String>>> filtersMap = watcherThread.getFilters();
@@ -27,6 +36,7 @@ public class ListC extends Command {
       sb.append(String.format("Items for **%s**\n", messageAuthor.getDisplayName()));
       List<WatchObject> objList = watcherMap.get(messageAuthor.getId());
       Map<String, Map<String, String>> filtersList = filtersMap != null ? filtersMap.get(messageAuthor.getId()) : null;
+
       for (int i = 0; i < objList.size(); i++) {
         StringBuilder subSb = new StringBuilder();
         WatchObject obj = objList.get(i);

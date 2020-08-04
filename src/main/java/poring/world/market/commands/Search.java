@@ -59,7 +59,7 @@ public class Search extends Command {
     for (String name : Utils.getNames(query)) {
       JSONArray items = Fetcher.query(name, searchFilters);
       if (items.size() == 0) {
-        sb.append(String.format("No item found for _%s_ :poop:", name));
+        sb.append(String.format("No item found for _%s_ :poop:\n", name));
       }
       for (Object item : items.subList(0, Math.min(MAX_RESULTS, items.size()))) {
         sb.append(String.format("%s\n", Utils.getItemMessage((JSONObject) item)));
