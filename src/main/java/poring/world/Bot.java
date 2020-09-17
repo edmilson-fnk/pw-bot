@@ -47,7 +47,7 @@ public class Bot {
         runCommand(msg, event, watcher, ADMIN_MAP);
       }
 
-      if (msg.toLowerCase().startsWith("!" + GLOBAL_CALL + " ")) {
+      if (msg.toLowerCase().matches("!" + GLOBAL_CALL + "[^A-Za-z0-9]?")) {
         runCommand(msg, event, watcher, COMMAND_MAP);
       }
     };
@@ -66,7 +66,7 @@ public class Bot {
         .split(" ");
 
     if (command.length <= 1 || command[1].trim().isEmpty()) {
-      event.getChannel().sendMessage("No command for gtb");
+      event.getChannel().sendMessage("No command for gtb, try _!gtb help_");
     } else if (commands.keySet().contains(command[1].toLowerCase())) {
       commands.get(command[1]).run(command, event, watcher);
     } else {
@@ -81,5 +81,4 @@ public class Bot {
       }
     }
   }
-
 }

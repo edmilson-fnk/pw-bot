@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ListC extends Command {
-  
+
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
 //    String query = Utils.getQuery(command);
