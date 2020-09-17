@@ -47,7 +47,7 @@ public class Bot {
         runCommand(msg, event, watcher, ADMIN_MAP);
       }
 
-      if (msg.toLowerCase().matches("!" + GLOBAL_CALL + "[^A-Za-z0-9]?")) {
+      if (msg.toLowerCase().startsWith("!" + GLOBAL_CALL + " ")) {
         runCommand(msg, event, watcher, COMMAND_MAP);
       }
     };
