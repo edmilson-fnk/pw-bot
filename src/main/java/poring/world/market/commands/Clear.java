@@ -23,8 +23,8 @@ public class Clear extends Command {
       List<WatchObject> authorList = watcherThread.getMap().get(messageAuthor.getId());
       int size = 0;
       if (authorList != null) {
-        authorList.clear();
         size = authorList.size();
+        authorList.clear();
       }
       Map<String, Map<String, String>> authorFilters = watcherThread.getFilters().get(messageAuthor.getId());
       if (authorFilters != null) {
