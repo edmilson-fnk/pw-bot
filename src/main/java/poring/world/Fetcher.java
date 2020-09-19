@@ -46,7 +46,6 @@ public class Fetcher {
       "name", Collections.emptySet(),
       "lastRecord", ImmutableSet.of("price", "snapBuyers", "snapEnd", "stock", "timestamp")
   );
-
   public static JSONObject getCheapestPremiums() {
     Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
     parameters.put("order", "price");
@@ -140,7 +139,7 @@ public class Fetcher {
       try {
         for (Object object : (JSONArray) parser.parse(builder.toString())) {
           JSONObject minimalJsonObject = retainDefaultKeys((JSONObject) object);
-          if (isStillThere(minimalJsonObject) && !FilterUtils.filter(minimalJsonObject, filters)) {
+          if (isValid(minimalJsonObject) && !FilterUtils.filter(minimalJsonObject, filters)) {
             returnJson.add(minimalJsonObject);
           }
         }
@@ -203,6 +202,16 @@ public class Fetcher {
       parametersUrl.append("&");
     }
     return parametersUrl.toString();
+  }
+
+  private static boolean isValid(JSONObject jsonItem) {
+    return isStillThere(jsonItem) && isPricePositive(jsonItem);
+  }
+
+  private static boolean isPricePositive(JSONObject jsonItem) {
+    JSONObject lastRecord = (JSONObject) jsonItem.get("lastRecord");
+    long price = Long.parseLong(lastRecord.get("price").toString());
+    return price > 0;
   }
 
   private static boolean isStillThere(JSONObject jsonItem) {
