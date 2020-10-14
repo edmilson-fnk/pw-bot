@@ -95,6 +95,8 @@ public class Search extends Command {
       this.add("Majestic Goat ::except=+10");
       this.add("Majestic Goat ::except=blueprint&&+10");
       this.add("Majestic Goat && Coif ::except=blueprint");
+      this.add("Majestic Goat ::refine>=5");
+      this.add("Majestic Goat ::refine<=3");
     }};
   }
 
