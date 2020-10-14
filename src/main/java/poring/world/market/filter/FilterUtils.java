@@ -6,14 +6,19 @@ import static poring.world.Constants.Constants.EXCEPT;
 import static poring.world.Constants.Constants.MAX_PRICE;
 import static poring.world.Constants.Constants.FILTERS_NAME;
 import static poring.world.Constants.Constants.NO;
+import static poring.world.Constants.Constants.REFINE_GT;
+import static poring.world.Constants.Constants.REFINE_LT;
 import static poring.world.Constants.Constants.YES;
 
 import org.json.simple.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class FilterUtils {
@@ -58,7 +63,7 @@ public class FilterUtils {
         Integer.parseInt(value);
         return null;
       } catch (Exception e) {
-        return e.getMessage();
+        return "use only numbers";
       }
     } else if (key.equalsIgnoreCase(BROKEN)) {
       if (value.contains("&&")) {
@@ -68,6 +73,13 @@ public class FilterUtils {
         return "use only _yes_ or _no_";
       }
       return null;
+    } else if (key.equalsIgnoreCase(REFINE_GT) || key.equalsIgnoreCase(REFINE_LT)) {
+      try {
+        Integer.parseInt(value);
+        return null;
+      } catch (Exception e) {
+        return "use only numbers";
+      }
     }
 
       // Multiple values keys
@@ -84,7 +96,7 @@ public class FilterUtils {
     return null;
   }
 
-  public static boolean filter(JSONObject minimalJsonObject, Map<String, String> filters) {
+  public static boolean filter(JSONObject minObj, Map<String, String> filters) {
     if (filters == null || filters.isEmpty()) {
       return false;
     }
@@ -95,34 +107,87 @@ public class FilterUtils {
       for (String value : filters.get(key).split("&&")) {
         value = value.trim();
         if (key.equalsIgnoreCase(MAX_PRICE)) {
-          if (((long) ((JSONObject) minimalJsonObject.get("lastRecord")).get("price")) > Long.parseLong(value)) {
+          if (((long) ((JSONObject) minObj.get("lastRecord")).get("price")) > Long.parseLong(value)) {
             innerFilter = true;
           }
         } else if (key.equalsIgnoreCase(BROKEN)) {
-          if (value.equalsIgnoreCase(YES) && !minimalJsonObject.get("name").toString().contains("(broken)")
-              || value.equalsIgnoreCase(NO) && minimalJsonObject.get("name").toString().contains("(broken)")) {
+          if (value.equalsIgnoreCase(YES) && !minObj.get("name").toString().contains("(broken)")
+              || value.equalsIgnoreCase(NO) && minObj.get("name").toString().contains("(broken)")) {
             innerFilter = true;
           }
         } else if (key.equalsIgnoreCase(ENCHANT)) {
-          String name = minimalJsonObject.get("name").toString().toLowerCase();
+          String name = minObj.get("name").toString().toLowerCase();
           innerFilter = !name.matches(String.format(".*<.*%s.*>.*", value.toLowerCase()));
           if (!innerFilter) {
             break;
           }
         } else if (key.equalsIgnoreCase(EXCEPT)) {
-          String name = minimalJsonObject.get("name").toString().toLowerCase();
+          String name = minObj.get("name").toString().toLowerCase();
           innerFilter = name.contains(value.toLowerCase());
+          if (innerFilter) {
+            break;
+          }
+        } else if (key.equalsIgnoreCase(REFINE_GT)) {
+          Integer refineItem = getRefineValue(minObj.get("name").toString().toLowerCase());
+          if (refineItem != null) {
+            int refineFilter = Integer.parseInt(value);
+            if (refineItem < refineFilter) {
+              innerFilter = true;
+            }
+          } else {
+            innerFilter = true;
+          }
+
+          if (innerFilter) {
+            break;
+          }
+        } else if (key.equalsIgnoreCase(REFINE_LT)) {
+          Integer refineItem = getRefineValue(minObj.get("name").toString().toLowerCase());
+          if (refineItem != null) {
+            int refineFilter = Integer.parseInt(value);
+            if (refineItem > refineFilter) {
+              innerFilter = true;
+            }
+          } else {
+            innerFilter = false;
+          }
+
           if (innerFilter) {
             break;
           }
         }
       }
+
       if (innerFilter) {
         outerFilter = true;
         break;
       }
     }
     return outerFilter;
+  }
+
+  private static Integer getRefineValue(String name) {
+    String strPattern = "\\+?(\\d).*";
+    Pattern p = Pattern.compile(strPattern);
+    Matcher matcher = p.matcher(name);
+    if (matcher.matches()) {
+      String refineStr = matcher.group(1);
+      return Integer.parseInt(refineStr);
+    }
+    return null;
+  }
+
+  public static void main(String[] args) {
+    JSONObject minObj = new JSONObject();
+    minObj.put("name", "+8 Survival Ring");
+    System.out.println("Object: " + minObj);
+
+    Map<String, String> filters = new HashMap<>();
+    filters.put(REFINE_LT, "7");
+    System.out.println("Filters: " + filters);
+
+    boolean filter = FilterUtils.filter(minObj, filters);
+    System.out.println("Filtering it? " + filter);
   }
 
 }
