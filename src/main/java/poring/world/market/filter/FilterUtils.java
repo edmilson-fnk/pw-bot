@@ -167,7 +167,7 @@ public class FilterUtils {
   }
 
   private static Integer getRefineValue(String name) {
-    String strPattern = "\\+?(\\d).*";
+    String strPattern = "\\+?([0-9]*) .*";
     Pattern p = Pattern.compile(strPattern);
     Matcher matcher = p.matcher(name);
     if (matcher.matches()) {
@@ -179,11 +179,11 @@ public class FilterUtils {
 
   public static void main(String[] args) {
     JSONObject minObj = new JSONObject();
-    minObj.put("name", "+8 Survival Ring");
+    minObj.put("name", "+12 Survival Ring");
     System.out.println("Object: " + minObj);
 
     Map<String, String> filters = new HashMap<>();
-    filters.put(REFINE_LT, "7");
+    filters.put(REFINE_LT, "1");
     System.out.println("Filters: " + filters);
 
     boolean filter = FilterUtils.filter(minObj, filters);
