@@ -74,7 +74,8 @@ public class Search extends Command {
 
   @Override
   public String getHelp() {
-    return "searches for items in poring.world database. Filters available: _maxPrice_, _broken_, _enchant_, _except_";
+    return "searches for items in poring.world database. Filters available: _maxPrice_, _broken_, _enchant_, " +
+        "_except_, _slots_";
   }
 
   @Override
@@ -97,6 +98,7 @@ public class Search extends Command {
       this.add("Majestic Goat && Coif ::except=blueprint");
       this.add("Majestic Goat ::refine>=5");
       this.add("Majestic Goat ::refine<=3");
+      this.add("Majestic Goat ::slots=1");
     }};
   }
 

@@ -153,7 +153,12 @@ public class FilterUtils {
           }
         } else if (key.equalsIgnoreCase(NUM_SLOTS)) {
           Integer numSlots = getNumSlots(minObj.get("name").toString().toLowerCase());
-          innerFilter = numSlots != null && numSlots != Integer.parseInt(value);
+          int expectedSlots = Integer.parseInt(value);
+          if (expectedSlots == 0) {
+            innerFilter = numSlots == null;
+          } else {
+            innerFilter = numSlots != null && numSlots != expectedSlots;
+          }
 
           if (innerFilter) {
             break;
