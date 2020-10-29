@@ -157,7 +157,7 @@ public class FilterUtils {
           if (expectedSlots == 0) {
             innerFilter = numSlots != null;
           } else {
-            innerFilter = numSlots != null && numSlots != expectedSlots;
+            innerFilter = numSlots == null || numSlots != expectedSlots;
           }
 
           if (innerFilter) {
