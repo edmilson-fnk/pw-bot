@@ -6,6 +6,7 @@ import static poring.world.Constants.Constants.EXCEPT;
 import static poring.world.Constants.Constants.MAX_PRICE;
 import static poring.world.Constants.Constants.FILTERS_NAME;
 import static poring.world.Constants.Constants.NO;
+import static poring.world.Constants.Constants.NUM_SLOTS;
 import static poring.world.Constants.Constants.REFINE_GT;
 import static poring.world.Constants.Constants.REFINE_LT;
 import static poring.world.Constants.Constants.YES;
@@ -55,17 +56,7 @@ public class FilterUtils {
     }
 
     // Unique values keys
-    if (key.equalsIgnoreCase(MAX_PRICE)) {
-      try {
-        if (value.contains("&&")) {
-          return "not a multiple values field, remove _&&_";
-        }
-        Integer.parseInt(value);
-        return null;
-      } catch (Exception e) {
-        return "use only numbers";
-      }
-    } else if (key.equalsIgnoreCase(BROKEN)) {
+    if (key.equalsIgnoreCase(BROKEN)) {
       if (value.contains("&&")) {
         return "not a multiple values field, remove _&&_";
       }
@@ -73,7 +64,12 @@ public class FilterUtils {
         return "use only _yes_ or _no_";
       }
       return null;
-    } else if (key.equalsIgnoreCase(REFINE_GT) || key.equalsIgnoreCase(REFINE_LT)) {
+    } else if (
+        key.equalsIgnoreCase(MAX_PRICE)
+        || key.equalsIgnoreCase(REFINE_GT)
+        || key.equalsIgnoreCase(REFINE_LT)
+        || key.equalsIgnoreCase(NUM_SLOTS)
+    ) {
       try {
         Integer.parseInt(value);
         return null;
@@ -155,6 +151,13 @@ public class FilterUtils {
           if (innerFilter) {
             break;
           }
+        } else if (key.equalsIgnoreCase(NUM_SLOTS)) {
+          Integer numSlots = getNumSlots(minObj.get("name").toString().toLowerCase());
+          innerFilter = numSlots != null && numSlots != Integer.parseInt(value);
+
+          if (innerFilter) {
+            break;
+          }
         }
       }
 
@@ -168,6 +171,17 @@ public class FilterUtils {
 
   private static Integer getRefineValue(String name) {
     String strPattern = "\\+?([0-9]*) .*";
+    Pattern p = Pattern.compile(strPattern);
+    Matcher matcher = p.matcher(name);
+    if (matcher.matches()) {
+      String refineStr = matcher.group(1);
+      return Integer.parseInt(refineStr);
+    }
+    return null;
+  }
+
+  private static Integer getNumSlots(String name) {
+    String strPattern = ".*\\[([0-9]*)\\].*";
     Pattern p = Pattern.compile(strPattern);
     Matcher matcher = p.matcher(name);
     if (matcher.matches()) {

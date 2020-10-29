@@ -66,6 +66,7 @@ public class Constants {
   public static final String EXCEPT = "except";
   public static final String REFINE_GT = "refine>";
   public static final String REFINE_LT = "refine<";
+  public static final String NUM_SLOTS = "slots";
   public static final Map<String, String> FILTERS_NAME = new HashMap<String, String>(){{
     this.put(MAX_PRICE, "Max price");
     this.put(BROKEN, "Broken");
@@ -73,6 +74,7 @@ public class Constants {
     this.put(EXCEPT, "Except");
     this.put(REFINE_GT, "Refine");
     this.put(REFINE_LT, "Refine");
+    this.put(NUM_SLOTS, "Slots");
   }};
   public static final Set<String> QUERY_FILTERS = FILTERS_NAME.keySet();
 
