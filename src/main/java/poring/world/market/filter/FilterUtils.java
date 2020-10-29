@@ -68,10 +68,19 @@ public class FilterUtils {
         key.equalsIgnoreCase(MAX_PRICE)
         || key.equalsIgnoreCase(REFINE_GT)
         || key.equalsIgnoreCase(REFINE_LT)
-        || key.equalsIgnoreCase(NUM_SLOTS)
     ) {
       try {
         Integer.parseInt(value);
+        return null;
+      } catch (Exception e) {
+        return "use only numbers";
+      }
+    } else if (key.equalsIgnoreCase(NUM_SLOTS)) {
+      try {
+        int numSlots = Integer.parseInt(value);
+        if (numSlots < 0 || numSlots > 2) {
+          return "only between 0 and 2 slots";
+        }
         return null;
       } catch (Exception e) {
         return "use only numbers";
