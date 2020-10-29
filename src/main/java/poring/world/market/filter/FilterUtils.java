@@ -155,7 +155,7 @@ public class FilterUtils {
           Integer numSlots = getNumSlots(minObj.get("name").toString().toLowerCase());
           int expectedSlots = Integer.parseInt(value);
           if (expectedSlots == 0) {
-            innerFilter = numSlots == null;
+            innerFilter = numSlots != null;
           } else {
             innerFilter = numSlots != null && numSlots != expectedSlots;
           }
