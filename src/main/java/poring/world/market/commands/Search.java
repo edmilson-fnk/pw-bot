@@ -56,7 +56,7 @@ public class Search extends Command {
       }
     }
 
-    List<StringBuilder> msgs = new LinkedList<>()
+    List<StringBuilder> msgs = new LinkedList<>();
     for (String name : Utils.getNames(query)) {
       JSONArray items = Fetcher.query(name, searchFilters);
       if (items.size() == 0) {
