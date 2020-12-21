@@ -57,7 +57,9 @@ public class Search extends Command {
     }
 
     List<StringBuilder> msgs = new LinkedList<>();
+    msgs.add(sb);
     for (String name : Utils.getNames(query)) {
+      sb = new StringBuilder();
       JSONArray items = Fetcher.query(name, searchFilters);
       if (items.size() == 0) {
         sb.append(String.format("No item found for _%s_ :poop:\n", name));
