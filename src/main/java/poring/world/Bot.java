@@ -68,7 +68,7 @@ public class Bot {
     if (command.length <= 1 || command[1].trim().isEmpty()) {
       event.getChannel().sendMessage("No command for gtb, try _!gtb help_");
     } else if (commands.keySet().contains(command[1].toLowerCase())) {
-      commands.get(command[1]).run(command, event, watcher);
+      commands.get(command[1].toLowerCase()).run(command, event, watcher);
     } else {
       String nearestCommand = Utils.getNearestCommand(command[1].toLowerCase(), commands.keySet());
       if (nearestCommand != null) {
