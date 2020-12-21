@@ -56,6 +56,7 @@ public class Search extends Command {
       }
     }
 
+    List<StringBuilder> msgs = new LinkedList<>()
     for (String name : Utils.getNames(query)) {
       JSONArray items = Fetcher.query(name, searchFilters);
       if (items.size() == 0) {
@@ -67,9 +68,10 @@ public class Search extends Command {
       if (items.size() > MAX_RESULTS) {
         sb.append("More than 10 items found. Refine your search...");
       }
+      msgs.add(sb);
     }
 
-    event.getChannel().sendMessage(sb.toString());
+    msgs.forEach(s -> event.getChannel().sendMessage(s.toString()));
   }
 
   @Override
