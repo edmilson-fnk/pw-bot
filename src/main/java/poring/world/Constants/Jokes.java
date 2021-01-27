@@ -15,7 +15,7 @@ public class Jokes {
             "Ando muito estressado. Devem ser essas poções da fúria...",
             "As Plantas Infernais dos Bioquímicos são atacadas por Moscas Infernais?",
             "Au Au Au eu sou o carnissau!!! E sou mal!!!",
-            "Bafomé jr... por que não bafinho? Aposto que eles não escovam os dentes~",
+            "Bafomé Jr... por que não bafinho? Aposto que eles não escovam os dentes~",
             "Cautela e caldo de galinha não faz mal a ninguém... exceto à galinha!",
             "Chon Chon? Mon Mon Fon Fon !!!",
             "Chuva de meteor...**CORRE, CORRE, TÁ CAINDO!**",
@@ -23,11 +23,9 @@ public class Jokes {
             "Combo Triplo vem com refrigerante e fritas?",
             "Como o Mímico venceu o Espadachim? Dando o golpe do baú!",
             "Como se chama um Andarilho com Aumentar Agilidade? Um Correrilho!",
-            "Desgraça pouca é bobagem... é bobagem!",
             "Destino nas Cartas! ...Sorte! Saída livre da prisão!",
             "Devagar se vai ao longe... mas demora um tempão! Prefiro usar um teleporte",
             "Dois amigos passeando em Lutie quando um deles exclama: 'HATII!' e o amigo responde: 'Saúde!'",
-            "EU NÃO TOCO RAUL!!",
             "Esses Shuras são bipolares... uma hora estão Zen, outra estão em Fúria!!",
             "Esses dias sonhei com um cavalo estranho, acho que foi um Pesadelo.",
             "Esses dias vi um Sacerdote usar Lex Divina em uma planta e ela virou uma MUDA!",
@@ -118,7 +116,6 @@ public class Jokes {
             "Será que os Lunáticos têm este nome porque eles vieram da Lua?",
             "Sopro de Terra! Fogo! Vento! Gelo! Coração! Eu sou o Capitão Rúnico!",
             "Sou forte. Tiro 100 do Rocker!!!11!",
-            "TEM UM CONGELADO AQUI DO MEU LADO!",
             "Tempestade, Temporal, Chuva de Flechas... gostam mesmo de um clima ruim hein, arqueiros?",
             "Trovão de Júpiter... é 110 ou 220v?",
             "Tô curando de graça !!! Brincadeira, eu sou um Bardo não um Noviço",
@@ -128,7 +125,9 @@ public class Jokes {
             "Vida de Trovador não é fácil, ter que andar na área do Temporal é um risco pra saúde!",
             "Você quer moleza então senta no Poring.",
             "Vou pra Arunafeltz! Tu Veins comigo?",
-            "Vou te ensinar a fazer ovo frito... pegue o ovo, jogue na panela, Ifrit!"
+            "Vou te ensinar a fazer ovo frito... pegue o ovo, jogue na panela, Ifrit!",
+            "Porque o Priest é a classe mais democrata? Porque ele Kirie Eleison",
+            "Bahia: Que madrugada?"
     };
 
 }
