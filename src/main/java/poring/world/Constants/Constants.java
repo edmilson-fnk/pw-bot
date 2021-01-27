@@ -8,14 +8,7 @@ import poring.world.market.Command;
 import poring.world.market.WatchAdv;
 import poring.world.market.cheapest.Cards;
 import poring.world.market.cheapest.Premium;
-import poring.world.market.commands.About;
-import poring.world.market.commands.Clear;
-import poring.world.market.commands.Help;
-import poring.world.market.commands.ListC;
-import poring.world.market.commands.Organize;
-import poring.world.market.commands.Remove;
-import poring.world.market.commands.Search;
-import poring.world.market.commands.Watch;
+import poring.world.market.commands.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +25,7 @@ public class Constants {
 
   // Subcommands
   public static final String CARDS_CALL = "cards";
+  public static final String JOKE = "joke";
   public static final String PREMIUM = "premium";
   public static final String HELP = "help";
   public static final String SEARCH = "search";
@@ -130,6 +124,7 @@ public class Constants {
   public static Map<String, Command> COMMAND_MAP = new HashMap<String, Command>(){{
     // Market
     this.put(HELP, new Help());
+    this.put(JOKE, new Joke());
     this.put(SEARCH, new Search());
     this.put(WATCH, new Watch());
     this.put(CLEAR, new Clear());
