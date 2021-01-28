@@ -118,7 +118,6 @@ public class Jokes {
             "Sou forte. Tiro 100 do Rocker!!!11!",
             "Tempestade, Temporal, Chuva de Flechas... gostam mesmo de um clima ruim hein, arqueiros?",
             "Trovão de Júpiter... é 110 ou 220v?",
-            "Tô curando de graça !!! Brincadeira, eu sou um Bardo não um Noviço",
             "Um KS incomoda muita gente. Dois KSs incomodam, incomodam muito mais...",
             "Um poring por dia dá saúde e energia!",
             "Um tronco estéril é aquele que não pode ter filhos.",
@@ -126,7 +125,7 @@ public class Jokes {
             "Você quer moleza então senta no Poring.",
             "Vou pra Arunafeltz! Tu Veins comigo?",
             "Vou te ensinar a fazer ovo frito... pegue o ovo, jogue na panela, Ifrit!",
-            "Porque o Priest é a classe mais democrata? Porque ele Kirie Eleison",
+            "Porque o Priest é a classe mais democrata? Porque ele Kyrie Eleison",
             "Bahia: Que madrugada?"
     };
 
