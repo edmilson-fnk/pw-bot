@@ -9,6 +9,14 @@ public class Jokes {
         return ALL_JOKES[rnd];
     }
 
+    public static String getNamedJoke(String name) {
+        if (name.equalsIgnoreCase("bahia")) {
+            return "Bahia: Que madrugada?";
+        } else if (name.equalsIgnoreCase("astra")) {
+            return "Porque o Priest é a classe mais democrata? Porque ele Kyrie Eleison";
+        }
+        return getRandomJoke();
+    }
 
     public static final String[] ALL_JOKES = new String[]{
             "A mãe do André, do Pierre e do Deniro... é a Maya???",
