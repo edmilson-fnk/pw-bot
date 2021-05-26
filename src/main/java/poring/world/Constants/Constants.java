@@ -140,9 +140,6 @@ public class Constants {
 
     // MVP cards
 //    this.put(MVP_CARDS, new ChannelC());
-
-    // Thanatos Tower Team
-//    this.put(THANATOS, new Thanatos());
   }};
 
 }
