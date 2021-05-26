@@ -12,8 +12,6 @@ public class Jokes {
     public static String getNamedJoke(String name) {
         if (name.equalsIgnoreCase("bahia")) {
             return "Bahia: Que madrugada?";
-        } else if (name.equalsIgnoreCase("astra")) {
-            return "Porque o Priest é a classe mais democrata? Porque ele Kyrie Eleison";
         }
         return getRandomJoke();
     }
@@ -133,7 +131,11 @@ public class Jokes {
             "Você quer moleza então senta no Poring.",
             "Vou pra Arunafeltz! Tu Veins comigo?",
             "Vou te ensinar a fazer ovo frito... pegue o ovo, jogue na panela, Ifrit!",
-            "Porque o Priest é a classe mais democrata? Porque ele Kyrie Eleison",
+            "Por que a Isis foi ao cinema? Para Ver It.",
+            "Sabe onde tem muito samba? Nos Salgueiros",
+            "Qual poring é gago? O poporing!",
+            "Se a Planície de Ida fica em Rachel, onde fica a Planície de Volta?",
+            "Por que o Priest é a classe mais democrata? Porque ele Kyrie Eleison",
             "Bahia: Que madrugada?"
     };
 
