@@ -36,6 +36,7 @@ public class Constants {
   public static final String REMOVE = "remove";
   public static final String URL = "url";
   public static final String ABOUT = "about";
+  public static final String ALIVE = "alive";
 
   // Channel commands
   public static final String CHANNEL = "channel";
@@ -132,6 +133,7 @@ public class Constants {
     this.put(ORGANIZE, new Organize());
     this.put(REMOVE, new Remove());
     this.put(ABOUT, new About());
+    this.put(ALIVE, new Alive());
 //    this.put(CHANNEL, new ChannelC());
 
     // Cheapest

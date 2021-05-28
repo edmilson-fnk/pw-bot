@@ -1,9 +1,7 @@
 package poring.world.market.commands;
 
-import static poring.world.Constants.Constants.COMMAND_MAP;
-import static poring.world.Constants.Constants.GLOBAL_CALL;
-
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.market.Command;
@@ -13,15 +11,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static poring.world.Constants.Constants.*;
+
 public class Help extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     String query = Utils.getQuery(command);
     Set<String> helpMap = new HashSet<>();
+    Set<String> noHelp = ImmutableSet.of(ALIVE, URL, ORGANIZE);
     boolean addQueries = true;
     if (query.isEmpty()) {
       helpMap.addAll(COMMAND_MAP.keySet());
+      helpMap.removeAll(noHelp);
       addQueries = false;
     } else if (COMMAND_MAP.containsKey(query)) {
       helpMap.add(query);
