@@ -43,15 +43,6 @@ public class Constants {
   public static final String MVP_CARDS = "mvpcards";
   public static final Set<String> CHANNEL_OPTIONS = ImmutableSet.of(MVP_CARDS, CLEAR);
 
-  // Thanatos Tower Dungeon
-  public static final String THANATOS = "tt";
-  public static final String LEAVE = "leave";
-  public static final String CALL = "call";
-  public static final String A = "A";
-  public static final String B = "B";
-  public static final String BACKUP = "backup";
-  public static final String RESET = "reset";
-
   // WatcherThread filters
   public static final String FILTER_TOKEN = "::";
   public static final String MAX_PRICE = "maxprice";

@@ -19,8 +19,6 @@ public class S3Files {
   private static final String KEY = "market-map/";
   public static final String WATCHER_MAP_DAT = "watcherMap.dat";
   public static final String WATCHER_FILTERS_DAT = "watcherFilters.dat";
-  public static final String THANATOS_TEAM_DAT = "thanatosMap.dat";
-  public static final String THANATOS_TIME_DAT = "thanatosTime.dat";
 
   public static void uploadWatchList(File file) {
     AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
@@ -36,22 +34,6 @@ public class S3Files {
         .build();
 
     s3Client.putObject(new PutObjectRequest(BUCKET_NAME, KEY + WATCHER_FILTERS_DAT, file));
-  }
-
-  public static void uploadThanatosTeam(File file) {
-    AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-        .withRegion(Regions.US_EAST_2)
-        .build();
-
-    s3Client.putObject(new PutObjectRequest(BUCKET_NAME, KEY + THANATOS_TEAM_DAT, file));
-  }
-
-  public static void uploadThanatosTime(File file) {
-    AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-        .withRegion(Regions.US_EAST_2)
-        .build();
-
-    s3Client.putObject(new PutObjectRequest(BUCKET_NAME, KEY + THANATOS_TIME_DAT, file));
   }
 
   public static File getFile(String fileName) {
