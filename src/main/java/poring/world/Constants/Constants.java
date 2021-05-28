@@ -52,6 +52,7 @@ public class Constants {
   public static final String REFINE_GT = "refine>";
   public static final String REFINE_LT = "refine<";
   public static final String NUM_SLOTS = "slots";
+  public static final String CATEGORY = "category";
   public static final Map<String, String> FILTERS_NAME = new HashMap<String, String>(){{
     this.put(MAX_PRICE, "Max price");
     this.put(BROKEN, "Broken");
@@ -60,6 +61,14 @@ public class Constants {
     this.put(REFINE_GT, "Refine");
     this.put(REFINE_LT, "Refine");
     this.put(NUM_SLOTS, "Slots");
+    this.put(CATEGORY, "Category");
+  }};
+  public static final Map<String, Integer> CATEGORY_MAP = new HashMap<String, Integer>(){{
+    this.put("Weapon", 1025);
+    this.put("Off-hand", 1026);
+    this.put("Armor", 1027);
+    this.put("Garment", 1028);
+    this.put("Footgear", 1029);
   }};
   public static final Set<String> QUERY_FILTERS = FILTERS_NAME.keySet();
 

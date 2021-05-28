@@ -1,6 +1,7 @@
 package poring.world;
 
 import static poring.world.Constants.Constants.CARD_COLOR;
+import static poring.world.Constants.Constants.CATEGORY;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -166,6 +167,9 @@ public class Fetcher {
 
     Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
     parameters.put("q", encodedSearch);
+    if (filters.containsKey(CATEGORY)) {
+      parameters.put(CATEGORY, filters.get(CATEGORY));
+    }
 
     try {
       return getJsonData(parameters, filters);

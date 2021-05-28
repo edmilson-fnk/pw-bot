@@ -1,16 +1,5 @@
 package poring.world.market.filter;
 
-import static poring.world.Constants.Constants.BROKEN;
-import static poring.world.Constants.Constants.ENCHANT;
-import static poring.world.Constants.Constants.EXCEPT;
-import static poring.world.Constants.Constants.MAX_PRICE;
-import static poring.world.Constants.Constants.FILTERS_NAME;
-import static poring.world.Constants.Constants.NO;
-import static poring.world.Constants.Constants.NUM_SLOTS;
-import static poring.world.Constants.Constants.REFINE_GT;
-import static poring.world.Constants.Constants.REFINE_LT;
-import static poring.world.Constants.Constants.YES;
-
 import org.json.simple.JSONObject;
 
 import java.text.DecimalFormat;
@@ -21,6 +10,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static poring.world.Constants.Constants.*;
 
 public class FilterUtils {
 
@@ -84,6 +75,12 @@ public class FilterUtils {
         return null;
       } catch (Exception e) {
         return "use only numbers";
+      }
+    } else if (key.equalsIgnoreCase(CATEGORY)) {
+      if (CATEGORY_MAP.containsKey(value)) {
+        return null;
+      } else {
+        return "Invalid value \"" + value + "\". Try one: " + String.join(", ", CATEGORY_MAP.keySet());
       }
     }
 
