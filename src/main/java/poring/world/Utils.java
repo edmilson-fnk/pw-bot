@@ -7,7 +7,6 @@ import com.google.common.collect.ImmutableList;
 import com.sun.xml.bind.v2.util.EditDistance;
 import org.json.simple.JSONObject;
 import poring.world.s3.S3Files;
-import poring.world.thanatos.ThanatosTeamObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -180,7 +179,7 @@ public class Utils {
       File file = S3Files.getFile(fileName);
       FileInputStream fis = new FileInputStream(file);
       ObjectInputStream ois = new ObjectInputStream(fis);
-      Map<Long, ThanatosTeamObject> map = new HashMap<>((Map) ois.readObject());
+      Map map = new HashMap<>((Map) ois.readObject());
       ois.close();
       return map;
     } catch (FileNotFoundException e) {
