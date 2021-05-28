@@ -1,11 +1,5 @@
 package poring.world.market.commands;
 
-import static poring.world.Constants.Constants.FILTER_TOKEN;
-import static poring.world.Constants.Constants.GLOBAL_CALL;
-import static poring.world.Constants.Constants.HELP;
-import static poring.world.Constants.Constants.QUERY_FILTERS;
-import static poring.world.Constants.Constants.SEARCH;
-
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -19,6 +13,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import static poring.world.Constants.Constants.*;
 
 public class Search extends Command {
 
@@ -79,7 +75,7 @@ public class Search extends Command {
   @Override
   public String getHelp() {
     return "searches for items in poring.world database. Filters available: _maxPrice_, _broken_, _enchant_, " +
-        "_except_, _slots_";
+        "_except_, _slots_, _category_ (" + String.join(", ", CATEGORY_MAP.keySet()) + ")";
   }
 
   @Override
@@ -103,6 +99,7 @@ public class Search extends Command {
       this.add("Majestic Goat ::refine>=5");
       this.add("Majestic Goat ::refine<=3");
       this.add("Majestic Goat ::slots=1");
+      this.add("Morale 4 ::category=armor");
     }};
   }
 

@@ -77,7 +77,7 @@ public class FilterUtils {
         return "use only numbers";
       }
     } else if (key.equalsIgnoreCase(CATEGORY)) {
-      if (CATEGORY_MAP.containsKey(value)) {
+      if (CATEGORY_MAP.containsKey(value.toLowerCase())) {
         return null;
       } else {
         return "Invalid value \"" + value + "\". Try one: " + String.join(", ", CATEGORY_MAP.keySet());

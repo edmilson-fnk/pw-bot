@@ -1,8 +1,5 @@
 package poring.world;
 
-import static poring.world.Constants.Constants.CARD_COLOR;
-import static poring.world.Constants.Constants.CATEGORY;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
@@ -32,6 +29,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static poring.world.Constants.Constants.*;
 
 public class Fetcher {
 
@@ -168,7 +167,7 @@ public class Fetcher {
     Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
     parameters.put("q", encodedSearch);
     if (filters.containsKey(CATEGORY)) {
-      parameters.put(CATEGORY, filters.get(CATEGORY));
+      parameters.put(CATEGORY, CATEGORY_MAP.get(filters.get(CATEGORY)));
     }
 
     try {

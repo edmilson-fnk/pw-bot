@@ -63,12 +63,12 @@ public class Constants {
     this.put(NUM_SLOTS, "Slots");
     this.put(CATEGORY, "Category");
   }};
-  public static final Map<String, Integer> CATEGORY_MAP = new HashMap<String, Integer>(){{
-    this.put("Weapon", 1025);
-    this.put("Off-hand", 1026);
-    this.put("Armor", 1027);
-    this.put("Garment", 1028);
-    this.put("Footgear", 1029);
+  public static final Map<String, String> CATEGORY_MAP = new HashMap<String, String>(){{
+    this.put("weapon", "1025");
+    this.put("off-hand", "1026");
+    this.put("armor", "1027");
+    this.put("garment", "1028");
+    this.put("footgear", "1029");
   }};
   public static final Set<String> QUERY_FILTERS = FILTERS_NAME.keySet();
 
