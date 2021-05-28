@@ -11,12 +11,12 @@ import java.util.List;
 public class Alive extends Command {
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
-    event.getMessage().addReaction(EmojiParser.parseToUnicode(":thumbsup:"));
+    event.getMessage().addReaction(EmojiParser.parseToUnicode(":handshake:"));
   }
 
   @Override
   public String getHelp() {
-    return "is GTB alive? Reacts :thumbsup: if so";
+    return "is GTB alive? Reacts :handshake: if so";
   }
 
   @Override
