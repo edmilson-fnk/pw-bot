@@ -166,7 +166,7 @@ public class Fetcher {
 
     Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
     parameters.put("q", encodedSearch);
-    if (filters.containsKey(CATEGORY)) {
+    if (filters != null && filters.containsKey(CATEGORY)) {
       parameters.put(CATEGORY, CATEGORY_MAP.get(filters.get(CATEGORY)));
     }
 
