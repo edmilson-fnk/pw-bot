@@ -22,7 +22,7 @@ public class Names extends Command {
             List<WatchObject> list = m.get(id);
             if (!list.isEmpty()) {
                 String name = list.get(0).getMessageAuthorName();
-                names.add(name + "(" + id + ")");
+                names.add(name + " (" + id + ")");
             }
         }
 
