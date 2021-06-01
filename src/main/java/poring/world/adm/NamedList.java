@@ -44,7 +44,7 @@ public class NamedList extends Command {
 
     @Override
     public String getHelp() {
-        return "shows metrics for the bot usage";
+        return "shows someone's list";
     }
 
     @Override

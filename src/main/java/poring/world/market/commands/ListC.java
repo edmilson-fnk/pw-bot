@@ -3,7 +3,6 @@ package poring.world.market.commands;
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
-import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.market.filter.FilterUtils;
 import poring.world.watcher.WatchObject;
@@ -18,14 +17,6 @@ public class ListC extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
-//    String query = Utils.getQuery(command);
-//    int start = 0;
-//    int end = 9999;
-//    String[] numbers = query.split(" ");
-//    if (numbers.length == 1) {
-//
-//    }
-
     WatcherThread watcherThread = watcher.getWatcherThread();
     Map<Long, List<WatchObject>> watcherMap = watcherThread.getMap();
     Map<Long, Map<String, Map<String, String>>> filtersMap = watcherThread.getFilters();

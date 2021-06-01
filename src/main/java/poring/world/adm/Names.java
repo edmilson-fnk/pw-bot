@@ -18,10 +18,11 @@ public class Names extends Command {
         Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMap();
 
         List<String> names = new LinkedList<>();
-        for (List<WatchObject> list : m.values()) {
+        for (Long id : m.keySet()) {
+            List<WatchObject> list = m.get(id);
             if (!list.isEmpty()) {
                 String name = list.get(0).getMessageAuthorName();
-                names.add(name);
+                names.add(name + "(" + id + ")");
             }
         }
 
@@ -32,7 +33,7 @@ public class Names extends Command {
 
     @Override
     public String getHelp() {
-        return "shows metrics for the bot usage";
+        return "shows who uses GTB";
     }
 
     @Override

@@ -111,12 +111,14 @@ public class Constants {
   public static final String METRICS = "metrics";
   public static final String NAMES = "names";
   public static final String NAMEDLIST = "namedlist";
+  public static final String CLEARNAMEDLIST = "clear";
   public static final String RESET_GTB = "resetgtb";
   public static Map<String, Command> ADMIN_MAP = new HashMap<String, Command>(){{
     this.put(URL, new URL());
     this.put(METRICS, new Metrics());
     this.put(NAMES, new Names());
     this.put(NAMEDLIST, new NamedList());
+    this.put(CLEARNAMEDLIST, new ClearNamedList());
     this.put(RESET_GTB, new Reset());
 
     // under tests
