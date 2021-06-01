@@ -36,8 +36,8 @@ public class NamedList extends Command {
             event.getChannel().sendMessage(
                     "List for " +
                             "_" + query + "_ "+
-                            "(" + namedList.size() + "):\n - " +
-                            StringUtils.join("\n - ", namedList.toArray(new String[]{}))
+                            "(" + namedList.size() + "):\n   " +
+                            StringUtils.join("\n   ", namedList.toArray(new String[]{}))
             );
         }
     }
