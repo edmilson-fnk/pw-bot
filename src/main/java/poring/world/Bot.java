@@ -36,6 +36,7 @@ public class Bot {
     }
 
     api.addMessageCreateListener(getMarketListener(watcher));
+    System.out.println("GTB running...");
   }
 
   private static MessageCreateListener getMarketListener(Watcher watcher) {
@@ -59,7 +60,7 @@ public class Bot {
   private static void runCommand(String msg, MessageCreateEvent event,
                                  Watcher watcher, Map<String, Command> commands) {
     if (MAINTENANCE) {
-      event.getChannel().sendMessage("_GTB is offline for a while_");
+      event.getChannel().sendMessage("_GTB is under maintenance for a while_");
       return;
     }
 
@@ -70,7 +71,7 @@ public class Bot {
 
     if (command.length <= 1 || command[1].trim().isEmpty()) {
       event.getChannel().sendMessage("No command for gtb, try _!gtb help_");
-    } else if (commands.keySet().contains(command[1].toLowerCase())) {
+    } else if (commands.containsKey(command[1].toLowerCase())) {
       commands.get(command[1].toLowerCase()).run(command, event, watcher);
     } else {
       String nearestCommand = Utils.getNearestCommand(command[1].toLowerCase(), commands.keySet());
