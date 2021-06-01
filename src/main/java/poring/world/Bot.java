@@ -10,8 +10,10 @@ import static poring.world.Constants.Constants.MAINTENANCE;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
+import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
+import poring.world.adm.Validator;
 import poring.world.market.Command;
 import poring.world.watcher.Watcher;
 
@@ -38,12 +40,13 @@ public class Bot {
 
   private static MessageCreateListener getMarketListener(Watcher watcher) {
     return event -> {
-      if (event.getMessageAuthor().isBotUser()) {
+      MessageAuthor messageAuthor = event.getMessageAuthor();
+      if (messageAuthor.isBotUser()) {
         return;
       }
 
       String msg = event.getMessageContent();
-      if (msg.toLowerCase().startsWith("!" + ADM_CALL + " ")) {
+      if (msg.toLowerCase().startsWith("!" + ADM_CALL + " ") && Validator.validAdmCall(messageAuthor.getId())) {
         runCommand(msg, event, watcher, ADMIN_MAP);
       }
 
