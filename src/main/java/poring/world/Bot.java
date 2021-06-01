@@ -33,6 +33,7 @@ public class Bot {
     Watcher watcher = new Watcher(api);
     if (IS_PRODUCTION && !MAINTENANCE) {
       watcher.start();
+      System.out.println("GTB Watcher started");
     }
 
     api.addMessageCreateListener(getMarketListener(watcher));
