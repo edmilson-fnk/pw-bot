@@ -46,8 +46,9 @@ public class WatcherThread extends Thread {
 
   public Map<Long, List<WatchObject>> getMapReadonly() {
     if (this.watchMap == null) {
-      return ImmutableMap.of();
+      loadMaps();
     }
+
     return new HashMap<>(this.watchMap);
   }
 

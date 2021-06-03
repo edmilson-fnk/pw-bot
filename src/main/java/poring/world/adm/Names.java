@@ -26,9 +26,13 @@ public class Names extends Command {
             }
         }
 
-        event.getChannel().sendMessage(
-                "Users: " + StringUtils.join(", ", names.toArray(new String[]{}))
-        );
+        if (names.isEmpty()) {
+            event.getChannel().sendMessage("No users found.");
+        } else {
+            event.getChannel().sendMessage(
+                    "Users: " + StringUtils.join(", ", names.toArray(new String[]{}))
+            );
+        }
     }
 
     @Override
