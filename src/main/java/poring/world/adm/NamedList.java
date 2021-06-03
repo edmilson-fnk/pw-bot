@@ -30,7 +30,7 @@ public class NamedList extends Command {
             event.getChannel().sendMessage("Invalid user ID: _" + userIdStr + "_");
             return;
         }
-        Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMap();
+        Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMapReadonly();
 
         List<String> namedList = m.get(userId).stream().map(WatchObject::getQuery).collect(Collectors.toCollection(LinkedList::new));
 

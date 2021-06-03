@@ -4,6 +4,7 @@ import static poring.world.market.filter.FilterUtils.translate;
 import static poring.world.s3.S3Files.WATCHER_FILTERS_DAT;
 import static poring.world.s3.S3Files.WATCHER_MAP_DAT;
 
+import com.google.common.collect.ImmutableMap;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
@@ -43,6 +44,12 @@ public class WatcherThread extends Thread {
     return this.watchMap;
   }
 
+  public Map<Long, List<WatchObject>> getMapReadonly() {
+    if (this.watchMap == null) {
+      return ImmutableMap.of();
+    }
+    return new HashMap<>(this.watchMap);
+  }
 
   public Map<Long, Map<String, Map<String, String>>> getFilters() {
     if (this.watchMapFilters == null) {

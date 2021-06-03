@@ -15,7 +15,7 @@ public class Names extends Command {
 
     @Override
     public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
-        Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMap();
+        Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMapReadonly();
 
         List<String> names = new LinkedList<>();
         for (Long id : m.keySet()) {
