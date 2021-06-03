@@ -17,25 +17,29 @@ public class NamedList extends Command {
 
     @Override
     public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
-        String query = Utils.getQuery(command);
-        Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMap();
-
-        List<String> namedList = new LinkedList<>();
-        for (List<WatchObject> list : m.values()) {
-            if (!list.isEmpty()) {
-                String name = list.get(0).getMessageAuthorName();
-                if (query.equalsIgnoreCase(name)) {
-                    namedList.addAll(list.stream().map(WatchObject::getQuery).collect(Collectors.toList()));
-                }
-            }
+        String userIdStr = Utils.getQuery(command);
+        if (userIdStr.isEmpty()) {
+            event.getChannel().sendMessage("No ID provided");
+            return;
         }
 
+        long userId;
+        try {
+            userId = Long.parseLong(userIdStr);
+        } catch (Exception e) {
+            event.getChannel().sendMessage("Invalid user ID: _" + userIdStr + "_");
+            return;
+        }
+        Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMap();
+
+        List<String> namedList = m.get(userId).stream().map(WatchObject::getQuery).collect(Collectors.toCollection(LinkedList::new));
+
         if (namedList.isEmpty()) {
-            event.getChannel().sendMessage("No list found for _" + query + "_");
+            event.getChannel().sendMessage("No list found for _" + userIdStr + "_");
         } else {
             event.getChannel().sendMessage(
                     "List for " +
-                            "_" + query + "_ "+
+                            "_" + userIdStr + "_ "+
                             "(" + namedList.size() + "):\n   " +
                             StringUtils.join("\n   ", namedList.toArray(new String[]{}))
             );
@@ -49,7 +53,7 @@ public class NamedList extends Command {
 
     @Override
     public List<String> getQueries() {
-        return ImmutableList.of("");
+        return ImmutableList.of("1231");
     }
 
 }
