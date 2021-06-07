@@ -21,6 +21,9 @@ public class Alive extends Command {
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     long userId = event.getMessageAuthor().getId();
+    if (!watcher.getWatcherThread().isAlive()) {
+      return;
+    }
     if (CUSTOM_REACTION.containsKey(userId)) {
       event.getMessage().addReaction(CUSTOM_REACTION.get(userId));
     } else {
