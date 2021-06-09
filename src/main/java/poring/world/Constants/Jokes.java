@@ -1,8 +1,16 @@
 package poring.world.Constants;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 public class Jokes {
+
+    public static Map<String, String> CUSTOM_JOKES = new HashMap<String, String>(){{
+        this.put("bahia", "Bahia: Que madrugada?");
+        this.put("dashe", "tá certo! :handshake:");
+    }};
 
     public static String getRandomJoke() {
         int rnd = new Random().nextInt(ALL_JOKES.length);
@@ -10,8 +18,8 @@ public class Jokes {
     }
 
     public static String getNamedJoke(String name) {
-        if (name.equalsIgnoreCase("bahia")) {
-            return "Bahia: Que madrugada?";
+        if (CUSTOM_JOKES.containsKey(name.toLowerCase())) {
+            return CUSTOM_JOKES.get(name.toLowerCase());
         }
         return getRandomJoke();
     }
