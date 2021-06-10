@@ -1,6 +1,5 @@
 package poring.world.Constants;
 
-import com.google.common.collect.ImmutableSet;
 import poring.world.adm.*;
 import poring.world.market.Command;
 import poring.world.market.cheapest.Cards;
@@ -34,11 +33,6 @@ public class Constants {
   public static final String URL = "url";
   public static final String ABOUT = "about";
   public static final String ALIVE = "alive";
-
-  // Channel commands
-  public static final String CHANNEL = "channel";
-  public static final String MVP_CARDS = "mvpcards";
-  public static final Set<String> CHANNEL_OPTIONS = ImmutableSet.of(MVP_CARDS, CLEAR);
 
   // WatcherThread filters
   public static final String FILTER_TOKEN = "::";
