@@ -192,7 +192,7 @@ public class FilterUtils {
   }
 
   private static Integer getNumSlots(String name) {
-    String strPattern = ".*\\[([0-9]*)\\].*";
+    String strPattern = ".*\\[([0-9]*)].*";
     Pattern p = Pattern.compile(strPattern);
     Matcher matcher = p.matcher(name);
     if (matcher.matches()) {
@@ -200,19 +200,6 @@ public class FilterUtils {
       return Integer.parseInt(refineStr);
     }
     return null;
-  }
-
-  public static void main(String[] args) {
-    JSONObject minObj = new JSONObject();
-    minObj.put("name", "+12 Survival Ring");
-    System.out.println("Object: " + minObj);
-
-    Map<String, String> filters = new HashMap<>();
-    filters.put(REFINE_LT, "1");
-    System.out.println("Filters: " + filters);
-
-    boolean filter = FilterUtils.filter(minObj, filters);
-    System.out.println("Filtering it? " + filter);
   }
 
 }

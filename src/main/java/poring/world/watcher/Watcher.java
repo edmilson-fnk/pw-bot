@@ -4,7 +4,7 @@ import org.javacord.api.DiscordApi;
 
 public class Watcher {
 
-  private DiscordApi api;
+  private final DiscordApi api;
   private WatcherThread watcherThread;
 
   public Watcher(DiscordApi api) {

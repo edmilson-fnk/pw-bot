@@ -3,7 +3,6 @@ package poring.world.Constants;
 import com.google.common.collect.ImmutableSet;
 import poring.world.adm.*;
 import poring.world.market.Command;
-import poring.world.market.WatchAdv;
 import poring.world.market.cheapest.Cards;
 import poring.world.market.cheapest.Premium;
 import poring.world.market.commands.*;
@@ -120,9 +119,6 @@ public class Constants {
     this.put(NAMEDLIST, new NamedList());
     this.put(CLEARNAMEDLIST, new ClearNamedList());
     this.put(RESET_GTB, new Reset());
-
-    // under tests
-    this.put(WATCH, new WatchAdv());
   }};
 
   // !gtb command
