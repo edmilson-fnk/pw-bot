@@ -11,7 +11,6 @@ import org.javacord.api.entity.user.User;
 import org.joda.time.DateTime;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import poring.model.Item;
 import poring.world.Fetcher;
 import poring.world.Utils;
 import poring.world.market.filter.FilterUtils;
@@ -56,11 +55,6 @@ public class WatcherThread extends Thread {
       loadMaps();
     }
     return this.watchMapFilters;
-  }
-
-  public String add(MessageAuthor messageAuthor, Item item) {
-    // TODO Add database call
-    return null;
   }
 
   public String add(String query, MessageAuthor messageAuthor, TextChannel channel) {
