@@ -4,7 +4,6 @@ import static poring.world.market.filter.FilterUtils.translate;
 import static poring.world.s3.S3Files.WATCHER_FILTERS_DAT;
 import static poring.world.s3.S3Files.WATCHER_MAP_DAT;
 
-import com.google.common.collect.ImmutableMap;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
@@ -31,7 +30,7 @@ public class WatcherThread extends Thread {
   public static final int LIST_MAX_SIZE = 50;
   private Map<Long, List<WatchObject>> watchMap;
   private Map<Long, Map<String, Map<String, String>>> watchMapFilters;
-  private DiscordApi api;
+  private final DiscordApi api;
 
   public WatcherThread(DiscordApi api) {
     this.api = api;
@@ -178,7 +177,6 @@ public class WatcherThread extends Thread {
         }
       }
       System.out.println("watch list was notified! doing it again in an hour");
-
     }
   }
 
