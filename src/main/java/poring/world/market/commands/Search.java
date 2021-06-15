@@ -72,7 +72,7 @@ public class Search extends Command {
     }
 
     msgs.forEach(s -> event.getChannel().sendMessage(s.toString()));
-    event.getMessage().addReaction(MAGNIFIER);
+    event.getMessage().addReaction(CHECK);
   }
 
   @Override
