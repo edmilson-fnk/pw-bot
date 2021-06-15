@@ -1,9 +1,5 @@
 package poring.world.market.cheapest;
 
-import static poring.world.Constants.Constants.CARD_COLOR;
-import static poring.world.Constants.Constants.CARD_COLOR_NAME;
-import static poring.world.Constants.Constants.COLOR_DUST;
-
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
@@ -21,6 +17,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static poring.world.Constants.Constants.*;
+
 public class Cards extends Command {
 
   @Override
@@ -36,6 +34,8 @@ public class Cards extends Command {
       channel.sendMessage(String.format("Invalid color: **%s**", query));
       return;
     }
+
+    event.getMessage().addReaction(CARD);
 
     JSONObject cards = Fetcher.getCheapestCards(colors);
     EmbedBuilder embed = new EmbedBuilder()
@@ -72,9 +72,8 @@ public class Cards extends Command {
       embed.addField(fieldName, content.toString());
     }
 
-//    channel.sendMessage(embed)
-//        .exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
     channel.sendMessage(embed);
+    event.getMessage().addReaction(CHECK);
   }
 
   @Override

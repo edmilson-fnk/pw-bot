@@ -1,8 +1,5 @@
 package poring.world.market.commands;
 
-import static poring.world.Constants.Constants.FILTER_TOKEN;
-import static poring.world.Constants.Constants.QUERY_FILTERS;
-
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -16,12 +13,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static poring.world.Constants.Constants.*;
+
 public class Watch extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     String query = Utils.getQuery(command);
     Map<String, String> filters = new HashMap<>();
+
+    event.getMessage().addReaction(GLASSES);
 
     if (query.contains(FILTER_TOKEN)) {
       String[] queryFilters = query.split(FILTER_TOKEN);
@@ -56,6 +57,7 @@ public class Watch extends Command {
 
     String msg = watcher.getWatcherThread().add(query, messageAuthor, channel, filters);
     event.getChannel().sendMessage(msg);
+    event.getMessage().addReaction(CHECK);
   }
 
   @Override

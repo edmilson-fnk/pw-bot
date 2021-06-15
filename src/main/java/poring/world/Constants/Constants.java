@@ -1,5 +1,6 @@
 package poring.world.Constants;
 
+import com.vdurmont.emoji.EmojiParser;
 import poring.world.adm.*;
 import poring.world.market.Command;
 import poring.world.market.cheapest.Cards;
@@ -13,6 +14,12 @@ import java.util.Set;
 public class Constants {
 
   public static final Boolean MAINTENANCE = false;
+
+  // Emojis
+  public static final String MAGNIFIER = EmojiParser.parseToUnicode(":mag:");
+  public static final String CHECK = EmojiParser.parseToUnicode(":white_check_mark:");
+  public static final String CARD = EmojiParser.parseToUnicode(":black_joker:");
+  public static final String GLASSES = EmojiParser.parseToUnicode(":eyeglasses:");
 
   // General
   public static final String GLOBAL_CALL = "gtb";
@@ -128,14 +135,10 @@ public class Constants {
     this.put(REMOVE, new Remove());
     this.put(ABOUT, new About());
     this.put(ALIVE, new Alive());
-//    this.put(CHANNEL, new ChannelC());
 
     // Cheapest
     this.put(CARDS_CALL, new Cards());
     this.put(PREMIUM, new Premium());
-
-    // MVP cards
-//    this.put(MVP_CARDS, new ChannelC());
   }};
 
 }

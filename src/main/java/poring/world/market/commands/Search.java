@@ -29,6 +29,8 @@ public class Search extends Command {
       sb.append(String.format("No query to search.\nTry _!%s %s %s_\n", GLOBAL_CALL, HELP, SEARCH));
     }
 
+    event.getMessage().addReaction(MAGNIFIER);
+
     if (query.contains(FILTER_TOKEN)) {
       String[] queryFilters = query.split(FILTER_TOKEN);
       query = queryFilters[0].trim();
@@ -70,6 +72,7 @@ public class Search extends Command {
     }
 
     msgs.forEach(s -> event.getChannel().sendMessage(s.toString()));
+    event.getMessage().addReaction(MAGNIFIER);
   }
 
   @Override
