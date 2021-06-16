@@ -24,8 +24,6 @@ public class Drake extends Command {
       referencedMessage.get().reply("tá certo :handshake:");
       if (event.getMessage().canYouDelete()) {
         event.getMessage().delete();
-      } else {
-        System.out.println("Can't delete");
       }
     }
   }
