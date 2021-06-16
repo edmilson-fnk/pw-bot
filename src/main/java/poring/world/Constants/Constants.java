@@ -20,6 +20,7 @@ public class Constants {
   public static final String CHECK = EmojiParser.parseToUnicode(":white_check_mark:");
   public static final String CARD = EmojiParser.parseToUnicode(":black_joker:");
   public static final String GLASSES = EmojiParser.parseToUnicode(":eyeglasses:");
+  public static final String HANDSHAKE = EmojiParser.parseToUnicode(":handshake:");
 
   // General
   public static final String GLOBAL_CALL = "gtb";
@@ -40,6 +41,7 @@ public class Constants {
   public static final String URL = "url";
   public static final String ABOUT = "about";
   public static final String ALIVE = "alive";
+  public static final String DRAKE = "drake";
 
   // WatcherThread filters
   public static final String FILTER_TOKEN = "::";
@@ -135,6 +137,7 @@ public class Constants {
     this.put(REMOVE, new Remove());
     this.put(ABOUT, new About());
     this.put(ALIVE, new Alive());
+    this.put(DRAKE, new Drake());
 
     // Cheapest
     this.put(CARDS_CALL, new Cards());
