@@ -27,6 +27,8 @@ public class Search extends Command {
     StringBuilder sb = new StringBuilder();
     if (query.isEmpty()) {
       sb.append(String.format("No query to search.\nTry _!%s %s %s_\n", GLOBAL_CALL, HELP, SEARCH));
+      event.getMessage().addReaction(X);
+      return;
     }
 
     event.getMessage().addReaction(MAGNIFIER);

@@ -48,6 +48,7 @@ public class Watch extends Command {
     }
 
     if (query.isEmpty()) {
+      event.getMessage().addReaction(X);
       event.getChannel().sendMessage("No query to watch");
       return;
     }

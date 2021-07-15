@@ -21,6 +21,7 @@ public class Constants {
   public static final String CARD = EmojiParser.parseToUnicode(":black_joker:");
   public static final String GLASSES = EmojiParser.parseToUnicode(":eyeglasses:");
   public static final String HANDSHAKE = EmojiParser.parseToUnicode(":handshake:");
+  public static final String X = EmojiParser.parseToUnicode(":x:");
 
   // General
   public static final String GLOBAL_CALL = "gtb";
