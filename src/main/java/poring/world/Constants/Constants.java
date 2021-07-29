@@ -70,6 +70,7 @@ public class Constants {
     this.put("armor", "1027");
     this.put("garment", "1028");
     this.put("footgear", "1029");
+    this.put("accessory", "1030");
   }};
   public static final Set<String> QUERY_FILTERS = FILTERS_NAME.keySet();
 
