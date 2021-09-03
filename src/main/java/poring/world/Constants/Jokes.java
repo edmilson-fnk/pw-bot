@@ -6,9 +6,13 @@ import java.util.Random;
 
 public class Jokes {
 
+    public static String BALT_JOKE = "Olha que bonitinho e uma foto tua mais jovem né <@661669474633515058>";
+
     public static Map<String, String> CUSTOM_JOKES = new HashMap<String, String>(){{
         this.put("bahia", "Bahia: Que madrugada?");
         this.put("dashe", "tá certo! :handshake:");
+        this.put("balt", BALT_JOKE);
+        this.put("balthorm", BALT_JOKE);
     }};
 
     public static String getRandomJoke() {

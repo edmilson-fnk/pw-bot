@@ -112,7 +112,7 @@ public class Utils {
   public static String formatTimestamp(long timestamp) {
     return String.format("<t:%d:f>", timestamp/1000);
   }
-  
+
   public static String priceWithoutDecimal(Double price) {
     return new DecimalFormat("###,###,###,###.##").format(price);
   }
