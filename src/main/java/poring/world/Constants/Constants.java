@@ -59,8 +59,8 @@ public class Constants {
     this.put(BROKEN, "Broken");
     this.put(ENCHANT, "Enchantment");
     this.put(EXCEPT, "Except");
-    this.put(REFINE_GT, "Refine");
-    this.put(REFINE_LT, "Refine");
+    this.put(REFINE_GT, "Refine >=");
+    this.put(REFINE_LT, "Refine <=");
     this.put(NUM_SLOTS, "Slots");
     this.put(CATEGORY, "Category");
   }};
