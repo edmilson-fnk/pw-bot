@@ -164,7 +164,7 @@ public class Fetcher {
     Map<String, String> filtersCase = filters == null ? new HashMap<>() :
             filters.keySet().stream().collect(Collectors.toMap(String::toLowerCase, filters::get));
     if (filtersCase.containsKey(CATEGORY)) {
-      parameters.put(CATEGORY, CATEGORY_MAP.get(filters.get(CATEGORY).toLowerCase()));
+      parameters.put(CATEGORY, CATEGORY_MAP.get(filtersCase.get(CATEGORY).toLowerCase()));
     }
 
     try {
