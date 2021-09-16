@@ -22,13 +22,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static poring.world.Constants.Constants.*;
 
@@ -166,8 +161,10 @@ public class Fetcher {
 
     Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
     parameters.put("q", encodedSearch);
-    if (filters != null && filters.containsKey(CATEGORY)) {
-      parameters.put(CATEGORY, CATEGORY_MAP.get(filters.get(CATEGORY)));
+    Map<String, String> filtersCase = filters == null ? new HashMap<>() :
+            filters.keySet().stream().collect(Collectors.toMap(String::toLowerCase, filters::get));
+    if (filtersCase.containsKey(CATEGORY)) {
+      parameters.put(CATEGORY, CATEGORY_MAP.get(filters.get(CATEGORY).toLowerCase()));
     }
 
     try {
