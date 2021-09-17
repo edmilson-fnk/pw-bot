@@ -116,7 +116,7 @@ public class Fetcher {
       HttpResponse response = client.execute(request);
 
       if (response.getStatusLine().getStatusCode() != 200) {
-        System.out.println(String.format("Error %s\nURL %s", response.getStatusLine().getStatusCode(), fullUrl));
+        System.out.printf("Error %s\nURL %s%n", response.getStatusLine().getStatusCode(), fullUrl);
         return new JSONArray();
       }
 
@@ -202,6 +202,23 @@ public class Fetcher {
       parametersUrl.append("&");
     }
     return parametersUrl.toString();
+  }
+
+  public static int getResponseCode() {
+    BasicHeader h1 = new BasicHeader(HttpHeaders.USER_AGENT, Utils.getUserAgent());
+
+    List<Header> headers = Lists.newArrayList(h1);
+
+    try (CloseableHttpClient client = HttpClientBuilder.create().setDefaultHeaders(headers).build()) {
+      String parametersUrl = getParametersUrl(new HashMap<>(DEFAULT_PARAMETERS));
+      String fullUrl = BASE_URL + parametersUrl;
+      HttpGet request = new HttpGet(fullUrl);
+      HttpResponse response = client.execute(request);
+
+      return response.getStatusLine().getStatusCode();
+    } catch (IOException e) {
+      return 1;
+    }
   }
 
   private static boolean isValid(JSONObject jsonItem) {
