@@ -25,10 +25,12 @@ public class Alive extends Command {
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     long userId = event.getMessageAuthor().getId();
     if (!watcher.getWatcherThread().isAlive()) {
+      event.getMessage().addReaction(X);
       return;
     }
     if (Fetcher.getResponseCode() != 200) {
       event.getMessage().addReaction(X);
+      return;
     }
     if (CUSTOM_REACTION.containsKey(userId)) {
       event.getMessage().addReaction(CUSTOM_REACTION.get(userId));
