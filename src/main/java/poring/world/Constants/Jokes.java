@@ -13,7 +13,8 @@ public class Jokes {
         this.put("dashe", "tá certo! :handshake:");
         this.put("balt", BALT_JOKE);
         this.put("balthorm", BALT_JOKE);
-        this.put("mav", "eu falei!");
+        this.put("maveco", "eu falei!");
+        this.put("dud", "vê lá se teu c* tá limpo");
     }};
 
     public static String getRandomJoke() {
