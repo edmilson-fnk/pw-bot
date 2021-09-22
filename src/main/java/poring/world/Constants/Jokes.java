@@ -12,10 +12,10 @@ public class Jokes {
     public static Map<String, String> CUSTOM_JOKES = new HashMap<String, String>(){{
         this.put("bahia", "Bahia: Que madrugada?");
         this.put("dashe", "tá certo! :handshake:");
-        this.put("balt", BALT_JOKE);
-        this.put("balthorm", BALT_JOKE);
         this.put("maveco", "eu falei!");
         this.put("dud", "vê lá se teu c* tá limpo");
+        this.put("balt", BALT_JOKE);
+        this.put("balthorm", BALT_JOKE);
         this.put("bom", AIAI_MTOBOM);
         this.put("mtobom", AIAI_MTOBOM);
         this.put("mto bom", AIAI_MTOBOM);
