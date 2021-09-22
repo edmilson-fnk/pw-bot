@@ -14,7 +14,7 @@ public class Jokes {
         this.put("balt", BALT_JOKE);
         this.put("balthorm", BALT_JOKE);
         this.put("maveco", "eu falei!");
-        this.put("dud", "ai ai, muito bom!");
+        this.put("dud", "AHhahAHAH Aiii aiii , muito bom!");
     }};
 
     public static String getRandomJoke() {
