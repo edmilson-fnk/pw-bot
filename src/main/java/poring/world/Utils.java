@@ -1,6 +1,5 @@
 package poring.world;
 
-import static poring.world.Constants.Constants.GENERAL_TIME_FORMAT;
 import static poring.world.Constants.Constants.TIME_DIFF;
 
 import com.google.common.collect.ImmutableList;
@@ -16,8 +15,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,8 +23,6 @@ import java.util.Set;
 import java.util.StringJoiner;
 
 public class Utils {
-
-  public static final int SOME_HOURS_AGO = (TIME_DIFF * 3600 * 1000);
 
   public static String getQuery(String[] command) {
     StringJoiner joiner = new StringJoiner(" ");

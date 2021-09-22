@@ -7,6 +7,7 @@ import java.util.Random;
 public class Jokes {
 
     public static String BALT_JOKE = "Olha que bonitinho e uma foto tua mais jovem né <@661669474633515058>";
+    public static String AIAI_MTOBOM = "AHhahAHAH Aiii aiii , muito bom!!";
 
     public static Map<String, String> CUSTOM_JOKES = new HashMap<String, String>(){{
         this.put("bahia", "Bahia: Que madrugada?");
@@ -14,7 +15,10 @@ public class Jokes {
         this.put("balt", BALT_JOKE);
         this.put("balthorm", BALT_JOKE);
         this.put("maveco", "eu falei!");
-        this.put("dud", "AHhahAHAH Aiii aiii , muito bom!");
+        this.put("dud", "vê lá se teu c* tá limpo");
+        this.put("bom", AIAI_MTOBOM);
+        this.put("mtobom", AIAI_MTOBOM);
+        this.put("mto bom", AIAI_MTOBOM);
     }};
 
     public static String getRandomJoke() {
