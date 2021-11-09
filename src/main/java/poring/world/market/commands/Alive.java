@@ -16,7 +16,7 @@ import static poring.world.Constants.Constants.X;
 public class Alive extends Command {
 
   private static final Map<Long, String> CUSTOM_REACTION = new HashMap<Long, String>(){{
-//    this.put(643400000256344064L, "sqbobo:778345736806596628");
+    this.put(643400000256344064L, "sqbobo:778345736806596628");
     this.put(585914389979463680L, "pepecoberto:778227749977587784");
   }};
   public static final String DEFAULT_VALUE = ":handshake:";
@@ -34,9 +34,8 @@ public class Alive extends Command {
     }
     if (CUSTOM_REACTION.containsKey(userId)) {
       event.getMessage().addReaction(CUSTOM_REACTION.get(userId));
-    } else {
-      event.getMessage().addReaction(EmojiParser.parseToUnicode(DEFAULT_VALUE));
     }
+    event.getMessage().addReaction(EmojiParser.parseToUnicode(DEFAULT_VALUE));
   }
 
   @Override
