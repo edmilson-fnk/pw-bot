@@ -4,8 +4,6 @@ import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
-import org.javacord.api.exception.MissingPermissionsException;
-import org.javacord.api.util.logging.ExceptionLogger;
 import org.json.simple.JSONObject;
 import poring.world.Fetcher;
 import poring.world.Utils;
@@ -17,7 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static poring.world.Constants.Constants.*;
+import static poring.world.constants.Constants.*;
 
 public class Cards extends Command {
 

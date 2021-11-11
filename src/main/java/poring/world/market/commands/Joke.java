@@ -3,7 +3,7 @@ package poring.world.market.commands;
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.event.message.MessageCreateEvent;
-import poring.world.Constants.Jokes;
+import poring.world.constants.Jokes;
 import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.watcher.Watcher;

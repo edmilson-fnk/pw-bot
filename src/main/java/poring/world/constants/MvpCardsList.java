@@ -1,4 +1,4 @@
-package poring.world.Constants;
+package poring.world.constants;
 
 import java.util.HashSet;
 import java.util.Set;

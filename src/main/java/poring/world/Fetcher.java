@@ -25,7 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static poring.world.Constants.Constants.*;
+import static poring.world.constants.Constants.*;
 
 public class Fetcher {
 

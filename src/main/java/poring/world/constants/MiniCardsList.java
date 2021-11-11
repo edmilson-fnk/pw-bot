@@ -1,4 +1,4 @@
-package poring.world.Constants;
+package poring.world.constants;
 
 import com.google.common.collect.ImmutableSet;
 

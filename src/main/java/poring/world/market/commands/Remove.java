@@ -1,9 +1,9 @@
 package poring.world.market.commands;
 
-import static poring.world.Constants.Constants.GLOBAL_CALL;
-import static poring.world.Constants.Constants.HELP;
-import static poring.world.Constants.Constants.LIST;
-import static poring.world.Constants.Constants.REMOVE;
+import static poring.world.constants.Constants.GLOBAL_CALL;
+import static poring.world.constants.Constants.HELP;
+import static poring.world.constants.Constants.LIST;
+import static poring.world.constants.Constants.REMOVE;
 
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.message.MessageAuthor;

@@ -1,12 +1,12 @@
 package poring.world;
 
-import static poring.world.Constants.Constants.ADMIN_MAP;
-import static poring.world.Constants.Constants.ADM_CALL;
-import static poring.world.Constants.Constants.COMMAND_MAP;
-import static poring.world.Constants.Constants.ENV;
-import static poring.world.Constants.Constants.GLOBAL_CALL;
-import static poring.world.Constants.Constants.IS_PRODUCTION;
-import static poring.world.Constants.Constants.MAINTENANCE;
+import static poring.world.constants.Constants.ADMIN_MAP;
+import static poring.world.constants.Constants.ADM_CALL;
+import static poring.world.constants.Constants.COMMAND_MAP;
+import static poring.world.constants.Constants.ENV;
+import static poring.world.constants.Constants.GLOBAL_CALL;
+import static poring.world.constants.Constants.IS_PRODUCTION;
+import static poring.world.constants.Constants.MAINTENANCE;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
@@ -73,7 +73,7 @@ public class Bot {
     if (command.length <= 1 || command[1].trim().isEmpty()) {
       event.getChannel().sendMessage("No command for gtb, try _!gtb help_");
     } else if (commands.containsKey(command[1].toLowerCase())) {
-      commands.get(command[1].toLowerCase()).run(command, event, watcher);
+      commands.get(command[1].trim().toLowerCase()).run(command, event, watcher);
     } else {
       String nearestCommand = Utils.getNearestCommand(command[1].toLowerCase(), commands.keySet());
       if (nearestCommand != null) {

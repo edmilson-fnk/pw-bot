@@ -11,7 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static poring.world.Constants.Constants.X;
+import static poring.world.constants.Constants.HANDSHAKE;
+import static poring.world.constants.Constants.X;
 
 public class Alive extends Command {
 
@@ -19,7 +20,7 @@ public class Alive extends Command {
     this.put(643400000256344064L, "786113804152209479:889865105599250554");
     this.put(585914389979463680L, "pepecoberto:778227749977587784");
   }};
-  public static final String DEFAULT_VALUE = ":handshake:";
+  public static final String DEFAULT_VALUE = HANDSHAKE;
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {

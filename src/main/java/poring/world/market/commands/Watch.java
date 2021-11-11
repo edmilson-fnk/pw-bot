@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static poring.world.Constants.Constants.*;
+import static poring.world.constants.Constants.*;
 
 public class Watch extends Command {
 
@@ -48,8 +48,15 @@ public class Watch extends Command {
     }
 
     if (query.isEmpty()) {
-      event.getMessage().addReaction(X);
       event.getChannel().sendMessage("No query to watch");
+      event.getMessage().addReaction(X);
+      return;
+    }
+
+    List<String> queryNames = Utils.getNames(query);
+    if (queryNames.size() > MAXIMUM_NAMES) {
+      event.getChannel().sendMessage(String.format("Maximum of %d items to watch", MAXIMUM_NAMES));
+      event.getMessage().addReaction(X);
       return;
     }
 

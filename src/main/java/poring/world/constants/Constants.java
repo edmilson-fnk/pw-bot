@@ -1,4 +1,4 @@
-package poring.world.Constants;
+package poring.world.constants;
 
 import com.vdurmont.emoji.EmojiParser;
 import poring.world.adm.*;
@@ -14,6 +14,8 @@ import java.util.Set;
 public class Constants {
 
   public static final Boolean MAINTENANCE = false;
+
+  public static final int MAXIMUM_NAMES = 10;
 
   // Emojis
   public static final String MAGNIFIER = EmojiParser.parseToUnicode(":mag:");
@@ -75,17 +77,9 @@ public class Constants {
   public static final Set<String> QUERY_FILTERS = FILTERS_NAME.keySet();
 
   // General Stuff
-  public static final int TIME_DIFF
-      = System.getenv("TIME_DIFF") != null ? Integer.parseInt(System.getenv("TIME_DIFF")) : 0;
   public static final String ENV =
       System.getenv("ENVIRONMENT") != null ? System.getenv("ENVIRONMENT") : "staging";
   public static final boolean IS_PRODUCTION = ENV.equalsIgnoreCase("production");
-  public static final String GENERAL_TIME_FORMAT = "dd/MM/yyyy HH:mm";
-
-  public static final Set<String> MVP_CARDS_LIST = MvpCardsList.getAll();
-
-  // Parameters
-  public static final String PARTIES = "parties";
 
   // Card Colors
   public static Map<String, String> CARD_COLOR = new HashMap<String, String>(){{
@@ -118,6 +112,7 @@ public class Constants {
   public static final String CLEARNAMEDLIST = "clear";
   public static final String RESET_GTB = "resetgtb";
   public static Map<String, Command> ADMIN_MAP = new HashMap<String, Command>(){{
+    this.put(HELP, new AdmHelp());
     this.put(URL, new URL());
     this.put(METRICS, new Metrics());
     this.put(NAMES, new Names());

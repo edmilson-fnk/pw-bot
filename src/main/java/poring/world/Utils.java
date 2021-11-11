@@ -1,7 +1,5 @@
 package poring.world;
 
-import static poring.world.Constants.Constants.TIME_DIFF;
-
 import com.google.common.collect.ImmutableList;
 import com.sun.xml.bind.v2.util.EditDistance;
 import org.json.simple.JSONObject;
@@ -159,11 +157,11 @@ public class Utils {
       fos.close();
       return new File(fileName);
     } catch (FileNotFoundException e) {
-      System.out.println(String.format("File %s not found on saving", fileName));
+      System.out.printf("File %s not found on saving%n", fileName);
       e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
-      System.out.println(String.format("Error on saving %s", fileName));
+      System.out.printf("Error on saving %s%n", fileName);
     }
     return null;
   }
@@ -177,11 +175,11 @@ public class Utils {
       ois.close();
       return map;
     } catch (FileNotFoundException e) {
-      System.out.println(String.format("File %s not found on reading", fileName));
+      System.out.printf("File %s not found on reading%n", fileName);
       e.printStackTrace();
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
-      System.out.println(String.format("Error on loading %s", fileName));
+      System.out.printf("Error on loading %s%n", fileName);
     }
     return new HashMap();
   }

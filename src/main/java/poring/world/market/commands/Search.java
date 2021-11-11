@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static poring.world.Constants.Constants.*;
+import static poring.world.constants.Constants.*;
 
 public class Search extends Command {
 
@@ -58,7 +58,14 @@ public class Search extends Command {
 
     List<StringBuilder> msgs = new LinkedList<>();
     msgs.add(sb);
-    for (String name : Utils.getNames(query)) {
+    List<String> queryNames = Utils.getNames(query);
+    if (queryNames.size() > MAXIMUM_NAMES) {
+      event.getChannel().sendMessage(String.format("Maximum of %d items to search", MAXIMUM_NAMES));
+      event.getMessage().addReaction(X);
+      return;
+    }
+
+    for (String name : queryNames) {
       sb = new StringBuilder();
       JSONArray items = Fetcher.query(name, searchFilters);
       if (items.size() == 0) {

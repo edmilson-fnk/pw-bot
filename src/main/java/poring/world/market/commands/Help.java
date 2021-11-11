@@ -9,11 +9,16 @@ import poring.world.watcher.Watcher;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import static poring.world.Constants.Constants.*;
+import static poring.world.constants.Constants.*;
 
 public class Help extends Command {
+
+  public Map<String, Command> getMap() {
+    return COMMAND_MAP;
+  }
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
@@ -22,10 +27,10 @@ public class Help extends Command {
     Set<String> noHelp = ImmutableSet.of(ALIVE, URL, ORGANIZE);
     boolean addQueries = true;
     if (query.isEmpty()) {
-      helpMap.addAll(COMMAND_MAP.keySet());
+      helpMap.addAll(getMap().keySet());
       helpMap.removeAll(noHelp);
       addQueries = false;
-    } else if (COMMAND_MAP.containsKey(query)) {
+    } else if (getMap().containsKey(query)) {
       helpMap.add(query);
     } else {
       event.getChannel().sendMessage("Invalid command: **" + query + "**");
@@ -35,9 +40,9 @@ public class Help extends Command {
     StringBuilder helpMessage = new StringBuilder();
     helpMessage.append(":question: **GTB help**\n");
     for (String key : helpMap) {
-      helpMessage.append(String.format("  _%s_   %s\n", key, COMMAND_MAP.get(key).getHelp()));
+      helpMessage.append(String.format("  _%s_   %s\n", key, getMap().get(key).getHelp()));
       if (addQueries) {
-        for (String commandQuery : COMMAND_MAP.get(key).getQueries()) {
+        for (String commandQuery : getMap().get(key).getQueries()) {
           helpMessage.append(String.format("       - !%s %s %s\n", GLOBAL_CALL, key, commandQuery));
         }
       }

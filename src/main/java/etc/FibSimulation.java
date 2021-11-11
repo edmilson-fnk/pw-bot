@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 public class FibSimulation {
 
   public static void main(String[] args) {
-    float aspd = 4.8f; // 480%
+    float aspd = 3.0f; // 480%
     int battleDur = 15;
     int empHp = 5000;
     int hit2xOG = 416;
@@ -58,10 +58,10 @@ public class FibSimulation {
     finalFibHits /= N;
     finalHits /= N;
     System.out.println("HP analysis");
-    System.out.println(String.format("W/ Fib\t%s hits", new DecimalFormat("###,###,###").format(finalFibHits)));
-    System.out.println(String.format("\t\t%s s", new DecimalFormat("###,###,###").format(finalFibHits / aspd)));
-    System.out.println(String.format("W/O Fib\t%s hits", new DecimalFormat("###,###,###").format(finalHits)));
-    System.out.println(String.format("\t\t%s s", new DecimalFormat("###,###,###").format(finalHits / aspd)));
+    System.out.printf("W/ Fib\t%s hits%n", new DecimalFormat("###,###,###").format(finalFibHits));
+    System.out.printf("\t\t%s s%n", new DecimalFormat("###,###,###").format(finalFibHits / aspd));
+    System.out.printf("W/O Fib\t%s hits%n", new DecimalFormat("###,###,###").format(finalHits));
+    System.out.printf("\t\t%s s%n", new DecimalFormat("###,###,###").format(finalHits / aspd));
   }
 
   private static void simulateFixedTime(float aspd, int hitNormal, int hitFib, int hitFibAct, int battleDur) {
