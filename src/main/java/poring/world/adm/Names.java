@@ -29,9 +29,9 @@ public class Names extends Command {
         if (names.isEmpty()) {
             event.getChannel().sendMessage("No users found.");
         } else {
-            event.getChannel().sendMessage(
-                    "Users:\n" + StringUtils.join("\n", names.toArray(new String[]{}))
-            );
+            String usersList = "Users:\n" + StringUtils.join("\n", names.toArray(new String[]{}));
+            System.out.println(usersList);
+            event.getChannel().sendMessage(usersList);
         }
     }
 

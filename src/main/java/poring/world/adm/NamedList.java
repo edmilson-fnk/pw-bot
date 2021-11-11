@@ -41,7 +41,7 @@ public class NamedList extends Command {
                     "List for " +
                             "_" + userIdStr + "_ "+
                             "(" + namedList.size() + "):\n   " +
-                            StringUtils.join("\n   ", namedList.toArray(new String[]{}))
+                            StringUtils.join("\n ", namedList.toArray(new String[]{}))
             );
         }
     }

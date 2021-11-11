@@ -26,7 +26,7 @@ public class Constants {
   public static final String X = EmojiParser.parseToUnicode(":x:");
 
   // General
-  public static final String GLOBAL_CALL = "gtb";
+  public static final String GLOBAL_CALL = "gtb2";
   public static final String YES = "yes";
   public static final String NO = "no";
 
@@ -105,7 +105,7 @@ public class Constants {
   }};
 
   // !gtb-adm command
-  public static final String ADM_CALL = "gtbadm";
+  public static final String ADM_CALL = "gtbadm2";
   public static final String METRICS = "metrics";
   public static final String NAMES = "names";
   public static final String NAMEDLIST = "namedlist";
