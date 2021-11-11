@@ -39,7 +39,6 @@ public class Names extends Command {
             event.getChannel().sendMessage("No users found.");
         } else {
             String usersList = "Users:\n" + StringUtils.join("\n", names.toArray(new String[]{}));
-            System.out.println(usersList);
             event.getChannel().sendMessage(usersList);
         }
     }
