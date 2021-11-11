@@ -3,6 +3,7 @@ package poring.world.adm;
 import com.amazonaws.util.StringUtils;
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
+import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.watcher.WatchObject;
 import poring.world.watcher.Watcher;
@@ -15,12 +16,20 @@ public class Names extends Command {
 
     @Override
     public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
+        String query = Utils.getQuery(command);
+        int limit;
+        try {
+            limit = Integer.parseInt(query);
+        } catch (Exception e) {
+            return;
+        }
+
         Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMapReadonly();
 
         List<String> names = new LinkedList<>();
         for (Long id : m.keySet()) {
             List<WatchObject> list = m.get(id);
-            if (!list.isEmpty()) {
+            if (list.size() > limit) {
                 String name = list.get(0).getMessageAuthorName();
                 names.add(name + " (_" + id + "_): " + list.size());
             }
