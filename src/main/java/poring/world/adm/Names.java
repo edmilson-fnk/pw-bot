@@ -17,14 +17,12 @@ public class Names extends Command {
     public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
         Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMapReadonly();
 
-        System.out.println(m.size() + " watchers found");
-
         List<String> names = new LinkedList<>();
         for (Long id : m.keySet()) {
             List<WatchObject> list = m.get(id);
             if (!list.isEmpty()) {
                 String name = list.get(0).getMessageAuthorName();
-                names.add(name + " (_" + id + "_)");
+                names.add(name + " (_" + id + "_): " + list.size());
             }
         }
 
@@ -32,7 +30,7 @@ public class Names extends Command {
             event.getChannel().sendMessage("No users found.");
         } else {
             event.getChannel().sendMessage(
-                    "Users: " + StringUtils.join(", ", names.toArray(new String[]{}))
+                    "Users:\n" + StringUtils.join("\n", names.toArray(new String[]{}))
             );
         }
     }
