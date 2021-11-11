@@ -20,6 +20,10 @@ public class Help extends Command {
     return COMMAND_MAP;
   }
 
+  public String getCall() {
+    return GLOBAL_CALL;
+  }
+
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     String query = Utils.getQuery(command);
@@ -43,7 +47,7 @@ public class Help extends Command {
       helpMessage.append(String.format("  _%s_   %s\n", key, getMap().get(key).getHelp()));
       if (addQueries) {
         for (String commandQuery : getMap().get(key).getQueries()) {
-          helpMessage.append(String.format("       - !%s %s %s\n", GLOBAL_CALL, key, commandQuery));
+          helpMessage.append(String.format("       - !%s %s %s\n", getCall(), key, commandQuery));
         }
       }
     }
