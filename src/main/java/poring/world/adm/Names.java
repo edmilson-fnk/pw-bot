@@ -17,6 +17,8 @@ public class Names extends Command {
     public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
         Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMapReadonly();
 
+        System.out.println(m.size() + " watchers found");
+
         List<String> names = new LinkedList<>();
         for (Long id : m.keySet()) {
             List<WatchObject> list = m.get(id);

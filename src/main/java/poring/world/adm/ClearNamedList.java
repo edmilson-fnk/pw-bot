@@ -1,7 +1,6 @@
 package poring.world.adm;
 
 import com.google.common.collect.ImmutableList;
-import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.market.Command;
