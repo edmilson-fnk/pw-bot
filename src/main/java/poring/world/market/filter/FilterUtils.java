@@ -3,12 +3,9 @@ package poring.world.market.filter;
 import org.json.simple.JSONObject;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import static poring.world.constants.Constants.*;
 
@@ -41,6 +38,11 @@ public class FilterUtils {
   }
 
   public static String validate(String key, String value) {
+    return validate2(key, value);
+  }
+
+  // Returns NULL if it's a valid key-value pair
+  public static String validate2(String key, String value) {
     if (value.isEmpty()) {
       return "empty value";
     }
@@ -69,7 +71,7 @@ public class FilterUtils {
       try {
         int numSlots = Integer.parseInt(value);
         if (numSlots < 0 || numSlots > 2) {
-          return "only between 0 and 2 slots";
+          return "only from 0 to 2 slots";
         }
         return null;
       } catch (Exception e) {
@@ -83,17 +85,6 @@ public class FilterUtils {
       }
     }
 
-      // Multiple values keys
-    List<String> values = Arrays.stream(value.split(QUERY_SPLIT_TOKEN)).map(String::trim).collect(Collectors.toList());
-    for (String v : values) {
-      if (key.equalsIgnoreCase(ENCHANT)) {
-        // No validation yet
-        return null;
-      } else if (key.equalsIgnoreCase(EXCEPT)) {
-        // No validation yet
-        return null;
-      }
-    }
     return null;
   }
 
