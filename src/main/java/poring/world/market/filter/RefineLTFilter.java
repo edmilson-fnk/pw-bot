@@ -17,7 +17,7 @@ public class RefineLTFilter extends BaseFilter {
     @Override
     public boolean filter(JSONObject obj, String value) {
         int refineFilter = Integer.parseInt(value);
-        Integer refineItem = FilterUtils.getRefineValue(obj.get("name").toString().toLowerCase());
+        Integer refineItem = FilterUtils.getRefineValue(obj.get("name").toString());
 
         return (refineItem != null) && (refineItem > refineFilter);
     }

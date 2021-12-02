@@ -29,45 +29,17 @@ public class Utils {
     for (int i = 2; i < command.length; i++) {
       joiner.add(command[i]);
     }
-    return joiner.toString().trim();
+    return joiner.toString().trim().toLowerCase();
   }
 
   public static List<String> getNames(String query) {
     List<String> names = new LinkedList<>();
-    for (String name : query.toLowerCase().trim().split(QUERY_SPLIT_TOKEN)) {
+    for (String name : query.trim().split(QUERY_SPLIT_TOKEN)) {
       if (!name.trim().isEmpty()) {
         names.add(name.trim());
       }
     }
     return names;
-  }
-
-  public static String getItemStock(Object item) {
-    JSONObject lastRecord = (JSONObject) ((JSONObject) item).get("lastRecord");
-    return String.format("%sx", lastRecord.get("stock").toString());
-  }
-
-  public static String getItemName(Object item) {
-    return ((JSONObject) item).get("name").toString();
-  }
-
-  public static String getItemSnap(Object item) {
-    JSONObject lastRecord = (JSONObject) ((JSONObject) item).get("lastRecord");
-    long snapEnd = Long.parseLong(lastRecord.get("snapEnd").toString());
-    StringBuilder returnMessage = new StringBuilder();
-    if (snapEnd > 0) {
-      returnMessage.append(" until ");
-      returnMessage.append(formatTimestamp(snapEnd*1000));
-      returnMessage.append(" by ");
-      returnMessage.append(lastRecord.get("snapBuyers").toString());
-    }
-    return returnMessage.toString();
-  }
-
-  public static String getItemPrice(Object item) {
-    return priceWithoutDecimal(
-        Double.parseDouble(((JSONObject) ((JSONObject) item).get("lastRecord")).get("price").toString())
-    );
   }
 
   public static String getItemMessage(JSONObject jsonItem) {

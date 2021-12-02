@@ -11,12 +11,12 @@ public class EnchantFilter extends BaseFilter {
 
     @Override
     public String translate(String value) {
-        return value.replaceAll("\\s*&&\\s*", " or ").toLowerCase();
+        return value.replaceAll("\\s*&&\\s*", " or ");
     }
 
     @Override
     public boolean filter(JSONObject obj, String value) {
-        return !obj.get("name").toString().toLowerCase().matches(String.format(".*<.*%s.*>.*", value.toLowerCase()));
+        return !obj.get("name").toString().toLowerCase().matches(String.format(".*<.*%s.*>.*", value));
     }
 
 }

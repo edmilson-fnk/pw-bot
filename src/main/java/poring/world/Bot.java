@@ -47,12 +47,12 @@ public class Bot {
         return;
       }
 
-      String msg = event.getMessageContent();
-      if (msg.toLowerCase().startsWith("!" + ADM_CALL + " ") && Validator.validAdmCall(messageAuthor.getId())) {
+      String msg = event.getMessageContent().toLowerCase();
+      if (msg.startsWith("!" + ADM_CALL + " ") && Validator.validAdmCall(messageAuthor.getId())) {
         runCommand(msg, event, watcher, ADMIN_MAP);
       }
 
-      if (msg.toLowerCase().startsWith("!" + GLOBAL_CALL + " ")) {
+      if (msg.startsWith("!" + GLOBAL_CALL + " ")) {
         runCommand(msg, event, watcher, COMMAND_MAP);
       }
     };
@@ -72,10 +72,10 @@ public class Bot {
 
     if (command.length <= 1 || command[1].trim().isEmpty()) {
       event.getChannel().sendMessage("No command for gtb, try **!" + GLOBAL_CALL + " help**");
-    } else if (commands.containsKey(command[1].toLowerCase())) {
-      commands.get(command[1].trim().toLowerCase()).run(command, event, watcher);
+    } else if (commands.containsKey(command[1])) {
+      commands.get(command[1].trim()).run(command, event, watcher);
     } else {
-      String nearestCommand = Utils.getNearestCommand(command[1].toLowerCase(), commands.keySet());
+      String nearestCommand = Utils.getNearestCommand(command[1], commands.keySet());
       if (nearestCommand != null) {
         event.getChannel().sendMessage(
             String.format("Invalid command **%s**, did you mean **%s**? Running it instead...",

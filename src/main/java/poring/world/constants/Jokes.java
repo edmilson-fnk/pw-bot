@@ -27,10 +27,7 @@ public class Jokes {
     }
 
     public static String getNamedJoke(String name) {
-        if (CUSTOM_JOKES.containsKey(name.toLowerCase())) {
-            return CUSTOM_JOKES.get(name.toLowerCase());
-        }
-        return getRandomJoke();
+        return CUSTOM_JOKES.getOrDefault(name, getRandomJoke());
     }
 
     public static final String[] ALL_JOKES = new String[]{

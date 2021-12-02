@@ -26,7 +26,7 @@ public class Cards extends Command {
     TextChannel channel = event.getChannel();
     if (query.isEmpty()) {
       colors.addAll(CARD_COLOR.values());
-    } else if (CARD_COLOR.containsKey(query.toLowerCase())) {
+    } else if (CARD_COLOR.containsKey(query)) {
       colors.add(CARD_COLOR.get(query));
     } else {
       channel.sendMessage(String.format("Invalid color: **%s**", query));
