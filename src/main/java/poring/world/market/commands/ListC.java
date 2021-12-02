@@ -36,7 +36,7 @@ public class ListC extends Command {
         subSb.append(String.format("(%s) _%s_ ", i + 1, obj.getQuery()));
         if (filters != null && !filters.isEmpty()) {
           for (String key : filters.keySet()) {
-            subSb.append(FilterUtils.translate(key, filters.get(key)));
+            subSb.append(FilterUtils.translateItem(key, filters.get(key)));
           }
         }
         subSb.append("\n");

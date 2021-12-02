@@ -15,13 +15,6 @@ public class TestFilterUtilsFilter {
 
     JSONParser parser = new JSONParser();
 
-    public void base() throws ParseException {
-        String minStr = "{\"lastRecord\": {\"price\": 10}}";
-        System.out.println(minStr);
-        JSONObject minObj = (JSONObject) parser.parse(minStr);
-        System.out.println(minObj);
-    }
-
     @Test
     public void filterMaxPriceNo() throws ParseException {
         String obj1Str = "{\"lastRecord\": {\"price\": 9}}";
@@ -295,6 +288,37 @@ public class TestFilterUtilsFilter {
         boolean result = FilterUtils.filter(obj1, filters);
 
         Assert.assertTrue(result);
+    }
+
+    @Test
+    public void filterManyFiltersRemove() throws ParseException {
+        String obj1Str = "{\"name\": \"Majestic Goat Blueprint\"}";
+        JSONObject obj1 = (JSONObject) parser.parse(obj1Str);
+
+        Map<String, String> filters = new HashMap<String, String>(){{
+            this.put(NUM_SLOTS, "0");
+            this.put(BROKEN, "no");
+            this.put(EXCEPT, "blueprint");
+        }};
+        boolean result = FilterUtils.filter(obj1, filters);
+
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void filterManyFiltersKeep() throws ParseException {
+        String obj1Str = "{\"name\": \"Majestic Goat\"}";
+        JSONObject obj1 = (JSONObject) parser.parse(obj1Str);
+
+        Map<String, String> filters = new HashMap<String, String>(){{
+            this.put(NUM_SLOTS, "0");
+            this.put(BROKEN, "no");
+            this.put(EXCEPT, "blueprint");
+            this.put(REFINE_LT, "10");
+        }};
+        boolean result = FilterUtils.filter(obj1, filters);
+
+        Assert.assertFalse(result);
     }
 
 }
