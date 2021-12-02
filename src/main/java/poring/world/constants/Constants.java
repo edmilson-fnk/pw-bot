@@ -83,6 +83,10 @@ public class Constants {
       System.getenv("ENVIRONMENT") != null ? System.getenv("ENVIRONMENT") : "staging";
   public static final boolean IS_PRODUCTION = ENV.equalsIgnoreCase("production");
 
+  // ADM ID
+  public static final Float ADM_ID =
+          Float.parseFloat(System.getenv("ADM_ID") != null ? System.getenv("ADM_ID") : "0");
+
   // Card Colors
   public static Map<String, String> CARD_COLOR = new HashMap<String, String>(){{
     this.put("blue", "3");

@@ -1,9 +1,11 @@
 package poring.world.adm;
 
+import static poring.world.constants.Constants.ADM_ID;
+
 public class Validator {
 
     public static boolean validAdmCall(double userId) {
-        return userId == 585914389979463680L;
+        return userId == ADM_ID;
     }
 
 }
