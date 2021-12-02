@@ -164,11 +164,12 @@ public class Fetcher {
     Map<String, String> filtersCase = filters == null ? new HashMap<>() :
             filters.keySet().stream().collect(Collectors.toMap(String::toLowerCase, filters::get));
     if (filtersCase.containsKey(CATEGORY)) {
-      parameters.put(CATEGORY, CATEGORY_MAP.get(filtersCase.get(CATEGORY).toLowerCase()));
+      String categoryName = filtersCase.get(CATEGORY).toLowerCase();
+      parameters.put(CATEGORY, CATEGORY_MAP.get(categoryName));
 
       // Add end category if it's a range
-      if (END_CATEGORY_MAP.containsKey(filtersCase.get(CATEGORY).toLowerCase())) {
-        parameters.put(END_CATEGORY, END_CATEGORY_MAP.get(filtersCase.get(CATEGORY).toLowerCase()));
+      if (END_CATEGORY_MAP.containsKey(categoryName)) {
+        parameters.put(END_CATEGORY, END_CATEGORY_MAP.get(categoryName));
       }
     }
 

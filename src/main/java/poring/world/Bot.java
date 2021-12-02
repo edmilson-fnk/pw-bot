@@ -71,7 +71,7 @@ public class Bot {
         .split(" ");
 
     if (command.length <= 1 || command[1].trim().isEmpty()) {
-      event.getChannel().sendMessage("No command for gtb, try _!gtb help_");
+      event.getChannel().sendMessage("No command for gtb, try **!" + GLOBAL_CALL + " help**");
     } else if (commands.containsKey(command[1].toLowerCase())) {
       commands.get(command[1].trim().toLowerCase()).run(command, event, watcher);
     } else {
