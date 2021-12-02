@@ -46,6 +46,8 @@ public class Constants {
   public static final String ALIVE = "alive";
   public static final String DRAKE = "drake";
 
+  public static final String QUERY_SPLIT_TOKEN = "&&";
+
   // WatcherThread filters
   public static final String FILTER_TOKEN = "::";
   public static final String MAX_PRICE = "maxprice";
@@ -92,10 +94,10 @@ public class Constants {
   }};
 
   // Card Colors
-  public static Map<String, Integer> COLOR_DUST = new HashMap<String, Integer>(){{
-    this.put("3", 50);
-    this.put("2", 20);
-    this.put("1", 10);
+  public static Map<String, Float> COLOR_DUST = new HashMap<String, Float>(){{
+    this.put("3", 50F);
+    this.put("2", 20F);
+    this.put("1", 10F);
   }};
 
   public static Map<String, String> CARD_COLOR_NAME = new HashMap<String, String>(){{

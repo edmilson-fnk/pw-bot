@@ -47,7 +47,7 @@ public class FilterUtils {
 
     // Unique values keys
     if (key.equalsIgnoreCase(BROKEN)) {
-      if (value.contains("&&")) {
+      if (value.contains(QUERY_SPLIT_TOKEN)) {
         return "not a multiple values field, remove _&&_";
       }
       if (!value.equalsIgnoreCase(YES) && !value.equalsIgnoreCase(NO)) {
@@ -79,12 +79,12 @@ public class FilterUtils {
       if (CATEGORY_MAP.containsKey(value.toLowerCase())) {
         return null;
       } else {
-        return "Invalid value \"" + value + "\". Try one: " + String.join(", ", CATEGORY_MAP.keySet());
+        return "Invalid value \"" + value + "\". Try: " + String.join(", ", CATEGORY_MAP.keySet());
       }
     }
 
       // Multiple values keys
-    List<String> values = Arrays.stream(value.split("&&")).map(String::trim).collect(Collectors.toList());
+    List<String> values = Arrays.stream(value.split(QUERY_SPLIT_TOKEN)).map(String::trim).collect(Collectors.toList());
     for (String v : values) {
       if (key.equalsIgnoreCase(ENCHANT)) {
         // No validation yet
@@ -105,7 +105,7 @@ public class FilterUtils {
     boolean outerFilter = false;
     for (String key : filters.keySet()) {
       boolean innerFilter = false;
-      for (String value : filters.get(key).split("&&")) {
+      for (String value : filters.get(key).split(QUERY_SPLIT_TOKEN)) {
         value = value.trim();
         if (key.equalsIgnoreCase(MAX_PRICE)) {
           if (((long) ((JSONObject) minObj.get("lastRecord")).get("price")) > Long.parseLong(value)) {

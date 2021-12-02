@@ -57,11 +57,6 @@ public class WatcherThread extends Thread {
     return this.watchMapFilters;
   }
 
-  public String add(String query, MessageAuthor messageAuthor, TextChannel channel) {
-    return add(query, messageAuthor, channel, null);
-  }
-
-
   public String add(String query, MessageAuthor messageAuthor, TextChannel channel, Map<String, String> filters) {
     WatchObject listenObj = new WatchObject(query, messageAuthor, channel);
 

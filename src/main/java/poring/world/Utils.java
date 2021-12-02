@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
 
+import static poring.world.constants.Constants.QUERY_SPLIT_TOKEN;
+
 public class Utils {
 
   public static String getQuery(String[] command) {
@@ -32,7 +34,7 @@ public class Utils {
 
   public static List<String> getNames(String query) {
     List<String> names = new LinkedList<>();
-    for (String name : query.toLowerCase().trim().split("&&")) {
+    for (String name : query.toLowerCase().trim().split(QUERY_SPLIT_TOKEN)) {
       if (!name.trim().isEmpty()) {
         names.add(name.trim());
       }

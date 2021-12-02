@@ -26,10 +26,11 @@ public class Cards extends Command {
     TextChannel channel = event.getChannel();
     if (query.isEmpty()) {
       colors.addAll(CARD_COLOR.values());
-    } else if (CARD_COLOR.keySet().contains(query.toLowerCase())) {
+    } else if (CARD_COLOR.containsKey(query.toLowerCase())) {
       colors.add(CARD_COLOR.get(query));
     } else {
       channel.sendMessage(String.format("Invalid color: **%s**", query));
+      event.getMessage().addReaction(X);
       return;
     }
 
@@ -55,16 +56,10 @@ public class Cards extends Command {
 
       StringBuilder content = new StringBuilder();
       if (cards.containsKey(snapKey)) {
-        JSONObject card = (JSONObject) cards.get(snapKey);
-        double perDust = ((long) ((JSONObject) card.get("lastRecord")).get("price")) / COLOR_DUST.get(color);
-        content.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
-            Utils.priceWithoutDecimal(perDust)));
+        appendDustData(cards, color, snapKey, content);
       }
       if (cards.containsKey(noSnapKey)) {
-        JSONObject card = (JSONObject) cards.get(noSnapKey);
-        double perDust = ((long) ((JSONObject) card.get("lastRecord")).get("price")) / COLOR_DUST.get(color);
-        content.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
-            Utils.priceWithoutDecimal(perDust)));
+        appendDustData(cards, color, noSnapKey, content);
       }
 
       embed.addField(fieldName, content.toString());
@@ -72,6 +67,13 @@ public class Cards extends Command {
 
     channel.sendMessage(embed);
     event.getMessage().addReaction(CHECK);
+  }
+
+  private void appendDustData(JSONObject cards, String color, String key, StringBuilder content) {
+    JSONObject card = (JSONObject) cards.get(key);
+    double perDust = ((long) ((JSONObject) card.get("lastRecord")).get("price")) / COLOR_DUST.get(color);
+    content.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
+            Utils.priceWithoutDecimal(perDust)));
   }
 
   @Override
