@@ -70,16 +70,6 @@ public class Constants {
     this.put(NUM_SLOTS, new NumSlotsFilter());
     this.put(CATEGORY, new CategoryFilter());
   }};
-  public static final Map<String, String> FILTERS_NAME = new HashMap<String, String>(){{
-    this.put(MAX_PRICE, "Max price");
-    this.put(BROKEN, "Broken");
-    this.put(ENCHANT, "Enchantment");
-    this.put(EXCEPT, "Except");
-    this.put(REFINE_GT, "Refine >=");
-    this.put(REFINE_LT, "Refine <=");
-    this.put(NUM_SLOTS, "Slots");
-    this.put(CATEGORY, "Category");
-  }};
   public static final Map<String, String> CATEGORY_MAP = new HashMap<String, String>(){{
     this.put("weapon", "1025");
     this.put("off-hand", "1026");
@@ -93,7 +83,7 @@ public class Constants {
     this.put("card", "1016");
   }};
 
-  public static final Set<String> QUERY_FILTERS = FILTERS_NAME.keySet();
+  public static final Set<String> QUERY_FILTERS = FILTER_CLASSES.keySet();
 
   // General Stuff
   public static final String ENV =

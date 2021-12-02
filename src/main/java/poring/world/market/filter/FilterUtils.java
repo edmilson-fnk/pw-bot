@@ -36,6 +36,7 @@ public class FilterUtils {
     return FILTER_CLASSES.get(key.toLowerCase()).validate(value);
   }
 
+  // Returns true it this item needs to be removed and returns false otherwise
   public static boolean filter(JSONObject minObj, Map<String, String> filters) {
     if (filters == null || filters.isEmpty()) {
       return false;
