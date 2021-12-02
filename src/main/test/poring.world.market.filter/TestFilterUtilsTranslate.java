@@ -14,7 +14,6 @@ public class TestFilterUtilsTranslate {
         Map<String, String> filters = new HashMap<>();
 
         String translation = FilterUtils.translate(filters);
-        System.out.println(translation);
 
         assert translation.equals("");
     }
@@ -26,7 +25,6 @@ public class TestFilterUtilsTranslate {
         }};
 
         String translation = FilterUtils.translate(filters);
-        System.out.println(translation);
 
         assert translation.equals("_Max price_: 10,000; ");
     }
@@ -38,7 +36,6 @@ public class TestFilterUtilsTranslate {
         }};
 
         String translation = FilterUtils.translate(filters);
-        System.out.println(translation);
 
         assert translation.equals("_Broken_: yes; ");
     }
@@ -50,7 +47,6 @@ public class TestFilterUtilsTranslate {
         }};
 
         String translation = FilterUtils.translate(filters);
-        System.out.println(translation);
 
         assert translation.equals("_Enchantment_: sharp blade or morale; ");
     }
@@ -62,7 +58,6 @@ public class TestFilterUtilsTranslate {
         }};
 
         String translation = FilterUtils.translate(filters);
-        System.out.println(translation);
 
         assert translation.equals("_Except_: sharp blade and morale; ");
     }
@@ -74,7 +69,6 @@ public class TestFilterUtilsTranslate {
         }};
 
         String translation = FilterUtils.translate(filters);
-        System.out.println(translation);
 
         assert translation.equals("_Category_: offhand; ");
     }
