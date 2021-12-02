@@ -33,8 +33,7 @@ public class FilterUtils {
       return "empty value";
     }
 
-    BaseFilter keyFilter = FILTER_CLASSES.get(key.toLowerCase());
-    return keyFilter.validate(value);
+    return FILTER_CLASSES.get(key.toLowerCase()).validate(value);
   }
 
   public static boolean filter(JSONObject minObj, Map<String, String> filters) {
