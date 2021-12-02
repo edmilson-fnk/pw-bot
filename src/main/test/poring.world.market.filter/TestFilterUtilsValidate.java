@@ -112,7 +112,7 @@ public class TestFilterUtilsValidate {
         String result = FilterUtils.validate(CATEGORY, value);
 
         assert result != null;
-        assert result.startsWith("Invalid value \"" + value + "\". Try: ");
+        assert result.startsWith("Invalid value \"" + value + "\". Try");
     }
 
 }

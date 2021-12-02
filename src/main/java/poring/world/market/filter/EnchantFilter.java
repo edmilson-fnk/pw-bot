@@ -2,11 +2,11 @@ package poring.world.market.filter;
 
 import org.json.simple.JSONObject;
 
-public class Enchant extends BaseFilter {
+public class EnchantFilter extends BaseFilter {
 
     @Override
     public String getName() {
-        return "Enchant";
+        return "Enchantment";
     }
 
     @Override

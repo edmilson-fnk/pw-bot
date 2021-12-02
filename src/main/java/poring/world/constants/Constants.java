@@ -6,6 +6,7 @@ import poring.world.market.Command;
 import poring.world.market.cheapest.Cards;
 import poring.world.market.cheapest.Premium;
 import poring.world.market.commands.*;
+import poring.world.market.filter.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +60,16 @@ public class Constants {
   public static final String NUM_SLOTS = "slots";
   public static final String CATEGORY = "category";
   public static final String END_CATEGORY = "endCategory";
+  public static final Map<String, BaseFilter> FILTER_CLASSES = new HashMap<String, BaseFilter>() {{
+    this.put(MAX_PRICE, new MaxPriceFilter());
+    this.put(BROKEN, new BrokenFilter());
+    this.put(ENCHANT, new EnchantFilter());
+    this.put(EXCEPT, new ExceptFilter());
+    this.put(REFINE_GT, new RefineGTFilter());
+    this.put(REFINE_LT, new RefineLTFilter());
+    this.put(NUM_SLOTS, new NumSlotsFilter());
+    this.put(CATEGORY, new CategoryFilter());
+  }};
   public static final Map<String, String> FILTERS_NAME = new HashMap<String, String>(){{
     this.put(MAX_PRICE, "Max price");
     this.put(BROKEN, "Broken");

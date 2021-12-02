@@ -4,11 +4,11 @@ import org.json.simple.JSONObject;
 
 import java.text.DecimalFormat;
 
-public class MaxPrice extends BaseFilter {
+public class MaxPriceFilter extends BaseFilter {
 
     @Override
     public String getName() {
-        return "Max Price";
+        return "Max price";
     }
 
     @Override

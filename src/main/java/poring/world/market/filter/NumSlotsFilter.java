@@ -2,7 +2,7 @@ package poring.world.market.filter;
 
 import org.json.simple.JSONObject;
 
-public class NumSlots extends BaseFilter {
+public class NumSlotsFilter extends BaseFilter {
 
     @Override
     public String getName() {
@@ -11,7 +11,14 @@ public class NumSlots extends BaseFilter {
 
     @Override
     public String validate(String value) {
-        return FilterUtils.validateNumeric(value);
+        String validateNumeric = FilterUtils.validateNumeric(value);
+        if (validateNumeric != null) {
+            return validateNumeric;
+        } else if (Integer.parseInt(value) < 0 || Integer.parseInt(value) > 2) {
+            return "only from 0 to 2 slots";
+        } else {
+            return null;
+        }
     }
 
     @Override

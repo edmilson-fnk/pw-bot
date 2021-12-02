@@ -2,7 +2,7 @@ package poring.world.market.filter;
 
 import org.json.simple.JSONObject;
 
-public class Except extends BaseFilter {
+public class ExceptFilter extends BaseFilter {
 
     @Override
     public String getName() {

@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 
 import static poring.world.constants.Constants.*;
 
-public class Broken extends BaseFilter {
+public class BrokenFilter extends BaseFilter {
 
     @Override
     public String getName() {

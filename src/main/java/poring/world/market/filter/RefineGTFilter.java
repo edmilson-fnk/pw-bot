@@ -2,7 +2,7 @@ package poring.world.market.filter;
 
 import org.json.simple.JSONObject;
 
-public class RefineGT extends BaseFilter {
+public class RefineGTFilter extends BaseFilter {
 
     @Override
     public String getName() {

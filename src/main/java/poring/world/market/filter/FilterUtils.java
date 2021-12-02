@@ -23,70 +23,21 @@ public class FilterUtils {
   }
 
   public static String translate(String key, String value) {
-    String rKey = FILTERS_NAME.get(key.toLowerCase());
-    String rValue = value;
-    if (key.equalsIgnoreCase(MAX_PRICE)) {
-      rValue = new DecimalFormat("###,###,###,###").format(Double.parseDouble(value));
-    } else if (key.equalsIgnoreCase(BROKEN)) {
-      rValue = value.toLowerCase();
-    } else if (key.equalsIgnoreCase(ENCHANT)) {
-      rValue = value.replaceAll("\\s*&&\\s*", " or ").toLowerCase();
-    } else if (key.equalsIgnoreCase(EXCEPT)) {
-      rValue = value.replaceAll("\\s*&&\\s*", " and ").toLowerCase();
-    }
-    return String.format("_%s_: %s; ", rKey, rValue);
-  }
+    BaseFilter keyFilter = FILTER_CLASSES.get(key.toLowerCase());
 
-  public static String validate(String key, String value) {
-    return validate2(key, value);
+    return String.format("_%s_: %s; ", keyFilter.getName(), keyFilter.translate(value));
   }
 
   // Returns NULL if it's a valid key-value pair
-  public static String validate2(String key, String value) {
+  public static String validate(String key, String value) {
     if (value.isEmpty()) {
       return "empty value";
     }
 
-    // Unique values keys
-    if (key.equalsIgnoreCase(BROKEN)) {
-      if (value.contains(QUERY_SPLIT_TOKEN)) {
-        return "not a multiple values field, remove _&&_";
-      }
-      if (!value.equalsIgnoreCase(YES) && !value.equalsIgnoreCase(NO)) {
-        return "use only _yes_ or _no_";
-      }
-      return null;
-    } else if (
-        key.equalsIgnoreCase(MAX_PRICE)
-        || key.equalsIgnoreCase(REFINE_GT)
-        || key.equalsIgnoreCase(REFINE_LT)
-    ) {
-      try {
-        Integer.parseInt(value);
-        return null;
-      } catch (Exception e) {
-        return "use only numbers";
-      }
-    } else if (key.equalsIgnoreCase(NUM_SLOTS)) {
-      try {
-        int numSlots = Integer.parseInt(value);
-        if (numSlots < 0 || numSlots > 2) {
-          return "only from 0 to 2 slots";
-        }
-        return null;
-      } catch (Exception e) {
-        return "use only numbers";
-      }
-    } else if (key.equalsIgnoreCase(CATEGORY)) {
-      if (CATEGORY_MAP.containsKey(value.toLowerCase())) {
-        return null;
-      } else {
-        return "Invalid value \"" + value + "\". Try: " + String.join(", ", CATEGORY_MAP.keySet());
-      }
-    }
-
-    return null;
+    BaseFilter keyFilter = FILTER_CLASSES.get(key.toLowerCase());
+    return keyFilter.validate(value);
   }
+
 
   public static boolean filter(JSONObject minObj, Map<String, String> filters) {
     if (filters == null || filters.isEmpty()) {
