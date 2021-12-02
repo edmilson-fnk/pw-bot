@@ -269,4 +269,32 @@ public class TestFilterUtilsFilter {
         Assert.assertFalse(result);
     }
 
+    @Test
+    public void filterEnchantBrokenKeep() throws ParseException {
+        String obj1Str = "{\"name\": \"Eye of Dullahan <Sharp Blade 1> (broken)\"}";
+        JSONObject obj1 = (JSONObject) parser.parse(obj1Str);
+
+        Map<String, String> filters = new HashMap<String, String>(){{
+            this.put(ENCHANT, "Sharp Blade");
+            this.put(BROKEN, "yes");
+        }};
+        boolean result = FilterUtils.filter(obj1, filters);
+
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void filterEnchantBrokenRemove() throws ParseException {
+        String obj1Str = "{\"name\": \"Eye of Dullahan <Sharp Blade 1> (broken)\"}";
+        JSONObject obj1 = (JSONObject) parser.parse(obj1Str);
+
+        Map<String, String> filters = new HashMap<String, String>(){{
+            this.put(ENCHANT, "Sharp Blade");
+            this.put(BROKEN, "no");
+        }};
+        boolean result = FilterUtils.filter(obj1, filters);
+
+        Assert.assertTrue(result);
+    }
+
 }

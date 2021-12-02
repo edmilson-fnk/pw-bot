@@ -1,8 +1,11 @@
 package poring.world.market.filter;
 
+import org.json.simple.JSONObject;
+
 import static poring.world.constants.Constants.*;
 
 public class Broken extends BaseFilter {
+
     @Override
     public String getName() {
         return "Broken";
@@ -19,4 +22,11 @@ public class Broken extends BaseFilter {
 
         return null;
     }
+
+    @Override
+    public boolean filter(JSONObject obj, String value) {
+        return (value.equalsIgnoreCase(YES) && !obj.get("name").toString().contains("(broken)")
+                || value.equalsIgnoreCase(NO) && obj.get("name").toString().contains("(broken)"));
+    }
+
 }

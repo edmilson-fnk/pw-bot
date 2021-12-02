@@ -1,5 +1,7 @@
 package poring.world.market.filter;
 
+import org.json.simple.JSONObject;
+
 public class BaseFilter {
 
     public String getName() {
@@ -14,7 +16,7 @@ public class BaseFilter {
         return value.toLowerCase();
     }
 
-    public boolean filter(String value) {
+    public boolean filter(JSONObject obj, String value) {
         return false;
     }
 

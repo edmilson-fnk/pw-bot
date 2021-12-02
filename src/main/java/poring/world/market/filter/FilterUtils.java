@@ -170,7 +170,7 @@ public class FilterUtils {
     return outerFilter;
   }
 
-  private static Integer getRefineValue(String name) {
+  public static Integer getRefineValue(String name) {
     String strPattern = "\\+?([0-9]*) .*";
     Pattern p = Pattern.compile(strPattern);
     Matcher matcher = p.matcher(name);
@@ -181,7 +181,7 @@ public class FilterUtils {
     return null;
   }
 
-  private static Integer getNumSlots(String name) {
+  public static Integer getNumSlots(String name) {
     String strPattern = ".*\\[([0-9]*)].*";
     Pattern p = Pattern.compile(strPattern);
     Matcher matcher = p.matcher(name);
@@ -190,6 +190,15 @@ public class FilterUtils {
       return Integer.parseInt(refineStr);
     }
     return null;
+  }
+
+  public static String validateNumeric(String value) {
+    try {
+      Integer.parseInt(value);
+      return null;
+    } catch (Exception e) {
+      return "use only numbers";
+    }
   }
 
 }

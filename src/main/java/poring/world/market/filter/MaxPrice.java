@@ -1,5 +1,7 @@
 package poring.world.market.filter;
 
+import org.json.simple.JSONObject;
+
 import java.text.DecimalFormat;
 
 public class MaxPrice extends BaseFilter {
@@ -11,12 +13,7 @@ public class MaxPrice extends BaseFilter {
 
     @Override
     public String validate(String value) {
-        try {
-            Integer.parseInt(value);
-            return null;
-        } catch (Exception e) {
-            return "use only numbers";
-        }
+        return FilterUtils.validateNumeric(value);
     }
 
     @Override
@@ -24,4 +21,8 @@ public class MaxPrice extends BaseFilter {
         return new DecimalFormat("###,###,###,###").format(Double.parseDouble(value));
     }
 
+    @Override
+    public boolean filter(JSONObject obj, String value) {
+        return ((long) ((JSONObject) obj.get("lastRecord")).get("price")) > Long.parseLong(value);
+    }
 }
