@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Cache extends HashMap<String, String> {
 
-    private static final float TTL = 20 * 60 * 1000; // 10 minutes to expire data
+    private static final float TTL = 20 * 60 * 1000; // 20 minutes to expire data
     private final Map<Object, Long> creationTime = new HashMap<>();
 
     @Override
