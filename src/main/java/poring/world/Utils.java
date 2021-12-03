@@ -69,7 +69,7 @@ public class Utils {
 
   public static void waitSomeTime() {
     try {
-      Thread.sleep(3000);
+      Thread.sleep(2500);
     } catch (InterruptedException e) {
       System.out.println("Error while waiting a second!");
       throw new RuntimeException(e);
