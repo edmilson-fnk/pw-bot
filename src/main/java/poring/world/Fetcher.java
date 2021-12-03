@@ -138,6 +138,7 @@ public class Fetcher {
         }
         jsonStr = builder.toString();
         this.cache.put(fullUrl, jsonStr);
+        Utils.waitSomeTime();
       }
 
       JSONParser parser = new JSONParser();
@@ -152,7 +153,6 @@ public class Fetcher {
       } catch (ParseException e) {
         e.printStackTrace();
       }
-      Utils.waitSomeTime();
       return returnJson;
     }
   }

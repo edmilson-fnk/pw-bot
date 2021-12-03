@@ -8,6 +8,7 @@ public class Cache extends HashMap<String, String> {
     private static final float TTL = 10 * 60 * 1000; // 10 minutes to expire data
     private final Map<Object, Long> creationTime = new HashMap<>();
 
+    @Override
     public String put(String key, String value) {
         this.creationTime.put(key, System.currentTimeMillis());
         return super.put(key, value);
