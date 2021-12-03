@@ -103,6 +103,7 @@ public class WatcherThread extends Thread {
   public void run() {
     this.loadMaps();
 
+    Fetcher fetcher = new Fetcher();
     while (true) {
       waitAMinute();
 
@@ -122,6 +123,7 @@ public class WatcherThread extends Thread {
         continue;
       }
 
+      fetcher.resetCache();
       for (Long authorId : currentWatchMap.keySet()) {
         User author;
         try {
@@ -142,7 +144,7 @@ public class WatcherThread extends Thread {
               currentFilters.get(authorId).getOrDefault(obj.toString(), null) :
               null;
           for (String name : Utils.getNames(obj.getQuery())) {
-            JSONArray marketItems = Fetcher.query(name, filters);
+            JSONArray marketItems = fetcher.query(name, filters);
             if (marketItems.size() > 0) {
               StringBuilder objMessage = new StringBuilder();
               theresSomethingFlag = true;

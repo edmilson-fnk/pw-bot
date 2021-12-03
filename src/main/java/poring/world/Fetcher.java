@@ -14,6 +14,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import poring.world.cache.Cache;
 import poring.world.market.filter.FilterUtils;
 
 import java.io.BufferedReader;
@@ -41,14 +42,17 @@ public class Fetcher {
       "name", Collections.emptySet(),
       "lastRecord", ImmutableSet.of("price", "snapBuyers", "snapEnd", "stock", "timestamp")
   );
-  public static JSONObject getCheapestPremiums() {
+
+  Cache cache = new Cache();
+
+  public JSONObject getCheapestPremiums() {
     Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
     parameters.put("order", "price");
     parameters.put("inStock", "1");
     parameters.put("category", "1052");
 
     try {
-      Map<String, String> colorParameters = new HashMap<>(parameters);
+      Map<String, String> colorParameters = new TreeMap<>(parameters);
       JSONArray jsonData = getJsonData(colorParameters, null);
 
       if (jsonData.size() > 1) {
@@ -60,7 +64,7 @@ public class Fetcher {
     return null;
   }
 
-  public static JSONObject getCheapestCards(Set<String> colors) {
+  public JSONObject getCheapestCards(Set<String> colors) {
     Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
     parameters.put("order", "price");
     parameters.put("inStock", "1");
@@ -74,7 +78,7 @@ public class Fetcher {
         queryColors.addAll(CARD_COLOR.values());
       }
       for (String color : queryColors) {
-        Map<String, String> colorParameters = new HashMap<>(parameters);
+        Map<String, String> colorParameters = new TreeMap<>(parameters);
         colorParameters.put("rarity", color);
         JSONArray jsonData = getJsonData(colorParameters, null);
 
@@ -104,7 +108,7 @@ public class Fetcher {
     }
   }
 
-  private static JSONArray getJsonData(Map<String, String> param, Map<String, String> filters) throws IOException {
+  private JSONArray getJsonData(Map<String, String> param, Map<String, String> filters) throws IOException {
     BasicHeader h1 = new BasicHeader(HttpHeaders.USER_AGENT, Utils.getUserAgent());
 
     List<Header> headers = Lists.newArrayList(h1);
@@ -112,27 +116,34 @@ public class Fetcher {
 
       String parametersUrl = getParametersUrl(param);
       String fullUrl = BASE_URL + parametersUrl;
-      HttpGet request = new HttpGet(fullUrl);
-      HttpResponse response = client.execute(request);
+      String jsonStr;
+      if (this.cache.containsKey(fullUrl)) {
+        jsonStr = this.cache.get(fullUrl);
+      } else {
+        HttpGet request = new HttpGet(fullUrl);
+        HttpResponse response = client.execute(request);
 
-      if (response.getStatusLine().getStatusCode() != 200) {
-        System.out.printf("Error %s\nURL %s%n", response.getStatusLine().getStatusCode(), fullUrl);
-        return new JSONArray();
-      }
+        if (response.getStatusLine().getStatusCode() != 200) {
+          System.out.printf("Error %s\nURL %s%n", response.getStatusLine().getStatusCode(), fullUrl);
+          return new JSONArray();
+        }
 
-      BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-      StringBuilder builder = new StringBuilder();
-      String line;
+        BufferedReader bufReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuilder builder = new StringBuilder();
+        String line;
 
-      while ((line = bufReader.readLine()) != null) {
-        builder.append(line);
-        builder.append(System.lineSeparator());
+        while ((line = bufReader.readLine()) != null) {
+          builder.append(line);
+          builder.append(System.lineSeparator());
+        }
+        jsonStr = builder.toString();
+        this.cache.put(fullUrl, jsonStr);
       }
 
       JSONParser parser = new JSONParser();
       JSONArray returnJson = new JSONArray();
       try {
-        for (Object object : (JSONArray) parser.parse(builder.toString())) {
+        for (Object object : (JSONArray) parser.parse(jsonStr)) {
           JSONObject minimalJsonObject = retainDefaultKeys((JSONObject) object);
           if (isValid(minimalJsonObject) && !FilterUtils.filter(minimalJsonObject, filters)) {
             returnJson.add(minimalJsonObject);
@@ -146,11 +157,11 @@ public class Fetcher {
     }
   }
 
-  public static JSONArray query(String search) {
+  public JSONArray query(String search) {
     return query(search, null);
   }
 
-  public static JSONArray query(String search, Map<String, String> filters) {
+  public JSONArray query(String search, Map<String, String> filters) {
     String encodedSearch = null;
     try {
       encodedSearch = URLEncoder.encode(search, StandardCharsets.UTF_8.toString());
@@ -159,7 +170,7 @@ public class Fetcher {
       return new JSONArray();
     }
 
-    Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
+    Map<String, String> parameters = new TreeMap<>(DEFAULT_PARAMETERS);
     parameters.put("q", encodedSearch);
     Map<String, String> filtersCase = filters == null ? new HashMap<>() :
             filters.keySet().stream().collect(Collectors.toMap(String::toLowerCase, filters::get));
@@ -244,4 +255,7 @@ public class Fetcher {
     return buyers == 0 || snapEnd == 0 || new Date().before(new Date(snapEnd));
   }
 
+  public void resetCache() {
+    this.cache.clear();
+  }
 }

@@ -36,7 +36,7 @@ public class Cards extends Command {
 
     event.getMessage().addReaction(CARD);
 
-    JSONObject cards = Fetcher.getCheapestCards(colors);
+    JSONObject cards = new Fetcher().getCheapestCards(colors);
     EmbedBuilder embed = new EmbedBuilder()
         .setTitle("Cheapest Cards :black_joker:")
         .setColor(Color.ORANGE);

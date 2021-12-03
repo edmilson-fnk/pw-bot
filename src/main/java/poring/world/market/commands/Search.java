@@ -65,9 +65,10 @@ public class Search extends Command {
       return;
     }
 
+    Fetcher fetcher = new Fetcher();
     for (String name : queryNames) {
       sb = new StringBuilder();
-      JSONArray items = Fetcher.query(name, searchFilters);
+      JSONArray items = fetcher.query(name, searchFilters);
       if (items.size() == 0) {
         sb.append(String.format("No item found for _%s_ :poop:\n", name));
       }

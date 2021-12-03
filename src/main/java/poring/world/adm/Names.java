@@ -17,9 +17,9 @@ public class Names extends Command {
     @Override
     public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
         String query = Utils.getQuery(command);
-        int limit;
+        int lowerLimit;
         try {
-            limit = Integer.parseInt(query);
+            lowerLimit = Integer.parseInt(query);
         } catch (Exception e) {
             return;
         }
@@ -29,7 +29,7 @@ public class Names extends Command {
         List<String> names = new LinkedList<>();
         for (Long id : m.keySet()) {
             List<WatchObject> list = m.get(id);
-            if (list.size() > limit) {
+            if (list.size() > lowerLimit) {
                 String name = list.get(0).getMessageAuthorName();
                 names.add(name + " (_" + id + "_): " + list.size());
             }

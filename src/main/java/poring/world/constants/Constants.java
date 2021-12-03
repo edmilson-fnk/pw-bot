@@ -91,8 +91,8 @@ public class Constants {
   public static final boolean IS_PRODUCTION = ENV.equalsIgnoreCase("production");
 
   // ADM ID
-  public static final Float ADM_ID =
-          Float.parseFloat(System.getenv("ADM_ID") != null ? System.getenv("ADM_ID") : "0");
+  public static final Double ADM_ID =
+          Double.parseDouble(System.getenv("ADM_ID") != null ? System.getenv("ADM_ID") : "0");
 
   // Card Colors
   public static Map<String, String> CARD_COLOR = new HashMap<String, String>(){{
@@ -124,6 +124,7 @@ public class Constants {
   public static final String NAMEDLIST = "namedlist";
   public static final String CLEARNAMEDLIST = "clear";
   public static final String RESET_GTB = "resetgtb";
+  public static final String QUERIES = "queries";
   public static Map<String, Command> ADMIN_MAP = new HashMap<String, Command>(){{
     this.put(HELP, new AdmHelp());
     this.put(URL, new URL());
@@ -132,6 +133,7 @@ public class Constants {
     this.put(NAMEDLIST, new NamedList());
     this.put(CLEARNAMEDLIST, new ClearNamedList());
     this.put(RESET_GTB, new Reset());
+    this.put(QUERIES, new Queries());
   }};
 
   // !gtb command
