@@ -19,7 +19,7 @@ public class Premium extends Command {
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
     EmbedBuilder embed = new EmbedBuilder().setTitle("Cheapest premiums").setColor(Color.ORANGE);
-    JSONObject premiums = new Fetcher().getCheapestPremiums();
+    JSONObject premiums = watcher.getFetcher().getCheapestPremiums();
     if (premiums != null) {
       embed.addField("Premium", Utils.getItemMessage(premiums));
     } else {
