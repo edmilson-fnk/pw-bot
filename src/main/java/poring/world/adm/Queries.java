@@ -31,7 +31,8 @@ public class Queries extends Command {
         for (Long id : m.keySet()) {
             List<WatchObject> list = m.get(id);
             for (WatchObject obj : list) {
-                queries.put(obj.getQuery().toLowerCase(), queries.getOrDefault(obj.getQuery(), 0) + 1);
+                String lowerCaseQuery = obj.getQuery().toLowerCase();
+                queries.put(lowerCaseQuery, queries.getOrDefault(lowerCaseQuery, 0) + 1);
             }
         }
 
