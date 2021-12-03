@@ -16,7 +16,7 @@ public class EnchantFilter extends BaseFilter {
 
     @Override
     public boolean filter(JSONObject obj, String value) {
-        return !obj.get("name").toString().toLowerCase().matches(String.format(".*<.*%s.*>.*", value));
+        return !obj.get("name").toString().toLowerCase().matches(String.format(".*<.*%s.*>.*", value.toLowerCase()));
     }
 
 }

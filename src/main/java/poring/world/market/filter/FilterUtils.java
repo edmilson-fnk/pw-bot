@@ -55,18 +55,18 @@ public class FilterUtils {
 
   public static Integer getRefineValue(String name) {
     String strPattern = "\\+?([0-9]*) .*";
-    Pattern p = Pattern.compile(strPattern);
+    Pattern p = Pattern.compile(strPattern, Pattern.CASE_INSENSITIVE);
     Matcher matcher = p.matcher(name);
     if (matcher.matches()) {
       String refineStr = matcher.group(1);
       return Integer.parseInt(refineStr);
     }
-    return null;
+    return 0;
   }
 
   public static Integer getNumSlots(String name) {
     String strPattern = ".*\\[([0-9]*)].*";
-    Pattern p = Pattern.compile(strPattern);
+    Pattern p = Pattern.compile(strPattern, Pattern.CASE_INSENSITIVE);
     Matcher matcher = p.matcher(name);
     if (matcher.matches()) {
       String refineStr = matcher.group(1);
