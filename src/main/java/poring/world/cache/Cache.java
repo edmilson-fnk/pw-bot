@@ -28,7 +28,6 @@ public class Cache extends HashMap<String, String> {
         if (isExpired(key)) {
             return null;
         } else {
-            System.out.println("Getting cached " + key.toString());
             return super.get(key);
         }
     }

@@ -114,7 +114,7 @@ public class Fetcher {
     List<Header> headers = Lists.newArrayList(h1);
     try (CloseableHttpClient client = HttpClientBuilder.create().setDefaultHeaders(headers).build()) {
 
-      String parametersUrl = getParametersUrl(param);
+      String parametersUrl = getParametersUrl(param).toLowerCase();
       String fullUrl = BASE_URL + parametersUrl;
       String jsonStr;
       if (this.cache.containsKey(fullUrl)) {
