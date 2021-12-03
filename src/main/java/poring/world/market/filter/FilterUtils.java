@@ -43,7 +43,7 @@ public class FilterUtils {
     }
 
     for (String key : filters.keySet()) {
-      for (String value : filters.get(key.toLowerCase()).split(QUERY_SPLIT_TOKEN)) {
+      for (String value : filters.get(key).split(QUERY_SPLIT_TOKEN)) {
         BaseFilter keyFilter = FILTER_CLASSES.get(key.toLowerCase());
         if (keyFilter.filter(minObj, value.trim())) {
           return true;

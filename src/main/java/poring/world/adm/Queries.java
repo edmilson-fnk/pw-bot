@@ -2,6 +2,7 @@ package poring.world.adm;
 
 import com.amazonaws.util.StringUtils;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
 import poring.world.market.Command;
@@ -42,8 +43,11 @@ public class Queries extends Command {
         }
         sortedQueries.sort(Comparator.comparing(Queries::getNum));
 
-        String queriesStr = "Queries:\n" + StringUtils.join("\n", sortedQueries.toArray(new String[]{}));
-        event.getChannel().sendMessage(queriesStr);
+        List<List<String>> partitions = Lists.partition(sortedQueries, 10);
+        event.getChannel().sendMessage("Queries:");
+        for (List<String> partition : partitions) {
+            event.getChannel().sendMessage(StringUtils.join("\n", partition.toArray(new String[]{})));
+        }
     }
 
     // Returns negative so that sortedList is reversed
