@@ -16,6 +16,7 @@ public class BaseFilter {
         return value.toLowerCase();
     }
 
+    // returns false to keep by default
     public boolean filter(JSONObject obj, String value) {
         return false;
     }

@@ -19,7 +19,7 @@ public class RefineGTFilter extends BaseFilter {
         int refineFilter = Integer.parseInt(value);
         Integer refineItem = FilterUtils.getRefineValue(obj.get("name").toString().toLowerCase());
 
-        return (refineItem != null) && (refineItem < refineFilter);
+        return refineItem < refineFilter;
     }
 
 }
