@@ -26,6 +26,7 @@ public class Cache extends HashMap<String, String> {
     @Override
     public String get(Object key) {
         if (isExpired(key)) {
+            super.remove(key);
             return null;
         } else {
             return super.get(key);

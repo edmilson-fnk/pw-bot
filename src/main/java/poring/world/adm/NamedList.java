@@ -4,6 +4,7 @@ import com.amazonaws.util.StringUtils;
 import com.google.common.collect.ImmutableList;
 import org.javacord.api.event.message.MessageCreateEvent;
 import poring.world.Utils;
+import poring.world.constants.Constants;
 import poring.world.market.Command;
 import poring.world.watcher.WatchObject;
 import poring.world.watcher.Watcher;
@@ -31,6 +32,12 @@ public class NamedList extends Command {
             return;
         }
         Map<Long, List<WatchObject>> m = watcher.getWatcherThread().getMapReadonly();
+
+        if (!m.containsKey(userId)) {
+            event.getChannel().sendMessage("No list found for _" + userIdStr + "_");
+            event.getMessage().addReaction(Constants.X);
+            return;
+        }
 
         List<String> namedList = m.get(userId).stream().map(WatchObject::getQuery).collect(Collectors.toCollection(LinkedList::new));
 
