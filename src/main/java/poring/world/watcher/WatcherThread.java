@@ -123,7 +123,6 @@ public class WatcherThread extends Thread {
         continue;
       }
 
-      fetcher.resetCache();
       for (Long authorId : currentWatchMap.keySet()) {
         User author;
         try {
