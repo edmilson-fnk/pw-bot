@@ -26,11 +26,16 @@ public class Cache extends HashMap<String, String> {
     @Override
     public String get(Object key) {
         if (isExpired(key)) {
-            super.remove(key);
             return null;
         } else {
             return super.get(key);
         }
+    }
+
+    @Override
+    public void clear() {
+        this.creationTime.clear();
+        super.clear();
     }
 
     public boolean isExpired(Object key) {
