@@ -166,6 +166,7 @@ public class WatcherThread extends Thread {
           }
         }
       }
+      fetcher.resetCache();
       System.out.println("watch list was notified! doing it again in an hour");
     }
   }
