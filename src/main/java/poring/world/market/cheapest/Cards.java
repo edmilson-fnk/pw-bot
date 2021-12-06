@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableList;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import poring.world.Fetcher;
 import poring.world.Utils;
 import poring.world.market.Command;
 import poring.world.watcher.Watcher;
@@ -44,22 +44,19 @@ public class Cards extends Command {
       String snapKey = color + "snap";
       String noSnapKey = color + "nosnap";
       String fieldName = Utils.capitalize(CARD_COLOR_NAME.get(color));
-      if (cards.containsKey(snapKey) && cards.containsKey(noSnapKey)) {
-        long snapPrice =
-            Long.parseLong(((JSONObject) ((JSONObject) cards.get(snapKey)).get("lastRecord")).get("price").toString());
-        long noSnapPrice =
-            Long.parseLong(((JSONObject) ((JSONObject) cards.get(noSnapKey)).get("lastRecord")).get("price").toString());
-        if (snapPrice > noSnapPrice) {
-          cards.remove(snapKey);
-        }
-      }
 
       StringBuilder content = new StringBuilder();
       if (cards.containsKey(snapKey)) {
-        appendDustData(cards, color, snapKey, content);
+        for (Object thisCard : ((JSONArray) cards.get(snapKey))) {
+          JSONObject thisCardJson = (JSONObject) thisCard;
+          appendDustData(thisCardJson, color, content);
+        }
       }
       if (cards.containsKey(noSnapKey)) {
-        appendDustData(cards, color, noSnapKey, content);
+        for (Object thisCard : ((JSONArray) cards.get(noSnapKey))) {
+          JSONObject thisCardJson = (JSONObject) thisCard;
+          appendDustData(thisCardJson, color, content);
+        }
       }
 
       embed.addField(fieldName, content.toString());
@@ -69,12 +66,12 @@ public class Cards extends Command {
     event.getMessage().addReaction(CHECK);
   }
 
-  private void appendDustData(JSONObject cards, String color, String key, StringBuilder content) {
-    JSONObject card = (JSONObject) cards.get(key);
+  private void appendDustData(JSONObject card, String color, StringBuilder content) {
     double perDust = ((long) ((JSONObject) card.get("lastRecord")).get("price")) / COLOR_DUST.get(color);
     content.append(String.format("\t\t%s_ (%s /dust)_\n", Utils.getItemMessage(card),
             Utils.priceWithoutDecimal(perDust)));
   }
+
 
   @Override
   public String getHelp() {

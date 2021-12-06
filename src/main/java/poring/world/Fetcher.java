@@ -65,6 +65,7 @@ public class Fetcher {
   }
 
   public JSONObject getCheapestCards(Set<String> colors) {
+    int maxCards = 3;
     Map<String, String> parameters = new HashMap<>(DEFAULT_PARAMETERS);
     parameters.put("order", "price");
     parameters.put("inStock", "1");
@@ -78,29 +79,34 @@ public class Fetcher {
         queryColors.addAll(CARD_COLOR.values());
       }
       for (String color : queryColors) {
+        JSONArray snapCards = new JSONArray();
+        JSONArray noSnapCards = new JSONArray();
+
+
         Map<String, String> colorParameters = new TreeMap<>(parameters);
         colorParameters.put("rarity", color);
         JSONArray jsonData = getJsonData(colorParameters, null);
 
         for (Object card : jsonData) {
-          String snapKey = color + "snap";
-          String noSnapKey = color + "nosnap";
-          if (returnJson.containsKey(snapKey) && returnJson.containsKey(noSnapKey)) {
-            break;
-          }
           JSONObject jsonCard = (JSONObject) card;
           String snapEnd = ((JSONObject) jsonCard.get("lastRecord")).get("snapEnd").toString();
           if (snapEnd.equals("0")) {
-            if (!returnJson.containsKey(noSnapKey)) {
-              returnJson.put(noSnapKey, jsonCard);
+            if (noSnapCards.size() < maxCards) {
+              noSnapCards.add(jsonCard);
             }
           } else {
-            if (!returnJson.containsKey(snapKey)) {
-              returnJson.put(snapKey, jsonCard);
+            if (snapCards.size() < maxCards) {
+              snapCards.add(jsonCard);
             }
           }
         }
+
+//        String snapKey = color + "snap";
+//        returnJson.put(snapKey, snapCards);
+        String noSnapKey = color + "nosnap";
+        returnJson.put(noSnapKey, noSnapCards);
       }
+
       return returnJson;
     } catch (IOException e) {
       e.printStackTrace();
