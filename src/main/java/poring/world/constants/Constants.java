@@ -27,7 +27,7 @@ public class Constants {
   public static final String X = EmojiParser.parseToUnicode(":x:");
 
   // General
-  public static final String GLOBAL_CALL = "gtb2";
+  public static final String GLOBAL_CALL = "gtb";
   public static final String YES = "yes";
   public static final String NO = "no";
 
