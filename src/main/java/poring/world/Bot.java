@@ -29,7 +29,8 @@ public class Bot {
     DiscordApiBuilder discordApiBuilder = new DiscordApiBuilder();
     discordApiBuilder.setWaitForServersOnStartup(true);
     DiscordApi api = discordApiBuilder.setToken(token).login().join();
-    api.setMessageCacheSize(8, 60*60);
+    // disable message cache
+    api.setMessageCacheSize(0, 0);
 
     Watcher watcher = new Watcher(api);
     if (IS_PRODUCTION && !MAINTENANCE) {
