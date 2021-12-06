@@ -11,9 +11,11 @@ import poring.world.market.Command;
 import poring.world.watcher.Watcher;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static poring.world.constants.Constants.*;
 
@@ -21,19 +23,18 @@ public class Cards extends Command {
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
-    String query = Utils.getQuery(command);
-    Set<String> colors = new HashSet<>();
-    TextChannel channel = event.getChannel();
-    if (query.isEmpty()) {
+    List<String> query = Arrays.asList(Utils.getQuery(command).split(" "));
+    Set<String> colors = query.stream()
+            .filter(c -> CARD_COLOR.containsKey(c.toLowerCase()))
+            .map(c -> CARD_COLOR.get(c.toLowerCase()))
+            .collect(Collectors.toSet());
+    if (colors.isEmpty()) {
       colors.addAll(CARD_COLOR.values());
-    } else if (CARD_COLOR.containsKey(query)) {
-      colors.add(CARD_COLOR.get(query));
-    } else {
-      channel.sendMessage(String.format("Invalid color: **%s**", query));
-      event.getMessage().addReaction(X);
-      return;
     }
 
+    boolean snap = query.stream().anyMatch(c -> c.equalsIgnoreCase("snap"));
+
+    TextChannel channel = event.getChannel();
     event.getMessage().addReaction(CARD);
 
     JSONObject cards = watcher.getFetcher().getCheapestCards(colors);
@@ -46,13 +47,13 @@ public class Cards extends Command {
       String fieldName = Utils.capitalize(CARD_COLOR_NAME.get(color));
 
       StringBuilder content = new StringBuilder();
-      if (cards.containsKey(snapKey)) {
+      if (cards.containsKey(snapKey) && snap) {
         for (Object thisCard : ((JSONArray) cards.get(snapKey))) {
           JSONObject thisCardJson = (JSONObject) thisCard;
           appendDustData(thisCardJson, color, content);
         }
       }
-      if (cards.containsKey(noSnapKey)) {
+      if (cards.containsKey(noSnapKey) && !snap) {
         for (Object thisCard : ((JSONArray) cards.get(noSnapKey))) {
           JSONObject thisCardJson = (JSONObject) thisCard;
           appendDustData(thisCardJson, color, content);
@@ -75,12 +76,12 @@ public class Cards extends Command {
 
   @Override
   public String getHelp() {
-    return "lists cheapest cards available on market for each of selected colors or every color";
+    return "lists cheapest cards available on market for each of selected colors or every color. Use snap option to see cards in snap";
   }
 
   @Override
   public List<String> getQueries() {
-    return ImmutableList.of("", "white", "green", "blue", "w", "g", "b");
+    return ImmutableList.of("", "white", "green", "blue", "w", "g", "b", "snap", "g snap");
   }
 
 }

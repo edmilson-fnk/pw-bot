@@ -101,8 +101,8 @@ public class Fetcher {
           }
         }
 
-//        String snapKey = color + "snap";
-//        returnJson.put(snapKey, snapCards);
+        String snapKey = color + "snap";
+        returnJson.put(snapKey, snapCards);
         String noSnapKey = color + "nosnap";
         returnJson.put(noSnapKey, noSnapCards);
       }
