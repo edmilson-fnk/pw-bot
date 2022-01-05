@@ -15,7 +15,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static poring.world.constants.Constants.*;
-import static poring.world.constants.Constants.REMOVE;
 
 public class See extends Command {
 
@@ -28,31 +27,31 @@ public class See extends Command {
         Map<String, Map<String, String>> filters = watcherThread.getFilters().get(messageAuthor.getId());
         if (query.isEmpty()) {
             event.getChannel().sendMessage(
-                    String.format("No index, Try _!%s %s %s_ for more information", GLOBAL_CALL, HELP, REMOVE));
+                    String.format("No index, Try _!%s %s %s_ for more information", GLOBAL_CALL, HELP, SEE));
             return;
         }
 
         if (objList != null && !objList.isEmpty()) {
             List<String> numbers = new LinkedList<>(new HashSet<>(Arrays.asList(query.split(" "))));
-            List<String> toSearch = new LinkedList<>();
+            List<String> toRemove = new LinkedList<>();
             for (String num : numbers) {
                 if (num.isEmpty()) {
-                    toSearch.add(num);
+                    toRemove.add(num);
                 }
                 try {
                     Integer.parseInt(num);
                 } catch (NumberFormatException e) {
                     event.getChannel().sendMessage(
-                            String.format("Invalid option **%s**\nPlease check _!%s %s %s_", query, GLOBAL_CALL, HELP, REMOVE)
+                            String.format("Invalid option **%s**\nPlease check _!%s %s %s_", query, GLOBAL_CALL, HELP, SEE)
                     );
                     return;
                 }
             }
-            numbers.removeAll(toSearch);
+            numbers.removeAll(toRemove);
             List<StringBuilder> msgs = new LinkedList<>();
             for (Integer pos : numbers.stream().map(Integer::parseInt).sorted(Collections.reverseOrder()).collect(Collectors.toList())) {
                 if (pos > objList.size()) {
-                    event.getChannel().sendMessage(String.format("Maximum value to remove is **%s**", objList.size()));
+                    event.getChannel().sendMessage(String.format("Maximum value to see is **%s**", objList.size()));
                     return;
                 }
                 WatchObject watchObject = objList.get(pos - 1);
