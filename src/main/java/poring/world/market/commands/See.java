@@ -62,14 +62,8 @@ public class See extends Command {
                 for (String name : Utils.getNames(watchObject.getQuery())) {
                     StringBuilder sb = new StringBuilder();
                     JSONArray items = watcher.getFetcher().query(name, itemFilters);
-                    if (items.size() == 0) {
-                        sb.append(String.format("No item found for _%s_ :poop:\n", name));
-                    }
                     for (Object item : items.subList(0, Math.min(Search.MAX_RESULTS, items.size()))) {
                         sb.append(String.format("%s\n", Utils.getItemMessage((JSONObject) item)));
-                    }
-                    if (items.size() > Search.MAX_RESULTS) {
-                        sb.append("More than 10 items found. Refine your search...");
                     }
                     event.getChannel().sendMessage(sb.toString());
                 }
