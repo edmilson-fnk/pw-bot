@@ -37,6 +37,7 @@ public class Constants {
   public static final String PREMIUM = "premium";
   public static final String HELP = "help";
   public static final String SEARCH = "search";
+  public static final String SEE = "see";
   public static final String WATCH = "watch";
   public static final String CLEAR = "clear";
   public static final String LIST = "list";
@@ -78,9 +79,11 @@ public class Constants {
     this.put("footgear", "1029");
     this.put("accessory", "1030");
     this.put("card", "1010");
+    this.put("cards", "1010");
   }};
   public static final Map<String, String> END_CATEGORY_MAP = new HashMap<String, String>(){{
     this.put("card", "1016");
+    this.put("cards", "1016");
   }};
 
   public static final Set<String> QUERY_FILTERS = FILTER_CLASSES.keySet();
@@ -142,6 +145,7 @@ public class Constants {
     this.put(HELP, new Help());
     this.put(JOKE, new Joke());
     this.put(SEARCH, new Search());
+    this.put(SEE, new See());
     this.put(WATCH, new Watch());
     this.put(CLEAR, new Clear());
     this.put(LIST, new ListC());

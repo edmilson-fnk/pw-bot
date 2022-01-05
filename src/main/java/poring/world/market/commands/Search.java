@@ -18,7 +18,7 @@ import static poring.world.constants.Constants.*;
 
 public class Search extends Command {
 
-  private static final int MAX_RESULTS = 10;
+  public static final int MAX_RESULTS = 10;
 
   @Override
   public void run(String[] command, MessageCreateEvent event, Watcher watcher) {
