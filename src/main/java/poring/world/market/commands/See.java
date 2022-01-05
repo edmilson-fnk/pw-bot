@@ -13,6 +13,7 @@ import poring.world.watcher.WatcherThread;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static poring.world.constants.Constants.*;
 
@@ -27,12 +28,15 @@ public class See extends Command {
         Map<String, Map<String, String>> filters = watcherThread.getFilters().get(messageAuthor.getId());
         if (query.isEmpty()) {
             event.getChannel().sendMessage(
-                    String.format("No index, Try _!%s %s %s_ for more information", GLOBAL_CALL, HELP, SEE));
+                    String.format("No index, Try _!%s %s %s_ for more information", GLOBAL_CALL, HELP, SEE)
+            );
             return;
         }
 
         if (objList != null && !objList.isEmpty()) {
-            List<String> numbers = new LinkedList<>(new HashSet<>(Arrays.asList(query.split(" "))));
+            List<String> numbers = query.equalsIgnoreCase("all") ?
+                    IntStream.rangeClosed(1, objList.size()).mapToObj(Integer::toString).collect(Collectors.toList()) :
+                    new LinkedList<>(new HashSet<>(Arrays.asList(query.split(" "))));
             List<String> toRemove = new LinkedList<>();
             for (String num : numbers) {
                 if (num.isEmpty()) {
