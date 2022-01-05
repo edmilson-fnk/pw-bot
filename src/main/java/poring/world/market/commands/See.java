@@ -52,7 +52,6 @@ public class See extends Command {
                 }
             }
             numbers.removeAll(toRemove);
-            List<StringBuilder> msgs = new LinkedList<>();
             for (Integer pos : numbers.stream().map(Integer::parseInt).sorted(Collections.reverseOrder()).collect(Collectors.toList())) {
                 if (pos > objList.size()) {
                     event.getChannel().sendMessage(String.format("Maximum value to see is **%s**", objList.size()));
@@ -72,11 +71,10 @@ public class See extends Command {
                     if (items.size() > Search.MAX_RESULTS) {
                         sb.append("More than 10 items found. Refine your search...");
                     }
-                    msgs.add(sb);
+                    event.getChannel().sendMessage(sb.toString());
                 }
             }
 
-            msgs.forEach(s -> event.getChannel().sendMessage(s.toString()));
             event.getMessage().addReaction(CHECK);
         } else {
             event.getChannel().sendMessage(String.format("No watch list for _%s_", messageAuthor.getDisplayName()));
@@ -90,6 +88,6 @@ public class See extends Command {
 
     @Override
     public List<String> getQueries() {
-        return ImmutableList.of("2", "4 5");
+        return ImmutableList.of("2", "4 5", "all");
     }
 }
