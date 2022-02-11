@@ -16,6 +16,10 @@ public class BaseFilter {
         return value.toLowerCase();
     }
 
+    public boolean anyMatch() {
+        return false;
+    }
+
     // returns false to keep by default
     public boolean filter(JSONObject obj, String value) {
         return false;

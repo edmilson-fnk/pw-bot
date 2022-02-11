@@ -120,6 +120,19 @@ public class TestFilterUtilsFilter {
     }
 
     @Test
+    public void filterEnchantMatchManyValues() throws ParseException {
+        String obj1Str = "{\"name\": \"Eye of Dullahan <Sharp Blade 1>\"}";
+        JSONObject obj1 = (JSONObject) parser.parse(obj1Str);
+
+        Map<String, String> filters = new HashMap<String, String>(){{
+            this.put(ENCHANT, "Sharp Blade 1 && Sharp Blade 2");
+        }};
+        boolean result = FilterUtils.filter(obj1, filters);
+
+        Assert.assertFalse(result);
+    }
+
+    @Test
     public void filterEnchantRegex() throws ParseException {
         String obj1Str = "{\"name\": \"Eye of Dullahan <Sharp Blade 1>\"}";
         JSONObject obj1 = (JSONObject) parser.parse(obj1Str);

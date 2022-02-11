@@ -160,4 +160,10 @@ public class Constants {
     this.put(PREMIUM, new Premium());
   }};
 
+
+   public static Map<String, String> COMMAND_SHORTCUTS = new HashMap<String, String>(){{
+     this.put("s", SEARCH);
+     this.put("w", WATCH);
+     this.put("c", CARDS_CALL);
+   }};
 }

@@ -42,15 +42,23 @@ public class FilterUtils {
       return false;
     }
 
+    boolean allFiltersFlag = false;
     for (String key : filters.keySet()) {
+      boolean oneFilterFlag = true;
+      BaseFilter keyFilter = FILTER_CLASSES.get(key.toLowerCase());
       for (String value : filters.get(key).split(QUERY_SPLIT_TOKEN)) {
-        BaseFilter keyFilter = FILTER_CLASSES.get(key.toLowerCase());
-        if (keyFilter.filter(minObj, value.trim())) {
+        if (keyFilter.anyMatch() && !keyFilter.filter(minObj, value.trim())) {
+          oneFilterFlag = false;
+        } else if (!keyFilter.anyMatch() && keyFilter.filter(minObj, value.trim())) {
           return true;
         }
       }
+      if (keyFilter.anyMatch() && oneFilterFlag) {
+        allFiltersFlag = true;
+        break;
+      }
     }
-    return false;
+    return allFiltersFlag;
   }
 
   public static Integer getRefineValue(String name) {
