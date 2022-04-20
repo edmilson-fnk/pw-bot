@@ -11,7 +11,8 @@ public class Jokes {
 
     public static Map<String, String> CUSTOM_JOKES = new HashMap<String, String>(){{
         this.put("bahia", "Bahia: Que madrugada?");
-        this.put("dashe", "tá certo! :handshake:");
+        this.put("dashe2", "tá certo! :handshake:");
+        this.put("dashe", "Boa tarde, Tiago!\nTudo bem?\nFoi um erro, mas já foi corrigido!\nObrigado por avisar!");
         this.put("maveco", "eu falei!");
         this.put("dud", "vê lá se teu c* tá limpo");
         this.put("balt", BALT_JOKE);
