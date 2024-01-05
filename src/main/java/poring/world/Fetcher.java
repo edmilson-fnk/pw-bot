@@ -245,7 +245,12 @@ public class Fetcher {
   }
 
   private static boolean isValid(JSONObject jsonItem) {
-    return isStillThere(jsonItem) && isPricePositive(jsonItem);
+    return isStillThere(jsonItem) && isPricePositive(jsonItem) && isNotBCCStuff(jsonItem);
+  }
+
+  private static boolean isNotBCCStuff(JSONObject jsonItem) {
+    String name = jsonItem.get("name").toString().toLowerCase();
+    return !(name.contains("{") && name.contains("}"));
   }
 
   private static boolean isPricePositive(JSONObject jsonItem) {

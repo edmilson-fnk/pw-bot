@@ -24,6 +24,7 @@ public class Constants {
   public static final String CARD = EmojiParser.parseToUnicode(":black_joker:");
   public static final String GLASSES = EmojiParser.parseToUnicode(":eyeglasses:");
   public static final String HANDSHAKE = EmojiParser.parseToUnicode(":handshake:");
+  public static final String SLEEPING = EmojiParser.parseToUnicode(":sleeping:");
   public static final String X = EmojiParser.parseToUnicode(":x:");
 
   // General
@@ -47,6 +48,7 @@ public class Constants {
   public static final String ABOUT = "about";
   public static final String ALIVE = "alive";
   public static final String DRAKE = "drake";
+  public static final String SEXTOU = "sextou";
 
   public static final String QUERY_SPLIT_TOKEN = "&&";
 
@@ -90,7 +92,7 @@ public class Constants {
 
   // General Stuff
   public static final String ENV =
-      System.getenv("ENVIRONMENT") != null ? System.getenv("ENVIRONMENT") : "staging";
+          System.getenv("ENVIRONMENT") != null ? System.getenv("ENVIRONMENT") : "staging";
   public static final boolean IS_PRODUCTION = ENV.equalsIgnoreCase("production");
 
   // ADM ID
@@ -154,6 +156,7 @@ public class Constants {
     this.put(ABOUT, new About());
     this.put(ALIVE, new Alive());
     this.put(DRAKE, new Drake());
+    this.put(SEXTOU, new Sextou());
 
     // Cheapest
     this.put(CARDS_CALL, new Cards());
@@ -161,9 +164,9 @@ public class Constants {
   }};
 
 
-   public static Map<String, String> COMMAND_SHORTCUTS = new HashMap<String, String>(){{
-     this.put("s", SEARCH);
-     this.put("w", WATCH);
-     this.put("c", CARDS_CALL);
-   }};
+  public static Map<String, String> COMMAND_SHORTCUTS = new HashMap<String, String>(){{
+    this.put("s", SEARCH);
+    this.put("w", WATCH);
+    this.put("c", CARDS_CALL);
+  }};
 }

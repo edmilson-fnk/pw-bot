@@ -7,6 +7,7 @@ import static poring.world.constants.Constants.ENV;
 import static poring.world.constants.Constants.GLOBAL_CALL;
 import static poring.world.constants.Constants.IS_PRODUCTION;
 import static poring.world.constants.Constants.MAINTENANCE;
+import static poring.world.constants.Constants.SLEEPING;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
@@ -18,6 +19,8 @@ import poring.world.market.Command;
 import poring.world.watcher.Watcher;
 
 import java.util.Map;
+
+import com.vdurmont.emoji.EmojiParser;
 
 public class Bot {
 
@@ -63,7 +66,7 @@ public class Bot {
   private static void runCommand(String msg, MessageCreateEvent event,
                                  Watcher watcher, Map<String, Command> commands) {
     if (MAINTENANCE) {
-      event.getChannel().sendMessage("_GTB is under maintenance for a while_");
+      event.getMessage().addReaction(EmojiParser.parseToUnicode(SLEEPING));
       return;
     }
 

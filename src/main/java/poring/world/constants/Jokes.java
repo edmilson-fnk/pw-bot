@@ -98,7 +98,7 @@ public class Jokes {
             "Por que o Anolian tirou o filhote da escola? Porque ele réptil de ano!",
             "Por que os Mercenários conseguem procurar pedras? Por causa da Perícia em Katar!",
             "Poring parece geleia de morango. Drops, de laranja. Qual será o sabor do Marin?",
-            "Poring.. Poporing.. o que em depois? Popopoporing?!",
+            "Poring.. Poporing.. o que vem depois? Popopoporing?!",
             "Porque a Abelha Rainha foi devorada? Porque ela pousou em uma Rosa Selvagem!",
             "Porque o mercador atravessou a ponte de Aldebaran? Ora, pra chegar do outro lado",
             "Po, porque ninguém mata Creamy? Ah, porque Creamy não compensa.",
